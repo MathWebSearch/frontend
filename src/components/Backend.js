@@ -1,10 +1,9 @@
 import 'babel-polyfill';
 import 'isomorphic-fetch';
 
-// const BACKEND_URL = 'http://localhost:8080';
 const BACKEND_URL = '';
 
-export function fetchJson(path) {
+function fetchJson(path) {
   const url = `${BACKEND_URL}${path}`;
 
   return fetch(url)
@@ -14,7 +13,7 @@ export function fetchJson(path) {
     });
 }
 
-export function sendJson(method, path, payload) {
+function sendJson(method, path, payload) {
     const url = `${BACKEND_URL}${path}`;
     const params = new URLSearchParams(payload);
     const data = {
@@ -43,11 +42,16 @@ export function mwsQuery(limitmin, answsize, math){
         </mws:query>`
     const payload = {
         method: 'POST',
-        body: query 
+        body: query
     };
     return fetch('/', payload)
     .then(response => response.json())
     .catch(ex => {
       console.error('parsing Failed', ex);
     });
+}
+
+export function latexmlQuery(literal){
+    const payload = `profile=itex&preload=mws.sty&stylesheet=mwsq.xsl&tex=${literal}`;
+    return sendJson('post', '/convert', payload);
 }
