@@ -1,3 +1,8 @@
+
+**WIP**
+A new frontend for the MWS/TEMA search engine using React
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
