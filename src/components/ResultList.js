@@ -1,5 +1,6 @@
 import React from 'react';
 import { ResultListEntry } from './ResultListEntry';
+import PropTypes from 'prop-types';
 
 export function ResultList(props){
     const {total, clickHandler, allEntries, showMore} = props;
@@ -18,5 +19,11 @@ export function ResultList(props){
         </div>
         {curlength < total ? <button onClick={showMore}>Show More</button>: null}
     </div>);
-
 }
+
+ResultList.propTypes = {
+    total: PropTypes.number.isRequired,
+    clickHandler: PropTypes.func.isRequired,
+    allEntries: PropTypes.array.isRequired,
+    showMore: PropTypes.func.isRequired,
+};

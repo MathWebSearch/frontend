@@ -1,14 +1,16 @@
 import React from 'react';
 import Controller from './components/Controller';
+import {MwsHeader} from './MWS_Header';
+import {MwsFooter} from './MWS_Footer';
 
 function App() {
   return (
     <div className="App">
-      <h1> Nice Header </h1>
+      <MwsHeader />
       <br />
       <Controller />
       <br />
-      <div><b>Nice Footer</b></div>
+      <MwsFooter />
     </div>
   );
 }
