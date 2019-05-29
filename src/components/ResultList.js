@@ -6,7 +6,7 @@ export function ResultList(props){
     const {total, clickHandler, allEntries, showMore} = props;
     const curlength = allEntries.length;
     return (
-    <div>Showing {1} to {curlength} of <b>{total}</b> Results
+    <div>Showing {curlength} of <b>{total}</b> Results
         <div>
             {allEntries.map(entry => {
                 const {index, active, hit} = entry;

@@ -78,7 +78,7 @@ class Controller extends React.Component {
             return;
         }
         const allEntries = this.state.resultListContent.allEntries;
-        console.log(allEntries.length);
+        // console.log(allEntries.length);
         this.sendSearchQuery(allEntries.length, 30);
     }
 
