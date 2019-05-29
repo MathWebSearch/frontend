@@ -3,16 +3,6 @@ import 'isomorphic-fetch';
 
 const BACKEND_URL = '';
 
-// function fetchJson(path) {
-//   const url = `${BACKEND_URL}${path}`;
-
-//   return fetch(url)
-//     .then(response => response.json())
-//     .catch(ex => {
-//       console.error('parsing failed', ex);
-//     });
-// }
-
 function sendJson(method, path, payload) {
     const url = `${BACKEND_URL}${path}`;
     const params = new URLSearchParams(payload);
