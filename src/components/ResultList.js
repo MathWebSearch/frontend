@@ -2,11 +2,14 @@ import React from 'react';
 import { ResultListEntry } from './ResultListEntry';
 import PropTypes from 'prop-types';
 
-export function ResultList(props){
+export function ResultList(props) {
     const {total, clickHandler, allEntries, showMore} = props;
     const curlength = allEntries.length;
     return (
-    <div>Showing {curlength} of <b>{total}</b> Results
+    <div className="ResultList">
+        <div>
+        Showing {curlength} of <b>{total}</b> Results
+        </div>
         <div>
             {allEntries.map(entry => {
                 const {index, active, hit} = entry;
@@ -17,7 +20,9 @@ export function ResultList(props){
                             clickHandler={clickHandler}/>);
             })}
         </div>
-        {curlength < total ? <button onClick={showMore}>Show More</button>: null}
+        <div>
+        {curlength < total ? <button onClick={showMore}>Show More</button> : null}
+        </div>
     </div>);
 }
 
