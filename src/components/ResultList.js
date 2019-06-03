@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResultListEntry } from './ResultListEntry';
 import PropTypes from 'prop-types';
+import '../css/ResultList.css'
 
 export function ResultList(props) {
     const {total, clickHandler, allEntries, showMore} = props;

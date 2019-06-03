@@ -1,0 +1,8 @@
+.ResultListEntry {
+    background-color: lightgray;
+    text-align: center;
+    margin: 1px 10% 1px 10%;
+    border: 1px solid;
+    border-radius: 5px;
+    max-width: 80%;
+}

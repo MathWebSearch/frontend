@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/ResultListEntry.css'
 
 export function ResultListEntry(props){
     const {index, active, hit, clickHandler} = props;
@@ -23,7 +24,9 @@ export function ResultListEntry(props){
 
     var inner;
     if(active){
-        inner = (<p><div dangerouslySetInnerHTML={{__html: math_tags[i].innerHTML }}/>
+        inner = (
+            <p style={{backgroundColor : '#b4b4b4'}}>
+            <div dangerouslySetInnerHTML={{__html: math_tags[i].innerHTML }}/>
             <a href={url} target="_blank" rel="noopener noreferrer"
                 onClick={(ev) => {ev.stopPropagation();
                 /*keeps it not collapsd even if clicked the link*/}}>
