@@ -3,6 +3,7 @@ import {SearchBar} from './Searchbar';
 import {latexmlQuery, mwsQuery} from './Backend';
 import {PreviewWindow, PreviewError} from './PreviewWindow';
 import {ResultList} from './ResultList';
+import {MakeEntries} from './MakeMwsEntry';
 
 class Controller extends React.Component {
 
@@ -12,8 +13,9 @@ class Controller extends React.Component {
             input_text: "",
             input_fromula: "",
             previewWindow: null,
-            resultList: null,
-            resultListContent: null
+            resultListContent: null,
+            limitmin: 0,
+            answsize: 30
         };
 
         this.textinputHandler = this.textinputHandler.bind(this);
@@ -49,14 +51,12 @@ class Controller extends React.Component {
                 });
             }
         });
-        // console.log(this.state.input_fromula);
     }
 
-    toogleResultListEntry(index){
-        var newContent = {...this.state.resultListContent};
-        newContent.allEntries[index].active = !newContent.allEntries[index].active;
+    toogleResultListEntry(key){
+        let newContent = this.state.resultListContent;
+        newContent.allEntries[key].active = !newContent.allEntries[key].active;
         this.setState({resultListContent: newContent});
-        this.updateResultList();
     }
 
     updateResultList() {
@@ -64,72 +64,65 @@ class Controller extends React.Component {
             return;
         }
         const { total, allEntries } = this.state.resultListContent;
-        this.setState({
-            resultList: <ResultList
-                            total={total}
-                            clickHandler={this.toggleResultListEntry}
-                            allEntries={allEntries}
-                            showMore={this.getMoreResults} />
-        });
+        return ( <ResultList
+            total={total}
+            clickHandler={this.toggleResultListEntry}
+            allEntries={Object.keys(allEntries).map(k => allEntries[k])}
+            showMore={this.getMoreResults} />
+        );
     }
 
-    getMoreResults(){
+    getMoreResults() {
         if(!this.state.resultListContent){
             return;
         }
-        const allEntries = this.state.resultListContent.allEntries;
-        // console.log(allEntries.length);
-        this.sendSearchQuery(allEntries.length, 30);
+        this.sendSearchQuery(this.state.limitmin);
     }
 
-    submitSearchHandler(event){
-        if(this.state.input_fromula === ""){
+    submitSearchHandler(event) {
+
+        if("" === this.state.input_fromula){
             return;
         }
+
         this.setState({
-            resultList: null,
-            resultListContent: null
+            limitmin: 0,
+            resultListContent: null,
         });
-        this.sendSearchQuery(0, 30);
+
+        this.sendSearchQuery(0);
         event.preventDefault();
     }
 
-    sendSearchQuery(limitmin, answsize ) {
-        mwsQuery(limitmin, answsize, this.state.input_fromula).then(json => {
-            // console.log(json);
+    sendSearchQuery(limitmin) {
+        const {input_fromula, answsize} = this.state;
+
+        mwsQuery(limitmin, answsize, input_fromula).then(json => {
             const hits = json['hits'];
-            const oldContent = this.state.resultListContent;
-            const startindex =  oldContent ? oldContent.allEntries.length : 0;
-            var allEntries = hits.map(hit => {
-                return {index: startindex +hits.indexOf(hit),
-                        active: false,
-                        hit: hit };
-                }
-            );
-            if(oldContent){
-                allEntries = [...oldContent.allEntries, ...allEntries];
-            }
+            const { allEntries} = this.state.resultListContent || {};
+            var newContent = {...allEntries};
+            MakeEntries(hits, newContent);
             this.setState({
-                resultListContent: {
-                    total: json['total'],
-                    allEntries:  allEntries
-                }
+                 limitmin: limitmin + answsize,
+                 resultListContent: {
+                        total : json['total'],
+                        allEntries: newContent
+                        }
                 });
-            this.updateResultList();
-            });
+            }
+        );
     }
 
     render(){
-        const {input_text, previewWindow, resultList} = this.state;
-        return (<div>
+        const {input_text, previewWindow} = this.state;
+        return (<div className="Controller">
                     {previewWindow}
                     <SearchBar text={input_text}
                     submitHandler={this.submitSearchHandler}
                     inputHandler={this.textinputHandler} />
-                    {resultList}
+                    {this.updateResultList()}
                 </div>);
     }
-
 }
 
 export default Controller;

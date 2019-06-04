@@ -5,19 +5,20 @@ import '../css/ResultList.css'
 
 export function ResultList(props) {
     const {total, clickHandler, allEntries, showMore} = props;
-    const curlength = allEntries.length;
+    const curlength = allEntries.map(e => e['formulas'].length).reduce((acc, cur) => acc + cur, 0);
     return (
     <div className="ResultList">
         <div>
-        Showing {curlength} of <b>{total}</b> Results
+        Showing {curlength} of <b>{total}</b> results in {allEntries.length} pages
         </div>
         <div>
             {allEntries.map(entry => {
-                const {index, active, hit} = entry;
-                return (<ResultListEntry key={index}
-                            index={index}
+                const {key, active, title, formulas} = entry;
+                return (<ResultListEntry key={key}
+                            id={key}
                             active={active}
-                            hit={hit}
+                            title={title}
+                            formulas={formulas}
                             clickHandler={clickHandler}/>);
             })}
         </div>
