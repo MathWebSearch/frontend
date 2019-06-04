@@ -2,6 +2,7 @@ import React from 'react';
 import Controller from './components/Controller';
 import {MwsHeader} from './MWS_Header';
 import {MwsFooter} from './MWS_Footer';
+import './css/App.css';
 
 function App() {
   return (
