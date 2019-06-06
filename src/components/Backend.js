@@ -5,10 +5,10 @@ const BACKEND_URL = '';
 
 function sendJson(method, path, payload) {
     const url = `${BACKEND_URL}${path}`;
-    const params = new URLSearchParams(payload);
+    console.log(payload);
     const data = {
         method:  method,
-        body : params
+        body : payload 
     };
     return fetch(url, data)
     .then(response => response.json())
@@ -42,6 +42,10 @@ export function mwsQuery(limitmin, answsize, math){
 }
 
 export function latexmlQuery(literal){
-    const payload = `profile=itex&preload=mws.sty&stylesheet=mwsq.xsl&tex=${literal}`;
+    const payload = new URLSearchParams();
+    payload.append('profile', 'itex');
+    payload.append('preload', 'mws.sty');
+    payload.append('stylesheet', 'mwsq.xsl');
+    payload.append('tex', literal);
     return sendJson('post', '/convert', payload);
 }

@@ -26,7 +26,6 @@ function extractFormula(hit) {
 }
 export function MakeEntries(hits, allEntries){
 
-    // let newContent = { ...allEntries };
     for(let i = 0; i < hits.length; i++ ){
         const parser = new DOMParser();
         const htmlDoc = parser.parseFromString(hits[i].xhtml, "text/html");
