@@ -5,7 +5,6 @@ const BACKEND_URL = '';
 
 function sendJson(method, path, payload) {
     const url = `${BACKEND_URL}${path}`;
-    console.log(payload);
     const data = {
         method:  method,
         body : payload 
