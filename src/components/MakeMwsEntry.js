@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 
 function extractFormula(hit) {
     const parser = new DOMParser();
@@ -14,8 +15,9 @@ function extractFormula(hit) {
     }
 
     const url = math_tags[i].getAttribute('url');
+    const formula = math_tags[i].outerHTML.replace(/m:/g,'');
     return ( <span key={local_id}>
-                <div dangerouslySetInnerHTML={{__html: math_tags[i].outerHTML }}/>
+        <div> {ReactHtmlParser(formula)} </div>
                 <a href={url} target="_blank" rel="noopener noreferrer"
                     onClick={(ev) => {ev.stopPropagation();
                     /*keeps it active even if clicked the link*/}}>
@@ -50,7 +52,7 @@ export function MakeEntries(hits, allEntries){
         // at this point we don not use the xpath thing so there is no point in
         // showing the same formula twice
         const newMath = extractFormula(hits[i]);
-        allEntries[key]['formulas'].every((e) => e.key !== newMath.key) 
+        allEntries[key]['formulas'].every((e) => e.key !== newMath.key)
             && allEntries[key]['formulas'].push(newMath);
     }
 }
