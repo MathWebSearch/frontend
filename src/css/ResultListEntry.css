@@ -6,3 +6,11 @@
     border-radius: 5px;
     max-width: 80%;
 }
+.ResultListEntry .Content {
+    border: 1px solid ;
+    background-color: #b4b4b4;
+    width: auto;
+    height: auto;
+    margin: 1px;
+
+}
