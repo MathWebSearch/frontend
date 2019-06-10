@@ -4,7 +4,7 @@ import {latexmlQuery, mwsQuery} from './Backend';
 import {PreviewWindow, PreviewError} from './PreviewWindow';
 import {ResultList} from './ResultList';
 import {MakeEntries} from './MakeMwsEntry';
-import {ExampleButton} from './ExampleButton';
+import ExampleButton from './ExampleButton';
 
 class Controller extends React.Component {
   constructor(props) {
@@ -41,26 +41,27 @@ class Controller extends React.Component {
     this.setState({input_text: input_text});
     this.sendLatexmlQuery(input_text);
   }
-    exampleInputHandler(example){
-        this.setState({input_text: example});
-        this.sendLatexmlQuery(example);
-    }
 
-    sendLatexmlQuery(input_text){
-        latexmlQuery(input_text).then(json => {
-          if (json['status_code'] === 0) {
-            this.setState({
-              previewWindow: <PreviewWindow mathstring={json['result']} />,
-              input_fromula: json['result'],
-            });
-          } else {
-            this.setState({
-              previewWindow: <PreviewError />,
-              input_fromula: '',
-            });
-          }
+  exampleInputHandler(example) {
+    this.setState({input_text: example});
+    this.sendLatexmlQuery(example);
+  }
+
+  sendLatexmlQuery(input_text) {
+    latexmlQuery(input_text).then(json => {
+      if (json['status_code'] === 0) {
+        this.setState({
+          previewWindow: <PreviewWindow mathstring={json['result']} />,
+          input_fromula: json['result'],
         });
-    }
+      } else {
+        this.setState({
+          previewWindow: <PreviewError />,
+          input_fromula: '',
+        });
+      }
+    });
+  }
 
   toogleResultListEntry(key) {
     let newContent = this.state.resultListContent;
@@ -132,8 +133,10 @@ class Controller extends React.Component {
           text={input_text}
           submitHandler={this.submitSearchHandler}
           inputHandler={this.textinputHandler}
+          exampleButton={
+            <ExampleButton exampleClickHandler={this.exampleInputHandler} />
+          }
         />
-        <ExampleButton exampleClickHandler={this.exampleInputHandler} />
         {this.updateResultList()}
       </div>
     );

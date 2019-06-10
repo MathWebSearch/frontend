@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import '../css/SearchBar.css';
 
 export function SearchBar(props){
-    const {text, submitHandler, inputHandler} = props;
+    const {text, submitHandler, inputHandler, exampleButton} = props;
     return (<div className="SearchBar">
                 <form onSubmit={submitHandler}>
                     <input type="text" value={text}  onChange={inputHandler} />
                     <br/>
                     <input type="submit" value="Search"/>
+                    {exampleButton}
                  </form>
             </div>
     );
@@ -17,5 +18,6 @@ export function SearchBar(props){
 SearchBar.propTypes = {
     text: PropTypes.string.isRequired,
     submitHandler: PropTypes.func.isRequired,
-    inputHandler: PropTypes.func.isRequired
+    inputHandler: PropTypes.func.isRequired,
+    exampleButton: PropTypes.element.isRequired
 };
