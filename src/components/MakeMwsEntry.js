@@ -26,9 +26,8 @@ function extractFormula(hit) {
   // console.log(result);
 
   const url = math.props.url;
-  const xmlns = {xmlns: 'http://www.w3.org/1998/Math/MathML'};
   return (
-    <div className="Content" key={local_id.toString() + xpath} {...xmlns}>
+    <div className="Content" key={local_id.toString() + xpath} >
       <div>{math}</div>
       {/* <div>{expr} </div> */}
       <a

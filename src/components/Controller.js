@@ -1,6 +1,6 @@
 import React from 'react';
 import {SearchBar} from './Searchbar';
-import {latexmlQuery, mwsQuery} from './Backend';
+import {latexmlQuery, mwsQuery} from '../Backend/Backend';
 import {PreviewWindow, PreviewError} from './PreviewWindow';
 import {ResultList} from './ResultList';
 import {MakeEntries} from './MakeMwsEntry';
@@ -11,8 +11,7 @@ class Controller extends React.Component {
     super(props);
     this.state = {
       input_text: '',
-      input_fromula: '',
-      previewWindow: null,
+      input_formula: null,
       resultListContent: null,
       limitmin: 0,
       answsize: 30,
@@ -26,6 +25,7 @@ class Controller extends React.Component {
     this.getMoreResults = this.getMoreResults.bind(this);
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
     this.exampleInputHandler = this.exampleInputHandler.bind(this);
+    this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
   }
 
   textinputHandler(event) {
@@ -33,8 +33,7 @@ class Controller extends React.Component {
     if ('' === input_text) {
       this.setState({
         input_text: '',
-        input_fromula: '',
-        previewWindow: null,
+        input_formula: '',
       });
       return;
     }
@@ -51,13 +50,11 @@ class Controller extends React.Component {
     latexmlQuery(input_text).then(json => {
       if (json['status_code'] === 0) {
         this.setState({
-          previewWindow: <PreviewWindow mathstring={json['result']} />,
-          input_fromula: json['result'],
+          input_formula: json['result'],
         });
       } else {
         this.setState({
-          previewWindow: <PreviewError />,
-          input_fromula: '',
+          input_formula: '',
         });
       }
     });
@@ -83,6 +80,15 @@ class Controller extends React.Component {
       />
     );
   }
+  updatePreviewWindow() {
+    const {input_formula} = this.state;
+    if (!input_formula) {
+      return;
+    } else if ('' === input_formula) {
+      return <PreviewError />;
+    }
+    return <PreviewWindow mathstring={input_formula} />;
+  }
 
   getMoreResults() {
     if (!this.state.resultListContent) {
@@ -92,7 +98,7 @@ class Controller extends React.Component {
   }
 
   submitSearchHandler(event) {
-    if ('' === this.state.input_fromula) {
+    if ('' === this.state.input_formula) {
       return;
     }
 
@@ -106,9 +112,9 @@ class Controller extends React.Component {
   }
 
   sendSearchQuery(limitmin) {
-    const {input_fromula, answsize} = this.state;
+    const {input_formula, answsize} = this.state;
 
-    mwsQuery(limitmin, answsize, input_fromula).then(json => {
+    mwsQuery(limitmin, answsize, input_formula).then(json => {
       // console.log(json);
       const hits = json['hits'];
       const {allEntries} = this.state.resultListContent || {};
@@ -125,10 +131,10 @@ class Controller extends React.Component {
   }
 
   render() {
-    const {input_text, previewWindow} = this.state;
+    const {input_text} = this.state;
     return (
       <div className="Controller">
-        {previewWindow}
+        {this.updatePreviewWindow()}
         <SearchBar
           text={input_text}
           submitHandler={this.submitSearchHandler}
