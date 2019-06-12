@@ -27,7 +27,7 @@ function extractFormula(hit) {
 
   const url = math.props.url;
   return (
-    <div className="Content" key={local_id.toString() + xpath} >
+    <div className="Content" key={local_id.toString() + xpath}>
       <div>{math}</div>
       {/* <div>{expr} </div> */}
       <a
@@ -68,7 +68,7 @@ export function MakeEntries(hits, allEntries) {
     // at this point we don not use the xpath thing so there is no point in
     // showing the same formula twice
     const newMath = extractFormula(hits[i]);
-    allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
-      allEntries[key]['formulas'].push(newMath);
+    // allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
+    allEntries[key]['formulas'].push(newMath);
   }
 }
