@@ -8,6 +8,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-html-parser": "^2.0.2",
+    "react-mathjax-preview": "^0.1.11",
     "react-scripts": "3.0.1",
     "xpath-react": "^6.1.0"
   },

@@ -7,7 +7,7 @@ function sendJson(method, path, payload) {
     const url = `${BACKEND_URL}${path}`;
     const data = {
         method:  method,
-        body : payload 
+        body : payload
     };
     return fetch(url, data)
     .then(response => response.json())

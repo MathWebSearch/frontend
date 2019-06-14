@@ -1,34 +1,17 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
-// import {find} from 'xpath-react';
-// import {evaluate, XPathResult} from 'xpath-react';
+import MathML from './MathML';
 
-function extractFormula(hit) {
-  // console.log(hit);
-  const local_id = hit.math_ids[0].url;
-  // not sure if thats the most clever way, maybe there are some side effects
-  const math_tags = ReactHtmlParser(hit.xhtml.replace(/m:/g, ''));
-  let math = math_tags.find(
-    e => e.type === 'math' && e.props.local_id === local_id,
-  );
-  if (!math) {
-    return;
-  }
-  // TODO find a way to highlight the xpath
-  const xpath = hit.math_ids[0].xpath;
-  // let expr = find(math, `./${xpath}`);
-  // expr = React.cloneElement(expr, {background: 'yellow'});
-  // const xmlid = expr.props['xml:id'];
-  // console.log(expr);
-  // const qvar = math.props.children.find(e => e.props["xml:id"] === xmlid);
-  // console.log(qvar);
-  // const result = evaluate(`./${xpath}`, math, null, XPathResult.ANY_TYPE);
-  // console.log(result);
 
-  const url = math.props.url;
+function getFormula(htmlDoc, math_ids) {
+  // console.log(htmlDoc, local_id);
+  const local_id = math_ids.url;
+  const xpath = math_ids.xpath;
+  const math_tags = [...htmlDoc.getElementsByTagName('m:math')];
+  const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
+  const url = right.getAttribute('url');
   return (
     <div className="Content" key={local_id.toString() + xpath}>
-      <div>{math}</div>
+      <MathML mathstring={right.outerHTML} />
       {/* <div>{expr} </div> */}
       <a
         href={url}
@@ -67,7 +50,8 @@ export function MakeEntries(hits, allEntries) {
     // this prevents that the same formula appears two times in the list
     // at this point we don not use the xpath thing so there is no point in
     // showing the same formula twice
-    const newMath = extractFormula(hits[i]);
+    // const newMath = extractFormula(hits[i]);
+    const newMath = getFormula(htmlDoc, hits[i].math_ids[0]);
     // allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
     allEntries[key]['formulas'].push(newMath);
   }
