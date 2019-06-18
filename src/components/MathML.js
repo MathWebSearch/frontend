@@ -20,9 +20,9 @@ class MathML extends React.Component {
       math: pmml,
     });
   }
-  // <MathJax math={String.raw`${this.state.math}`} />
   render() {
     return <div>{ReactHtmlParser(this.state.math)}</div>;
+    // return <MathJax math={String.raw`${this.state.math}`} />;
   }
 }
 

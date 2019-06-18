@@ -1,18 +1,20 @@
 import React from 'react';
 import MathML from './MathML';
 
-
 function getFormula(htmlDoc, math_ids) {
   // console.log(htmlDoc, local_id);
   const local_id = math_ids.url;
   const xpath = math_ids.xpath;
-  const math_tags = [...htmlDoc.getElementsByTagName('m:math')];
+  const math_tags = [
+    ...(htmlDoc.getElementsByTagName('math') ||
+      htmlDoc.getElementsByTagName('Math') ||
+      htmlDoc.getElementsByTagName('Math')),
+  ];
   const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
   const url = right.getAttribute('url');
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <MathML mathstring={right.outerHTML} />
-      {/* <div>{expr} </div> */}
       <a
         href={url}
         target="_blank"
