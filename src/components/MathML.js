@@ -5,8 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 class MathML extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {math: props.mathstring.replace(/m:/g, '')};
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.state = {math: props.mathstring};
   }
 
   componentDidMount() {
@@ -17,10 +16,14 @@ class MathML extends React.Component {
     );
 
     this.setState({
-      math: pmml,
+        math: pmml.replace(/m:/, '')
     });
   }
   render() {
+    const {math} = this.state;
+    if (!math) {
+      return;
+    }
     return <div>{ReactHtmlParser(this.state.math)}</div>;
     // return <MathJax math={String.raw`${this.state.math}`} />;
   }

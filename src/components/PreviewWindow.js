@@ -17,17 +17,9 @@ export function PreviewWindow(props) {
   if ('' === mathstring) {
     return;
   }
-  const pmml = mathstring.replace(
-    /<semantics[\s\S]*>[\s\S]*<annotation/,
-    '<semantics><annotation',
-  );
-  // const markup = {__html: pmml};
-  // return <div className="PreviewWindow" dangerouslySetInnerHTML={markup}/>;
-  const formula = pmml.replace(/m:/g, '');
-  // return <div className="PreviewWindow">{ReactHtmlParser(formula)}</div>;
   return (
     <div className="PreviewWindow">
-      <MathML mathstring={formula} />
+      <MathML mathstring={mathstring} />
     </div>
   );
 }

@@ -42,8 +42,10 @@ class Controller extends React.Component {
   }
 
   exampleInputHandler(example) {
-    this.setState({input_text: example});
     this.sendLatexmlQuery(example);
+    this.setState({
+      input_text: example,
+    });
   }
 
   sendLatexmlQuery(input_text) {
@@ -82,11 +84,12 @@ class Controller extends React.Component {
   }
   updatePreviewWindow() {
     const {input_formula} = this.state;
-    if (!input_formula) {
+    if (input_formula === null) {
       return;
     } else if ('' === input_formula) {
       return <PreviewError />;
     }
+    // console.log(input_formula);
     return <PreviewWindow mathstring={input_formula} />;
   }
 
