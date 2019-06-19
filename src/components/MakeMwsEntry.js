@@ -1,8 +1,31 @@
 import React from 'react';
 import {MathML} from './MathML';
 
+// function getElementBySimpleXpath(xpath, element) {
+//   // this is stolen from the old frontend
+//   let xpatharr = xpath
+//     .split('/')
+//     .join('')
+//     .split('[')
+//     .join('')
+//     .split(']')
+//     .join('')
+//     .split('*');
+//   xpatharr.shift();
+//   xpatharr = xpatharr.map(function(e) {
+//     return parseInt(e) - 1; //xpatharr is one-based
+//   });
+//   console.log(xpatharr);
+//   let elem = element;
+//   console.log(elem);
+//   while (xpatharr.length > 0) {
+//     let n = xpatharr.shift();
+//     elem = elem.children[n];
+//   }
+//   console.log(elem);
+// }
+
 function getFormula(htmlDoc, math_ids) {
-  // console.log(htmlDoc, local_id);
   const local_id = math_ids.url;
   const xpath = math_ids.xpath;
   // just in case
@@ -12,6 +35,8 @@ function getFormula(htmlDoc, math_ids) {
       htmlDoc.getElementsByTagName('m:math')),
   ];
   const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
+  // getElementBySimpleXpath(xpath, right.getElementsByTagName('m:semantics'));
+
   const url = right.getAttribute('url');
   return (
     <div className="Content" key={local_id.toString() + xpath}>
