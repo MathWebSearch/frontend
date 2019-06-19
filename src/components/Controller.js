@@ -38,6 +38,7 @@ class Controller extends React.Component {
       return;
     }
     this.setState({input_text: input_text});
+    window.history.pushState(null, null, `?q=${input_text}`);
     this.sendLatexmlQuery(input_text);
   }
 
@@ -89,7 +90,6 @@ class Controller extends React.Component {
     } else if ('' === input_formula) {
       return <PreviewError />;
     }
-    // console.log(input_formula);
     return <PreviewWindow mathstring={input_formula} />;
   }
 

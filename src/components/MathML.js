@@ -1,32 +1,18 @@
 import React from 'react';
-// import MathJax from 'react-mathjax-preview';
-import ReactHtmlParser from 'react-html-parser';
+import MathJax from 'react-mathjax-preview';
+// import ReactHtmlParser from 'react-html-parser';
 
-class MathML extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {math: props.mathstring};
-  }
-
-  componentDidMount() {
-    const {math} = this.state;
-    const pmml = math.replace(
+export class MathML extends React.Component {
+  render() {
+    let pmml = this.props.mathstring.replace(/m:/g, '');
+    pmml = pmml.replace(
       /<semantics[\s\S]*>[\s\S]*<annotation/,
       '<semantics><annotation',
     );
-
-    this.setState({
-        math: pmml.replace(/m:/, '')
-    });
-  }
-  render() {
-    const {math} = this.state;
-    if (!math) {
+    if (!pmml) {
       return;
     }
-    return <div>{ReactHtmlParser(this.state.math)}</div>;
-    // return <MathJax math={String.raw`${this.state.math}`} />;
+    // return <div>{ReactHtmlParser(pmml)}</div>;
+    return <MathJax math={String.raw`${pmml}`} />;
   }
 }
-
-export default MathML;

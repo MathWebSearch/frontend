@@ -1,14 +1,15 @@
 import React from 'react';
-import MathML from './MathML';
+import {MathML} from './MathML';
 
 function getFormula(htmlDoc, math_ids) {
   // console.log(htmlDoc, local_id);
   const local_id = math_ids.url;
   const xpath = math_ids.xpath;
+  // just in case
   const math_tags = [
     ...(htmlDoc.getElementsByTagName('math') ||
       htmlDoc.getElementsByTagName('Math') ||
-      htmlDoc.getElementsByTagName('Math')),
+      htmlDoc.getElementsByTagName('m:math')),
   ];
   const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
   const url = right.getAttribute('url');
@@ -52,7 +53,6 @@ export function MakeEntries(hits, allEntries) {
     // this prevents that the same formula appears two times in the list
     // at this point we don not use the xpath thing so there is no point in
     // showing the same formula twice
-    // const newMath = extractFormula(hits[i]);
     const newMath = getFormula(htmlDoc, hits[i].math_ids[0]);
     // allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
     allEntries[key]['formulas'].push(newMath);
