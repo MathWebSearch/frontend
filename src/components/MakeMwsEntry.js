@@ -1,29 +1,32 @@
 import React from 'react';
 import {MathML} from './MathML';
 
-// function getElementBySimpleXpath(xpath, element) {
-//   // this is stolen from the old frontend
-//   let xpatharr = xpath
-//     .split('/')
-//     .join('')
-//     .split('[')
-//     .join('')
-//     .split(']')
-//     .join('')
-//     .split('*');
-//   xpatharr.shift();
-//   xpatharr = xpatharr.map(function(e) {
-//     return parseInt(e) - 1; //xpatharr is one-based
-//   });
-//   console.log(xpatharr);
-//   let elem = element;
-//   console.log(elem);
-//   while (xpatharr.length > 0) {
-//     let n = xpatharr.shift();
-//     elem = elem.children[n];
-//   }
-//   console.log(elem);
-// }
+function getElementBySimpleXpath(xpath, element) {
+  // this is stolen from the old frontend
+  let xpatharr = xpath
+    .split('/')
+    .join('')
+    .split('[')
+    .join('')
+    .split(']')
+    .join('')
+    .split('*');
+  xpatharr.shift();
+  xpatharr = xpatharr.map(function(e) {
+    return parseInt(e) - 1; //xpatharr is one-based
+  });
+  let elem = element;
+  while (xpatharr.length > 0) {
+    let n = xpatharr.shift();
+    elem = elem.children[n];
+  }
+  const xmlID = elem.getAttribute('xml:id');
+  const pmml = element.getElementsByTagName('m:annotation-xml')[0];
+  const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
+    return e.getAttribute('xref') === xmlID;
+  });
+  node.setAttribute('class', 'Highlighted');
+}
 
 function getFormula(htmlDoc, math_ids) {
   const local_id = math_ids.url;
@@ -35,7 +38,7 @@ function getFormula(htmlDoc, math_ids) {
       htmlDoc.getElementsByTagName('m:math')),
   ];
   const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
-  // getElementBySimpleXpath(xpath, right.getElementsByTagName('m:semantics'));
+  getElementBySimpleXpath(xpath, right.getElementsByTagName('m:semantics')[0]);
 
   const url = right.getAttribute('url');
   return (

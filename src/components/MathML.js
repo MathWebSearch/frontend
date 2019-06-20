@@ -1,6 +1,7 @@
 import React from 'react';
 import MathJax from 'react-mathjax-preview';
 // import ReactHtmlParser from 'react-html-parser';
+import '../index.css';
 
 export class MathML extends React.Component {
   render() {
