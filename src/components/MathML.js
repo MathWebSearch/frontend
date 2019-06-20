@@ -26,7 +26,10 @@ export class MathML extends React.Component {
     if (!pmml) {
       return;
     }
-    // return <div>{ReactHtmlParser(pmml)}</div>;
-    return <MathJax math={String.raw`${pmml}`} />;
+    if (this.state.useMathJax) {
+      return <MathJax math={String.raw`${pmml}`} />;
+    }
+
+    return <div>{ReactHtmlParser(pmml)}</div>;
   }
 }
