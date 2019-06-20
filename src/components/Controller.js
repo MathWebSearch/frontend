@@ -27,6 +27,15 @@ class Controller extends React.Component {
     this.exampleInputHandler = this.exampleInputHandler.bind(this);
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
   }
+  componentDidMount() {
+    const location = window.location.toString().split('?query-math=');
+    if (location.length < 2) {
+      return;
+    }
+    const query = decodeURI(location.pop());
+    this.setState({input_text: query});
+    this.sendLatexmlQuery(query);
+  }
 
   textinputHandler(event) {
     const input_text = event.target.value;
@@ -38,7 +47,11 @@ class Controller extends React.Component {
       return;
     }
     this.setState({input_text: input_text});
-    window.history.pushState(null, null, `?q=${input_text}`);
+    window.history.pushState(
+      null,
+      null,
+      `?query-math=${encodeURI(input_text)}`,
+    );
     this.sendLatexmlQuery(input_text);
   }
 
