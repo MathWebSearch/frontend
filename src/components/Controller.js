@@ -26,6 +26,7 @@ class Controller extends React.Component {
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
     this.exampleInputHandler = this.exampleInputHandler.bind(this);
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
+    this.updateInputText = this.updateInputText.bind(this);
   }
   componentDidMount() {
     const location = window.location.toString().split('?query-math=');
@@ -46,21 +47,23 @@ class Controller extends React.Component {
       });
       return;
     }
+    this.updateInputText(input_text);
+  }
+
+  exampleInputHandler(example) {
+    this.updateInputText(example);
+  }
+
+  updateInputText(input_text) {
     this.setState({input_text: input_text});
+    this.sendLatexmlQuery(input_text);
     window.history.pushState(
       null,
       null,
       `?query-math=${encodeURI(input_text)}`,
     );
-    this.sendLatexmlQuery(input_text);
   }
 
-  exampleInputHandler(example) {
-    this.sendLatexmlQuery(example);
-    this.setState({
-      input_text: example,
-    });
-  }
 
   sendLatexmlQuery(input_text) {
     latexmlQuery(input_text).then(json => {
