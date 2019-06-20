@@ -64,7 +64,6 @@ class Controller extends React.Component {
     );
   }
 
-
   sendLatexmlQuery(input_text) {
     latexmlQuery(input_text).then(json => {
       if (json['status_code'] === 0) {

@@ -20,12 +20,17 @@ function getElementBySimpleXpath(xpath, element) {
     let n = xpatharr.shift();
     elem = elem.children[n];
   }
-  const xmlID = elem.getAttribute('xml:id');
-  const pmml = element.getElementsByTagName('m:annotation-xml')[0];
-  const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
-    return e.getAttribute('xref') === xmlID;
-  });
-  node.setAttribute('class', 'Highlighted');
+  try {
+    const xmlID = elem.getAttribute('xml:id');
+    const pmml = element.getElementsByTagName('m:annotation-xml')[0];
+    const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
+      return e.getAttribute('xref') === xmlID;
+    });
+    node.setAttribute('class', 'Highlighted');
+  } catch {
+    // yeah shit happens but then when not highlight something
+    return;
+  }
 }
 
 function getFormula(htmlDoc, math_ids) {
@@ -57,6 +62,7 @@ function getFormula(htmlDoc, math_ids) {
     </div>
   );
 }
+
 export function MakeEntries(hits, allEntries) {
   for (let i = 0; i < hits.length; i++) {
     const parser = new DOMParser();
