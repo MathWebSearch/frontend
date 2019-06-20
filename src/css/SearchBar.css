@@ -1,4 +1,12 @@
 .SearchBar {
-    margin: 1%;
-    text-align: center;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.textInput {
+    font-size: 20px;
+    width: 90%;
 }

@@ -1,7 +1,10 @@
 .PreviewWindow {
     margin: 1%;
-    font-size: 3em;
+    font-size: 200%;
     background-color: #EEE;
     text-align: center;
     border: 1px solid;
+    width: 25%;
+    height: 5%;
+    float: right;
 }

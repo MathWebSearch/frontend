@@ -1,5 +1,6 @@
 import React from 'react';
+import './css/MWS_Footer.css'
 
 export function MwsFooter(){
-    return <div><br /> really nice footer </div>;
+    return <div className="Footer"><br /> really nice footer </div>;
 }

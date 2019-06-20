@@ -20,6 +20,7 @@ export class SearchBar extends React.Component {
             value={text}
             onChange={inputHandler}
             ref={this.textInput}
+            className="textInput"
           />
           <br />
           <input type="submit" value="Search" />

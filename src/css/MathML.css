@@ -1,0 +1,6 @@
+.Highlighted {
+  color: black;
+  background-color: yellow;
+  border: 1px yellow;
+  border-radius: 3px;
+}

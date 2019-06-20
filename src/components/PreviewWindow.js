@@ -6,7 +6,7 @@ import { MathML } from './MathML';
 
 export function PreviewError() {
   return (
-    <div>
+    <div className="PreviewWindow">
       <b>Error with Math Prieview</b>
     </div>
   );

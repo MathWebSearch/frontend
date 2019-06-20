@@ -43,7 +43,7 @@ class Controller extends React.Component {
     if ('' === input_text) {
       this.setState({
         input_text: '',
-        input_formula: '',
+        input_formula: null,
       });
       return;
     }
@@ -162,6 +162,7 @@ class Controller extends React.Component {
             <ExampleButton exampleClickHandler={this.exampleInputHandler} />
           }
         />
+        <br style={{clear: 'both'}} />
         {this.updateResultList()}
       </div>
     );
