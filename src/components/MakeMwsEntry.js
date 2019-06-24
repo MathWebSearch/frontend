@@ -16,11 +16,11 @@ function getElementBySimpleXpath(xpath, element) {
     return parseInt(e) - 1; //xpatharr is one-based
   });
   let elem = element;
-  while (xpatharr.length > 0) {
-    let n = xpatharr.shift();
-    elem = elem.children[n];
-  }
   try {
+    while (xpatharr.length > 0) {
+      let n = xpatharr.shift();
+      elem = elem.children[n];
+    }
     const xmlID = elem.getAttribute('xml:id');
     const pmml = element.getElementsByTagName('m:annotation-xml')[0];
     const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
