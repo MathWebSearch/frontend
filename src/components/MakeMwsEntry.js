@@ -57,7 +57,7 @@ function getFormula(htmlDoc, math_ids) {
           ev.stopPropagation();
           /*keeps it active even if clicked the link*/
         }}>
-        Go to nLab
+        Go to source
       </a>
     </div>
   );

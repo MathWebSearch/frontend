@@ -5,6 +5,7 @@ import {PreviewWindow, PreviewError} from './PreviewWindow';
 import {ResultList} from './ResultList';
 import {MakeEntries} from './MakeMwsEntry';
 import ExampleButton from './ExampleButton';
+import {ProgressBar} from './Progress';
 
 class Controller extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Controller extends React.Component {
       resultListContent: null,
       limitmin: 0,
       answsize: 30,
+      progress: null,
     };
 
     this.textinputHandler = this.textinputHandler.bind(this);
@@ -131,6 +133,7 @@ class Controller extends React.Component {
 
   sendSearchQuery(limitmin) {
     const {input_formula, answsize} = this.state;
+    this.setState({progress: <ProgressBar percent={33} />});
 
     mwsQuery(limitmin, answsize, input_formula).then(json => {
       // console.log(json);
@@ -139,6 +142,7 @@ class Controller extends React.Component {
       var newContent = {...allEntries};
       MakeEntries(hits, newContent);
       this.setState({
+        progress: <ProgressBar percent={100} />,
         limitmin: limitmin + answsize,
         resultListContent: {
           total: json['total'],
@@ -149,9 +153,10 @@ class Controller extends React.Component {
   }
 
   render() {
-    const {input_text} = this.state;
+    const {input_text, progress} = this.state;
     return (
       <div className="Controller">
+        {progress}
         {this.updatePreviewWindow()}
         <SearchBar
           text={input_text}
