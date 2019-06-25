@@ -1,9 +1,10 @@
 import React from 'react';
 import {SearchBar} from './Searchbar';
-import {latexmlQuery, mwsQuery} from '../Backend/Backend';
+import {latexmlQuery, mwsQuery, mwsApiQuery} from '../Backend/Backend';
 import {PreviewWindow, PreviewError} from './PreviewWindow';
 import {ResultList} from './ResultList';
-import {MakeEntries} from './MakeMwsEntry';
+// import {MakeEntries} from './MakeMwsEntry';
+import {MakeEntries} from './MakeMwsApiEntry';
 import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
 
@@ -15,7 +16,7 @@ class Controller extends React.Component {
       input_formula: null,
       resultListContent: null,
       limitmin: 0,
-      answsize: 30,
+      answsize: 10,
       progress: null,
     };
 
@@ -133,11 +134,14 @@ class Controller extends React.Component {
 
   sendSearchQuery(limitmin) {
     const {input_formula, answsize} = this.state;
+    if (!input_formula) {
+      return;
+    }
     this.setState({progress: <ProgressBar percent={33} />});
 
-    mwsQuery(limitmin, answsize, input_formula).then(json => {
+    mwsApiQuery(limitmin, answsize, input_formula).then(json => {
       // console.log(json);
-      const hits = json['hits'];
+      const hits = json['hits'] || [];
       const {allEntries} = this.state.resultListContent || {};
       var newContent = {...allEntries};
       MakeEntries(hits, newContent);

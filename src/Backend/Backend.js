@@ -69,9 +69,15 @@ export function mwsApiQuery(limitmin, answsize, math) {
     headers: header,
     body: JSON.stringify(body),
   };
-  console.log(payload);
-  return fetch('/mws', payload)
-    .then(response => response.json())
+  // console.log(payload);
+  return fetch('/mws/', payload)
+    .then(response => {
+      console.log(response);
+      if (response.status !== 200) {
+        throw new Error(response['statusText']);
+      }
+      return response.json();
+    })
     .catch(ex => {
       console.error('mwsApiQuery Failed', ex);
     });
