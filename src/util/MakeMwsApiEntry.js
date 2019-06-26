@@ -1,5 +1,6 @@
 import React from 'react';
 import {MathML} from '../components/MathML';
+import {getElementBySimpleXpath} from './simpleXpath';
 
 function extractUrl(source) {
   const parser = new DOMParser();
@@ -23,8 +24,10 @@ function createVars(subst) {
       {Object.keys(subst).map(qvar => {
         return (
           <div key={qvar}>
-            <b>{`${qvar}:`}</b>
-            <MathML mathstring={subst[qvar]} />
+            <span>
+              <b style={{color: 'red'}}>{`${qvar}:`}</b>
+              <MathML mathstring={subst[qvar]} />
+            </span>
           </div>
         );
       })}
@@ -32,11 +35,26 @@ function createVars(subst) {
   );
 }
 
+function highlightFormula(source, xpath) {
+  const parser = new DOMParser();
+  const htmlDoc = parser.parseFromString(source, 'text/html');
+  try {
+    const semantics = htmlDoc.getElementsByTagName('m:semantics')[0];
+    getElementBySimpleXpath(xpath, semantics);
+    return htmlDoc.activeElement.innerHTML;
+  } catch {
+    console.log('no highlightFormula');
+    return source;
+  }
+}
+
 function getFormula(hit) {
   // console.log(hit);
   const url = extractUrl(hit.source);
   const local_id = hit.url;
   const xpath = hit.xpath;
+  const source = highlightFormula(hit.source, xpath);
+  // console.log(hit);
 
   return (
     <div className="Content" key={local_id.toString() + xpath}>
@@ -46,7 +64,7 @@ function getFormula(hit) {
       </span>
       <span>
         {'source: '}
-        <MathML mathstring={hit.source} />
+        <MathML mathstring={source} />
       </span>
       {createVars(hit.subst)}
       <a

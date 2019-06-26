@@ -137,6 +137,9 @@ class Controller extends React.Component {
     this.setState({progress: <ProgressBar percent={33} />});
 
     searchQuery(limitmin, answsize, input_formula).then(json => {
+      if (!json) {
+        return;
+      }
       // console.log(json);
       const hits = json['hits'] || [];
       const {allEntries} = this.state.resultListContent || {};
