@@ -4,7 +4,6 @@ import '../css/PreviewWindow.css';
 // import ReactHtmlParser from 'react-html-parser';
 import {MathML} from './MathML';
 
-
 export function PreviewWindow(props) {
   const {mathstring} = props;
   if ('' === mathstring) {
