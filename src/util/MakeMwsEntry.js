@@ -1,5 +1,5 @@
 import React from 'react';
-import {MathML} from './MathML';
+import {MathML} from '../components/MathML';
 
 function getElementBySimpleXpath(xpath, element) {
   // this is stolen from the old frontend

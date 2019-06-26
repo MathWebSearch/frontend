@@ -1,10 +1,15 @@
 import React from 'react';
-import {MathML} from './MathML';
+import {MathML} from '../components/MathML';
 
 function extractUrl(source) {
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(source, 'text/html');
-  const url = htmlDoc.getElementsByTagName('math')[0].getAttribute('url');
+  let math = htmlDoc.getElementsByTagName('math');
+  if (0 === math.length) {
+    math = htmlDoc.getElementsByTagName('m:math');
+  }
+  htmlDoc.getElementsByTagName('m:math');
+  const url = math[0].getAttribute('url');
   return url;
 }
 

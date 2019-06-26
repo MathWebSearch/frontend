@@ -1,10 +1,9 @@
 import React from 'react';
 import {SearchBar} from './Searchbar';
-import {latexmlQuery, mwsQuery, mwsApiQuery} from '../Backend/Backend';
-import {PreviewWindow, PreviewError} from './PreviewWindow';
+import {convertQuery, searchQuery} from '../Backend';
+import {PreviewWindow} from './PreviewWindow';
 import {ResultList} from './ResultList';
-// import {MakeEntries} from './MakeMwsEntry';
-import {MakeEntries} from './MakeMwsApiEntry';
+import {MakeEntries} from '../util';
 import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
 
@@ -16,7 +15,7 @@ class Controller extends React.Component {
       input_formula: null,
       resultListContent: null,
       limitmin: 0,
-      answsize: 10,
+      answsize: 2,
       progress: null,
     };
 
@@ -68,7 +67,7 @@ class Controller extends React.Component {
   }
 
   sendLatexmlQuery(input_text) {
-    latexmlQuery(input_text).then(json => {
+    convertQuery(input_text).then(json => {
       if (json['status_code'] === 0) {
         this.setState({
           input_formula: json['result'],
@@ -103,10 +102,8 @@ class Controller extends React.Component {
   }
   updatePreviewWindow() {
     const {input_formula} = this.state;
-    if (input_formula === null) {
+    if (null === input_formula) {
       return;
-    } else if ('' === input_formula) {
-      return <PreviewError />;
     }
     return <PreviewWindow mathstring={input_formula} />;
   }
@@ -139,7 +136,7 @@ class Controller extends React.Component {
     }
     this.setState({progress: <ProgressBar percent={33} />});
 
-    mwsApiQuery(limitmin, answsize, input_formula).then(json => {
+    searchQuery(limitmin, answsize, input_formula).then(json => {
       // console.log(json);
       const hits = json['hits'] || [];
       const {allEntries} = this.state.resultListContent || {};
