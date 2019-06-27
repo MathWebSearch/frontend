@@ -15,7 +15,7 @@ class Controller extends React.Component {
       input_formula: null,
       resultListContent: null,
       limitmin: 0,
-      answsize: 2,
+      answsize: 30,
       progress: null,
     };
 

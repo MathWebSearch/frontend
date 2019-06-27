@@ -16,7 +16,9 @@ export function getElementBySimpleXpath(xpath, element) {
   try {
     while (xpatharr.length > 0) {
       let n = xpatharr.shift();
-      elem = elem.children[n];
+        // TODO: not sure why this happens but sometimes it take s a wrong way
+      if (n < elem.children.length) elem = elem.children[n];
+      else break;
     }
     const xmlID = elem.getAttribute('xml:id');
     const pmml = element.getElementsByTagName('m:annotation-xml')[0];
@@ -26,6 +28,7 @@ export function getElementBySimpleXpath(xpath, element) {
     node.setAttribute('class', 'Highlighted');
   } catch {
     // yeah shit happens but then when not highlight something
+    console.log("didn't find something in simpleXpath");
     return;
   }
 }

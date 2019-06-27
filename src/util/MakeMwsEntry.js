@@ -8,11 +8,18 @@ function getFormula(htmlDoc, math_ids) {
   // just in case
   const math_tags = [
     ...(htmlDoc.getElementsByTagName('math') ||
-      htmlDoc.getElementsByTagName('Math') ||
       htmlDoc.getElementsByTagName('m:math')),
   ];
-  const right = math_tags.find(e => e.getAttribute('local_id') === local_id);
-  getElementBySimpleXpath(xpath, right.getElementsByTagName('m:semantics')[0]);
+  let right = math_tags.find(e => e.getAttribute('local_id') === local_id);
+  let semantics = right.getElementsByTagName('m:semantics')[0];
+  if (!semantics) {
+    // this happens when the contentes of the math node are "text"
+    const parser = new DOMParser();
+    const newhtmlDoc = parser.parseFromString(right.textContent, 'text/html');
+    right = newhtmlDoc.getElementsByTagName('m:math')[0];
+    semantics = newhtmlDoc.getElementsByTagName('m:semantics')[0];
+  }
+  getElementBySimpleXpath(xpath, semantics);
 
   const url = right.getAttribute('url');
   return (
@@ -33,8 +40,8 @@ function getFormula(htmlDoc, math_ids) {
 }
 
 export function MakeEntries(hits, allEntries) {
+  const parser = new DOMParser();
   for (let i = 0; i < hits.length; i++) {
-    const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(hits[i].xhtml, 'text/html');
     const id_tags = htmlDoc.getElementsByTagName('id');
     if (!id_tags || !id_tags.length) {
@@ -45,7 +52,9 @@ export function MakeEntries(hits, allEntries) {
     const key = id_tags[0].innerHTML;
     if (!allEntries[key]) {
       const metadata = htmlDoc.getElementsByTagName('metadata')[0];
-      const title = metadata.getElementsByTagName('title')[0].innerHTML;
+      const title = metadata
+        ? metadata.getElementsByTagName('title')[0].innerHTML
+        : key;
       allEntries[key] = {
         key: key,
         title: title,
