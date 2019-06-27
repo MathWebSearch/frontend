@@ -16,7 +16,8 @@ function getFormula(htmlDoc, math_ids) {
     // this happens when the contentes of the math node are "text"
     const parser = new DOMParser();
     const newhtmlDoc = parser.parseFromString(right.textContent, 'text/html');
-    right = newhtmlDoc.getElementsByTagName('m:math')[0];
+    right = newhtmlDoc.getElementsByTagName('math')[0];
+    right = right ? right : newhtmlDoc.getElementsByTagName('m:math')[0];
     semantics = newhtmlDoc.getElementsByTagName('m:semantics')[0];
   }
   getElementBySimpleXpath(xpath, semantics);
@@ -52,7 +53,7 @@ export function MakeEntries(hits, allEntries) {
     const key = id_tags[0].innerHTML;
     if (!allEntries[key]) {
       const metadata = htmlDoc.getElementsByTagName('metadata')[0];
-      const title = metadata
+      const title = metadata.getElementsByTagName('title')[0]
         ? metadata.getElementsByTagName('title')[0].innerHTML
         : key;
       allEntries[key] = {
