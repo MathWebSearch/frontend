@@ -39,7 +39,10 @@ function highlightFormula(source, xpath) {
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(source, 'text/html');
   try {
-    const semantics = htmlDoc.getElementsByTagName('m:semantics')[0];
+    let semantics = htmlDoc.getElementsByTagName('m:semantics')[0];
+    if (!semantics) {
+      semantics = htmlDoc.getElementsByTagName('semantics')[0];
+    }
     getElementBySimpleXpath(xpath, semantics);
     return htmlDoc.activeElement.innerHTML;
   } catch {
