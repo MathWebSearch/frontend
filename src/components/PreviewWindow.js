@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/PreviewWindow.css';
-// import ReactHtmlParser from 'react-html-parser';
 import {MathML} from './MathML';
 
 export function PreviewWindow(props) {

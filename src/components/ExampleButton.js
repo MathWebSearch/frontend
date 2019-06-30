@@ -7,6 +7,7 @@ const examples = [
   ['Another example', '', '?a^{op} \\otimes ?a'],
   ['Plus', '', '?a + ?b'],
   ['Multiplicative Disjunction', '', '\\parr'],
+  ['Everything', '', '?x'],
 ];
 
 class ExampleButton extends React.Component {

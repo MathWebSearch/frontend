@@ -10,9 +10,14 @@ export function ResultList(props) {
     .reduce((acc, cur) => acc + cur, 0);
   return (
     <div className="ResultList">
-      <div>
+      <div className="ResultListTopLine">
         Showing {curlength} of <b>{total}</b> results in {allEntries.length}{' '}
         pages
+        {window.scrollMaxY > 0 ? (
+          <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
+            Go down
+          </button>
+        ) : null}
       </div>
       <div>
         {allEntries.map(entry => {
@@ -29,10 +34,11 @@ export function ResultList(props) {
           );
         })}
       </div>
-      <div>
-        {curlength < total ? (
-          <button onClick={showMore}>Show More</button>
-        ) : null}
+      <div className="ButtonList">
+        <button onClick={showMore} disabled={!curlength < total}>
+          Show More
+        </button>
+        <button onClick={() => window.scrollTo(0, 0)}>Go To Top</button>
       </div>
     </div>
   );
