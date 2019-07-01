@@ -35,10 +35,10 @@ export function ResultList(props) {
         })}
       </div>
       <div className="ButtonList">
-        <button onClick={showMore} disabled={!curlength < total}>
+        <button onClick={showMore} disabled={curlength >= total}>
           Show More
         </button>
-        <button onClick={() => window.scrollTo(0, 0)}>Go To Top</button>
+        <button onClick={() => window.scrollTo(0, 0)}>Go up</button>
       </div>
     </div>
   );
