@@ -30,7 +30,7 @@ class Controller extends React.Component {
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     const location = window.location.toString().split('?query-math=');
     if (location.length < 2) {
       return;

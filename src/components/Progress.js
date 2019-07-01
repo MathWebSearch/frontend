@@ -5,7 +5,7 @@ export class ProgressBar extends React.Component {
   render() {
     return (
       <div>
-        <Progress percent={this.props.percent} height={4} />
+        <Progress percent={this.props.percent} height={4} color={'blue'} />
       </div>
     );
   }

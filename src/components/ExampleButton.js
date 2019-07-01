@@ -8,6 +8,7 @@ const examples = [
   ['Plus', '', '?a + ?b'],
   ['Multiplicative Disjunction', '', '\\parr'],
   ['Everything', '', '?x'],
+  ['2x2-Matrix', '', '\\array{?a & ?b \\\\ ?c & ?d}'],
 ];
 
 class ExampleButton extends React.Component {
