@@ -53,7 +53,7 @@ export function MakeEntries(hits, allEntries) {
     const key = id_tags[0].innerHTML;
     if (!allEntries[key]) {
       const metadata = htmlDoc.getElementsByTagName('metadata')[0];
-      const title = metadata.getElementsByTagName('title')[0]
+      const title = metadata && metadata.getElementsByTagName('title')[0]
         ? metadata.getElementsByTagName('title')[0].innerHTML
         : key;
       allEntries[key] = {

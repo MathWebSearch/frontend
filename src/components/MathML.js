@@ -18,10 +18,10 @@ export class MathML extends React.Component {
       agent.match(/MathPlayer/)
     );
     let pmml = this.props.mathstring.replace(/m:/g, '');
-    pmml = pmml.replace(
-      /<semantics[\s\S]*>[\s\S]*<annotation/,
-      '<semantics><annotation',
-    );
+    // pmml = pmml.replace(
+    //   /<semantics[\s\S]*>[\s\S]*<annotation/,
+    //   '<semantics><annotation',
+    // );
     if (!pmml) {
       return;
     }
