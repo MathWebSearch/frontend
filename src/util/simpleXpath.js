@@ -12,16 +12,18 @@ export function getElementBySimpleXpath(xpath, element) {
   xpatharr = xpatharr.map(function(e) {
     return parseInt(e) - 1; //xpatharr is one-based
   });
-  let elem = element;
+  // let elem = element;
+  let elem = element.getElementsByTagName('m:annotation-xml')[0];
   try {
     while (xpatharr.length > 0) {
       let n = xpatharr.shift();
-        // TODO: not sure why this happens but sometimes it take s a wrong way
+      // TODO: not sure why this happens but sometimes it take s a wrong way
       if (n < elem.children.length) elem = elem.children[n];
       else break;
     }
     const xmlID = elem.getAttribute('xml:id');
-    const pmml = element.getElementsByTagName('m:annotation-xml')[0];
+    // const pmml = element.getElementsByTagName('m:annotation-xml')[0];
+    const pmml = element;
     const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
       return e.getAttribute('xref') === xmlID;
     });

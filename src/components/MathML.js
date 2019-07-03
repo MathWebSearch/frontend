@@ -18,14 +18,16 @@ export class MathML extends React.Component {
       agent.match(/MathPlayer/)
     );
     let pmml = this.props.mathstring.replace(/m:/g, '');
-    // pmml = pmml.replace(
-    //   /<semantics[\s\S]*>[\s\S]*<annotation/,
-    //   '<semantics><annotation',
-    // );
     if (!pmml) {
       return;
     }
     if (useMathJax) {
+      // pmml = pmml.replace(
+      //   /<semantics[\s\S]*>[\s\S]*<annotation/,
+      //   '<semantics><annotation',
+      // );
+      //cut out alle the annotations that mathjax works
+      pmml = pmml.replace(/<annotation[\s\S]*>[\s\S]*<\/annotation[\S]*>/g, '');
       return <MathJax math={String.raw`${pmml}`} />;
     }
 
