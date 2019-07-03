@@ -1,0 +1,12 @@
+.Content .FlexContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.Content .FlexContainer > * {
+    margin: 2px;
+}

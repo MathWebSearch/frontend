@@ -1,6 +1,7 @@
 import React from 'react';
 import {MathML} from '../components/MathML';
-import {getElementBySimpleXpath} from './simpleXpath';
+import '../css/ApiEntry.css';
+// import {convertXpath, getElementBySimpleXpath} from './simpleXpath';
 
 function extractUrl(source) {
   const parser = new DOMParser();
@@ -19,12 +20,12 @@ function createVars(subst) {
     return;
   }
   return (
-    <div>
-      <b> Variables: </b>
+    <div >
+      <b> Subsitutions: </b>
       {Object.keys(subst).map(qvar => {
         return (
           <div key={qvar}>
-            <span>
+            <span className="FlexContainer">
               <b style={{color: 'red'}}>{`${qvar}:`}</b>
               <MathML mathstring={subst[qvar]} />
             </span>
@@ -35,38 +36,46 @@ function createVars(subst) {
   );
 }
 
-function highlightFormula(source, xpath) {
+function highlightFormula(source, subterm) {
+  // new way to highlight the right part of subterm:
+  // find the xmlid of the subterm and look for that xmlid in the source and
+  // highlight it
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(source, 'text/html');
+  const subtermDoc = parser.parseFromString(subterm, 'text/html');
+
   try {
-    let semantics = htmlDoc.getElementsByTagName('m:semantics')[0];
-    if (!semantics) {
-      semantics = htmlDoc.getElementsByTagName('semantics')[0];
+    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
+    const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+    const sourceDoc = parser.parseFromString(source, 'text/html');
+    const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
+      return e.getAttribute('xml:id') === xmlID;
+    });
+    if (node) {
+      node.setAttribute('class', 'Highlighted');
     }
-    getElementBySimpleXpath(xpath, semantics);
-    return htmlDoc.activeElement.innerHTML;
+    return sourceDoc.activeElement.innerHTML;
   } catch {
-    console.log('no highlightFormula');
+    console.log('no highlighting possible');
     return source;
   }
 }
 
 function getFormula(hit) {
-  // console.log(hit);
   const url = extractUrl(hit.source);
   const local_id = hit.url;
   const xpath = hit.xpath;
-  const source = highlightFormula(hit.source, xpath);
-  // console.log(hit);
+  const source = highlightFormula(hit.source, hit.subterm);
+  // console.log(xpath);
+  // console.log(source);
 
   return (
     <div className="Content" key={local_id.toString() + xpath}>
-      <span>
-        {'match: '}
+      <span className="FlexContainer" >
+        <b className="Flex1">{'match : '}</b>
         <MathML mathstring={hit.subterm} />
       </span>
-      <span>
-        {'source: '}
+      <span className="FlexContainer">
+        <b>{'source: '}</b>
         <MathML mathstring={source} />
       </span>
       {createVars(hit.subst)}
@@ -84,14 +93,19 @@ function getFormula(hit) {
   );
 }
 
-export function MakeEntries(hits, allEntries) {
+export function MakeEntries(hits, allEntries, aggregate = '') {
   for (let i = 0; i < hits.length; i++) {
-    const key = hits[i].source.segment;
-    // console.log(key);
+    const local_id = hits[i].math_ids[0].url;
+    const key =
+      '' === aggregate
+        ? hits[i].source.segment + local_id
+        : hits[i].source.segment;
+    const title = hits[i].source.metadata.title || key;
+    // console.log(hits[i]);
     if (!allEntries[key]) {
       allEntries[key] = {
         key: key,
-        title: key,
+        title: title,
         active: false,
         formulas: [],
       };
