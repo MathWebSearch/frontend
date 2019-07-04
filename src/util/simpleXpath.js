@@ -1,21 +1,25 @@
 export function getElementBySimpleXpath(xpath, element) {
   // this is stolen from the old frontend
   let xpatharr = convertXpath(xpath);
-  let elem = element.getElementsByTagName('m:annotation-xml')[0];
+  let elem = Array.from(element.getElementsByTagName('m:annotation-xml')).find(
+    e => {
+      return e.getAttribute('encoding') === 'MathML-Content';
+    },
+  );
   // console.log(xpath, xpatharr);
   // console.log(elem);
   try {
     while (xpatharr.length > 0) {
       let n = xpatharr.shift();
       // TODO: not sure why this happens but sometimes it take s a wrong way
-        if (n < elem.children.length)
-            elem = elem.children[n];
-        else {
-            console.log(xpath);
-            console.log(elem);
-            console.log(xpatharr);
+      if (n < elem.children.length) elem = elem.children[n];
+      else {
+        console.log(element);
+        console.log(xpath);
+        console.log(elem);
+        console.log(xpatharr);
         break;
-        } 
+      }
     }
     const xmlID = elem.getAttribute('xml:id');
     // const pmml = element.getElementsByTagName('m:annotation-xml')[0];

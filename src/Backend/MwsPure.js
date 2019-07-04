@@ -16,7 +16,7 @@ export function mwsQuery(limitmin, answsize, math) {
     method: 'POST',
     body: query,
   };
-  return fetch('/', payload)
+  return fetch('/search', payload)
     .then(response => response.json())
     .catch(ex => {
       console.error('mwsQuery  Failed', ex);
