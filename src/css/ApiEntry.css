@@ -5,6 +5,9 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: space-around;
+  border: solid 1px;
+  border-radius: 10px;
+  margin: 3px;
 }
 
 .Content .FlexContainer > * {

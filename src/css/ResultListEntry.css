@@ -1,16 +1,17 @@
 .ResultListEntry {
     background-color: lightgray;
     text-align: center;
-    margin: 3px 10% 3px 10%;
-    border: 1px solid;
+    margin: 5px 5% 5px 5%;
+    border: 2px solid;
     border-radius: 5px;
-    max-width: 80%;
+    max-width: 90%;
 }
 .ResultListEntry .Content {
-    border: 1px solid ;
+    /* border: 1px solid ; */
+    border-radius: 5px;
     background-color: #b4b4b4;
     width: auto;
     height: auto;
-    margin: 1px;
+    margin: 2px;
 
 }

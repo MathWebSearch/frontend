@@ -83,12 +83,12 @@ function getFormula(hit) {
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <span className="FlexContainer">
-        <b className="Flex1">{'match : '}</b>
-        <MathML mathstring={hit.subterm} />
-      </span>
-      <span className="FlexContainer">
         <b>{'source: '}</b>
         <MathML mathstring={source} />
+      </span>
+      <span className="FlexContainer">
+        <b className="Flex1">{'match : '}</b>
+        <MathML mathstring={hit.subterm} />
       </span>
       {createVars(hit.subst)}
       <a
@@ -123,5 +123,6 @@ export function MakeEntries(hits, allEntries, aggregate = 'segment') {
     }
     const newMath = getFormula(hits[i].math_ids[0]);
     allEntries[key]['formulas'].push(newMath);
+    allEntries[key].active = false;
   }
 }
