@@ -14,10 +14,11 @@ export function getElementBySimpleXpath(xpath, element) {
       // TODO: not sure why this happens but sometimes it take s a wrong way
       if (n < elem.children.length) elem = elem.children[n];
       else {
-        console.log(element);
-        console.log(xpath);
-        console.log(elem);
-        console.log(xpatharr);
+        console.log('exited xpath to earlier than expacted');
+        // console.log(element);
+        // console.log(xpath);
+        // console.log(elem);
+        // console.log(xpatharr);
         break;
       }
     }

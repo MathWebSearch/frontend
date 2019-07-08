@@ -15,12 +15,24 @@ function extractUrl(source) {
   return url;
 }
 
+function extractTitle(metastring) {
+  // console.log(metastring);
+  const parser = new DOMParser();
+  const htmlDoc = parser.parseFromString(metastring, 'text/html');
+  try {
+    const title = htmlDoc.getElementsByTagName('title')[0].innerText;
+    return title;
+  } catch {
+    return null;
+  }
+}
+
 function createVars(subst) {
   if (!subst) {
     return;
   }
   return (
-    <div >
+    <div>
       <b> Subsitutions: </b>
       {Object.keys(subst).map(qvar => {
         return (
@@ -70,7 +82,7 @@ function getFormula(hit) {
 
   return (
     <div className="Content" key={local_id.toString() + xpath}>
-      <span className="FlexContainer" >
+      <span className="FlexContainer">
         <b className="Flex1">{'match : '}</b>
         <MathML mathstring={hit.subterm} />
       </span>
@@ -93,15 +105,14 @@ function getFormula(hit) {
   );
 }
 
-export function MakeEntries(hits, allEntries, aggregate = '') {
+export function MakeEntries(hits, allEntries, aggregate = 'segment') {
   for (let i = 0; i < hits.length; i++) {
     const local_id = hits[i].math_ids[0].url;
     const key =
       '' === aggregate
         ? hits[i].source.segment + local_id
         : hits[i].source.segment;
-    const title = hits[i].source.metadata.title || key;
-    // console.log(hits[i]);
+    const title = extractTitle(hits[i].source.metadata) || key;
     if (!allEntries[key]) {
       allEntries[key] = {
         key: key,
