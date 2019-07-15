@@ -13,11 +13,18 @@ export function ResultList(props) {
       <div className="ResultListTopLine">
         Showing {curlength} of <b>{total}</b> results in {allEntries.length}{' '}
         pages
-        {window.scrollMaxY > 0 ? (
-          <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
-            Go down
-          </button>
-        ) : null}
+        <button
+          onClick={() =>
+            allEntries.forEach(entry => {
+              const {key} = entry;
+              clickHandler(key);
+            })
+          }>
+          Toggle All
+        </button>
+        <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
+          Go down
+        </button>
       </div>
       <div>
         {allEntries.map(entry => {

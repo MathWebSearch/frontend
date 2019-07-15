@@ -21,7 +21,7 @@ export function mwsApiQuery(limitmin, answsize, math) {
   // console.log(payload);
   return fetch('/mws/', payload)
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response.status !== 200) {
         throw new Error(response['statusText']);
       }
