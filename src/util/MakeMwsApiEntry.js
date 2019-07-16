@@ -32,7 +32,7 @@ function createVars(subst) {
     return;
   }
   return (
-    <div>
+    <div className="FlexContainer">
       <b> Subsitutions: </b>
       {Object.keys(subst).map(qvar => {
         return (
