@@ -17,6 +17,7 @@ class Controller extends React.Component {
       limitmin: 0,
       answsize: 30,
       progress: null,
+      aggregation: 'segment',
     };
 
     this.textinputHandler = this.textinputHandler.bind(this);
@@ -29,6 +30,7 @@ class Controller extends React.Component {
     this.exampleInputHandler = this.exampleInputHandler.bind(this);
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
+    this.aggrHandler = this.aggrHandler.bind(this);
   }
   componentWillMount() {
     const location = window.location.toString().split('?query-math=');
@@ -38,6 +40,23 @@ class Controller extends React.Component {
     const query = decodeURI(location.pop());
     this.setState({input_text: query});
     this.sendLatexmlQuery(query);
+  }
+
+  aggrHandler() {
+    // TODO in long term sight this is not that clever
+    // because we send a new request, i'll guess it would be better to change
+    // this in just reodering the results we already have but this needs a
+    // lil more restructuring
+    const {aggregation} = this.state;
+    let newAggregation = 'segment';
+    if (aggregation === 'segment') {
+      newAggregation = '';
+    }
+    this.setState({
+      resultListContent: null,
+      aggregation: newAggregation,
+    });
+    this.sendSearchQuery(0);
   }
 
   textinputHandler(event) {
@@ -97,6 +116,7 @@ class Controller extends React.Component {
         clickHandler={this.toggleResultListEntry}
         allEntries={Object.keys(allEntries).map(k => allEntries[k])}
         showMore={this.getMoreResults}
+        aggrHandler={this.aggrHandler}
       />
     );
   }
@@ -144,7 +164,7 @@ class Controller extends React.Component {
       const hits = json['hits'] || [];
       const {allEntries} = this.state.resultListContent || {};
       var newContent = {...allEntries};
-      MakeEntries(hits, newContent);
+      MakeEntries(hits, newContent, this.state.aggregation);
       this.setState({
         progress: <ProgressBar percent={100} />,
         limitmin: limitmin + answsize,

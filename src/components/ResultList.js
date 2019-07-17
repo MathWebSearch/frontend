@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '../css/ResultList.css';
 
 export function ResultList(props) {
-  const {total, clickHandler, allEntries, showMore} = props;
+  const {total, clickHandler, allEntries, showMore, aggrHandler} = props;
   const curlength = allEntries
     .map(e => e['formulas'].length)
     .reduce((acc, cur) => acc + cur, 0);
@@ -25,6 +25,7 @@ export function ResultList(props) {
         <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
           Go down
         </button>
+        <button onClick={aggrHandler}>Change Aggregation</button>
       </div>
       <div>
         {allEntries.map(entry => {
@@ -56,4 +57,5 @@ ResultList.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   allEntries: PropTypes.array.isRequired,
   showMore: PropTypes.func.isRequired,
+  aggrHandler: PropTypes.func.isRequired,
 };
