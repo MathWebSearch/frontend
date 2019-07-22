@@ -10,6 +10,9 @@ export class SearchBar extends React.Component {
   componentDidMount() {
     this.textInput.current.focus();
   }
+  componentDidUpdate() {
+    this.textInput.current.focus();
+  }
   render() {
     const {text, submitHandler, inputHandler, exampleButton} = this.props;
     return (
