@@ -9,6 +9,7 @@ const examples = [
   ['Multiplicative Disjunction', '', '\\parr'],
   ['Everything', '', '?x'],
   ['2x2-Matrix', '', '\\array{?a & ?b \\\\ ?c & ?d}'],
+  ['Yoneda embedding', '', '?Y : ?C \\to [?C^{op}, Set]'],
 ];
 
 class ExampleButton extends React.Component {
