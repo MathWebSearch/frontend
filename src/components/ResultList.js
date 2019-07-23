@@ -10,9 +10,8 @@ export function ResultList(props) {
     .reduce((acc, cur) => acc + cur, 0);
   return (
     <div className="ResultList">
+      Showing {curlength} of <b>{total}</b> results in {allEntries.length} pages
       <div className="ResultListTopLine">
-        Showing {curlength} of <b>{total}</b> results in {allEntries.length}{' '}
-        pages
         <button
           onClick={() =>
             allEntries.forEach(entry => {

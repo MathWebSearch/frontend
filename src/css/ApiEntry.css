@@ -8,8 +8,11 @@
   /* border: solid 1px; */
   border-radius: 10px;
   margin: 3px;
+  max-height: 98%;
+  overflow: none;
 }
 
 .Content .FlexContainer > * {
-    margin: 2px;
+  margin: 2px;
+  overflow: hidden;
 }

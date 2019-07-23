@@ -1,5 +1,6 @@
 .ResultList {
   align: center;
+  text-align: center;
   margin: 1% 10% 1% 10%;
   border: 4px solid;
   width: 80%;
@@ -11,7 +12,7 @@
 }
 .ResultList .ResultListTopLine {
   align: center;
-  margin: 1% 10% 1% 10%;
+  margin: 1% 5% 1% 5%;
 }
 .ResultList .ResultListTopLine button {
   align: center;
