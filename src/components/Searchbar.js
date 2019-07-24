@@ -21,7 +21,7 @@ export class SearchBar extends React.Component {
     const {text, submitHandler, inputHandler, exampleButton} = this.props;
     return (
       <div className="SearchBar">
-        <form onSubmit={submitHandler}>
+        <form id="form1" onSubmit={submitHandler}>
           <input
             type="text"
             value={text}
@@ -30,9 +30,11 @@ export class SearchBar extends React.Component {
             className="textInput"
           />
           <br />
-          <input type="submit" value="Search" />
-          {exampleButton}
         </form>
+        <button type="submit" form="form1">
+          Search
+        </button>
+        {exampleButton}
       </div>
     );
   }

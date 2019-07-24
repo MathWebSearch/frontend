@@ -6,3 +6,13 @@
   background: rgba(255, 255, 255, 0.5);
   width: 960px;
 }
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  margin: 1px;
+}
+button:hover {
+  background-color: #226622;
+}
