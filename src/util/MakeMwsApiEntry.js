@@ -30,11 +30,12 @@ function extractTitle(metastring) {
 function extractSurroundingWords(text, mathid) {
   // console.log(text);
   // console.log(mathid);
-  const textsplit = text.split(' ');
-  const index = textsplit.indexOf(mathid);
-  // console.log(index);
+  const textsplit = text.split(' ').filter(e => e !== '');
+    const index = textsplit.findIndex((e) => e.match(new RegExp(`${mathid}.*`)));
   if (-1 === index) {
-    return [];
+    console.log(textsplit);
+    console.log(mathid);
+    return {};
   }
   let before = [];
   let after = [];
@@ -60,7 +61,7 @@ function extractSurroundingWords(text, mathid) {
     before.push(word);
     before.push(' ');
   }
-  return {before: before, after: after};
+  return {before: before.reverse(), after: after};
 }
 
 function createVars(subst) {
@@ -114,7 +115,7 @@ function getFormula(hit, text) {
   const xpath = hit.xpath;
   const source = highlightFormula(hit.source, hit.subterm);
   const context = extractSurroundingWords(text, `math${local_id}`);
-  console.log(context);
+  // console.log(context);
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <span className="FlexContainer">
