@@ -1,10 +1,16 @@
 .PreviewWindow {
-    margin: 1%;
+    align: center;
+    padding: 1%;
+    margin: 1px;
     font-size: 200%;
     background-color: #EEE;
     text-align: center;
     border: 1px solid;
-    width: 40%;
-    height: 25%;
+    min-width: 30%;
+    min-height: 50%;
+    max-width: 175px;
+    max-height: 175px;
     float: right;
+    box-shadow: 0px 1px 1px 0px;
+    overflow: none;
 }
