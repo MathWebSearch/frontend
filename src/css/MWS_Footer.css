@@ -2,3 +2,42 @@
   clear: both;
   text-align: center;
 }
+
+.footer {
+  border-radius: inherit;
+  border-top  : 1px solid #999;
+  padding     : 7px;
+  font-family : Verdana;
+  font-size   : 10pt;
+  color       : #333;
+}
+
+.footer-mws-logo {
+  float: left;
+  display: block;
+}
+
+#footer-description {
+  margin: 0 10px;
+  text-align: center;
+}
+.footer {
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+  text-align: center; 
+}
+
+a.footlink, a.footlink:visited {
+	color: #777;
+	text-decoration: none; 
+}
+
+a.footlink:hover {
+	color: blue;
+	text-decoration: underline; 
+}
+.footer > a> img {
+    margin: 1%;
+	max-height: 80px;
+	max-width: 270px;
+}

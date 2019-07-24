@@ -1,3 +1,27 @@
-.MWSTitle {
-  text-align: center;
+.header {
+  margin-top: 1%;
+}
+
+.header .corpus {
+  background-color: #226622;
+  box-shadow: 0px 1px 1px 0px #337733;
+  font-size: 2em;
+  color: #fff;
+  padding: 0.75em;
+  float: left;
+  margin-right: 10px;
+  text-decoration: none;
+  max-width: 270px;
+  max-height: 200px;
+}
+
+.header .MWSTitle {
+  height: auto;
+  width: auto;
+  font-size: 200%;
+  margin-left: 10px;
+  padding: 0.75em;
+  max-width: 270px;
+  max-height: 200px;
+  float: left;
 }
