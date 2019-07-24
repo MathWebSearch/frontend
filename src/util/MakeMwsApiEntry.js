@@ -27,6 +27,42 @@ function extractTitle(metastring) {
   }
 }
 
+function extractSurroundingWords(text, mathid) {
+  // console.log(text);
+  // console.log(mathid);
+  const textsplit = text.split(' ');
+  const index = textsplit.indexOf(mathid);
+  // console.log(index);
+  if (-1 === index) {
+    return [];
+  }
+  let before = [];
+  let after = [];
+  for (let i = 1; i < 10 && i; i++) {
+    if (index + i >= textsplit.length) {
+      break;
+    }
+    const word = textsplit[index + i];
+    if (word.match(/math\d+/)) {
+      break;
+    }
+    after.push(word);
+    after.push(' ');
+  }
+  for (let i = 1; i < 10; i++) {
+    if (index - i < 0) {
+      break;
+    }
+    const word = textsplit[index - i];
+    if (word.match(/math\d+/)) {
+      break;
+    }
+    before.push(word);
+    before.push(' ');
+  }
+  return {before: before, after: after};
+}
+
 function createVars(subst) {
   if (!subst) {
     return;
@@ -72,19 +108,19 @@ function highlightFormula(source, subterm) {
   }
 }
 
-function getFormula(hit) {
+function getFormula(hit, text) {
   const url = extractUrl(hit.source);
   const local_id = hit.url;
   const xpath = hit.xpath;
   const source = highlightFormula(hit.source, hit.subterm);
-  // console.log(xpath);
-  // console.log(source);
-
+  const context = extractSurroundingWords(text, `math${local_id}`);
+  console.log(context);
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <span className="FlexContainer">
-        <b>{'source: '}</b>
+        <div> {context.before}</div>
         <MathML mathstring={source} />
+        <div> {context.after} </div>
       </span>
       <span className="FlexContainer">
         <b className="Flex1">{'match : '}</b>
@@ -121,7 +157,7 @@ export function MakeEntries(hits, allEntries, aggregate = 'segment') {
         formulas: [],
       };
     }
-    const newMath = getFormula(hits[i].math_ids[0]);
+    const newMath = getFormula(hits[i].math_ids[0], hits[i].source.text);
     allEntries[key]['formulas'].push(newMath);
     allEntries[key].active = false;
   }
