@@ -187,7 +187,10 @@ class Controller extends React.Component {
           submitHandler={this.submitSearchHandler}
           inputHandler={this.textinputHandler}
           exampleButton={
-            <ExampleButton exampleClickHandler={this.exampleInputHandler} />
+            <ExampleButton
+              exampleInputHandler={this.exampleInputHandler}
+              exampleSubmitHandler={this.submitSearchHandler}
+            />
           }
         />
         <br style={{clear: 'both'}} />
