@@ -31,10 +31,10 @@ function extractSurroundingWords(text, mathid) {
   // console.log(text);
   // console.log(mathid);
   const textsplit = text.split(' ').filter(e => e !== '');
-    const index = textsplit.findIndex((e) => e.match(new RegExp(`${mathid}.*`)));
+    const index = textsplit.findIndex((e) => e.match(new RegExp(`.*${mathid}.*`)));
   if (-1 === index) {
-    console.log(textsplit);
-    console.log(mathid);
+    // console.log(textsplit);
+    // console.log(mathid);
     return {};
   }
   let before = [];
