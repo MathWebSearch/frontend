@@ -30,7 +30,7 @@
   background-color: #ddd;
 }
 
-.DropDown:hover .DropDownContent {
+.DropDown:active .DropDownContent {
   display: block;
 }
 
