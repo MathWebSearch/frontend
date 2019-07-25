@@ -1,5 +1,5 @@
 .ResultListEntry {
-  background-color: #eee;
+  background-color: #e4e4e4;
   text-align: center;
   margin: 5px 5% 5px 5%;
   border: 2px solid;
@@ -12,7 +12,7 @@
 }
 .ResultListEntry .Content {
   border-radius: 5px;
-  background-color: #e4e4e4;
+  background-color: #eee;
   border: 1px solid;
   width: auto;
   height: auto;

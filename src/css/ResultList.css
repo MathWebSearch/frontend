@@ -10,11 +10,12 @@
 
 .ResultList .ButtonList {
   align: center;
-  margin: 1% 34% 1% 34%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 .ResultList .ResultListTopLine {
   align: center;
-  margin: 1% 5% 1% 5%;
+  /* margin: 1% 5% 1% 5%; */
 }
 .ResultList .ResultListTopLine button {
   align: center;

@@ -15,11 +15,24 @@ export function ResultList(props) {
         <button
           onClick={() =>
             allEntries.forEach(entry => {
-              const {key} = entry;
-              clickHandler(key);
+              const {key, active} = entry;
+              if (active) {
+                clickHandler(key);
+              }
             })
           }>
-          Toggle All
+          Close All
+        </button>
+        <button
+          onClick={() =>
+            allEntries.forEach(entry => {
+              const {key, active} = entry;
+              if (!active) {
+                clickHandler(key);
+              }
+            })
+          }>
+          Expand All
         </button>
         <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
           Go down
