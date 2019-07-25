@@ -24,7 +24,7 @@ export default function ExampleButton(props) {
           <div
             key={examples.indexOf(e)}
             onMouseOver={() => exampleInputHandler(e[2])}
-            onClick={exampleSubmitHandler}>
+            onMouseUp={exampleSubmitHandler}>
             {e[0]}
           </div>
         ))}
