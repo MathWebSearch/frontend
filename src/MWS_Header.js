@@ -16,14 +16,12 @@ export class MwsHeader extends React.Component {
   renderMWSText() {
     return (
       <div className="MWSText">
-        <p>
-          The <a href={'http://search.mathweb.org'}>MathWebSearch</a> system
-          (MWS) is a content-based search engine for mathematical formulae. It
-          indexes MathML formulae, using a technique derived from automated
-          theorem proving: Substitution Tree Indexing. MWS performs mathematical
-          full-text search, combining key phrase search with unification-based
-          formula search.
-        </p>
+        The <a href={'http://search.mathweb.org'}>MathWebSearch</a> system (MWS)
+        is a content-based search engine for mathematical formulae. It indexes
+        MathML formulae, using a technique derived from automated theorem
+        proving: Substitution Tree Indexing. MWS performs mathematical full-text
+        search, combining key phrase search with unification-based formula
+        search.
       </div>
     );
   }
@@ -40,15 +38,18 @@ export class MwsHeader extends React.Component {
         <a
           className="corpus"
           href="https://ncatlab.org/nlab/show/Homepage"
-          target="_blank" rel="noopener noreferrer">
+          target="_blank"
+          rel="noopener noreferrer">
           nLab
         </a>
-        <div
-          onMouseEnter={this.hoverEnterHandler}
-          onMouseLeave={this.hoverLeaveHandler}>
-          {this.state.hover ? this.renderMWSText() : this.renderMWSTitle()}
+        <div className="TitleContainer">
+          <div
+            onMouseEnter={this.hoverEnterHandler}
+            onMouseLeave={this.hoverLeaveHandler}>
+            {this.state.hover ? this.renderMWSText() : this.renderMWSTitle()}
+          </div>
         </div>
-        <br style={{ clear :'both' }}/>
+        <br style={{clear: 'both'}} />
         <p style={{textAlign: 'justify', marginTop: '20px'}}>
           Enter a comma-separated list of key phrases into the top search bar
           and a set of formulae schemata (written in LaTeX with ?a, ?b, ... for
@@ -60,7 +61,7 @@ export class MwsHeader extends React.Component {
           base*deviation%]). A formula schema in a query matches any formula in
           the MWS index that has an instance schema as a subformula. Query
           variables with the same name must be instantiated with the same
-          formula, see the examples for inspiration.{" "}
+          formula, see the examples for inspiration.{' '}
           <a href={'https://github.com/KWARC/mws/wiki'}>... more</a>
         </p>
       </div>
