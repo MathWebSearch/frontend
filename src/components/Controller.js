@@ -55,12 +55,16 @@ class Controller extends React.Component {
     this.setState({
       resultListContent: null,
       aggregation: newAggregation,
+      limitmin: 0,
     });
     this.sendSearchQuery(0);
   }
 
   textinputHandler(event) {
     const input_text = event.target.value;
+    if (input_text === this.state.input_text) {
+      return;
+    }
     if ('' === input_text) {
       this.setState({
         input_text: '',

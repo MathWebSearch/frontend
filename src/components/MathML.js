@@ -4,13 +4,6 @@ import MathJax from 'react-mathjax-preview';
 import '../css/MathML.css';
 
 export class MathML extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {useMathJax: false};
-  // }
-
-  // componentDidMount() {
-  // }
   render() {
     const agent = navigator.userAgent;
     const useMathJax = !(
