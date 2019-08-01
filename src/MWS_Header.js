@@ -37,20 +37,18 @@ export class MwsHeader extends React.Component {
       <div className="header">
         <a
           className="corpus"
-          href="https://ncatlab.org/nlab/show/Homepage"
+          href={this.props.corpusLink}
           target="_blank"
           rel="noopener noreferrer">
-          nLab
+          {this.props.corpusName}
         </a>
-        <div className="TitleContainer">
-          <div
-            onMouseEnter={this.hoverEnterHandler}
-            onMouseLeave={this.hoverLeaveHandler}>
-            {this.state.hover ? this.renderMWSText() : this.renderMWSTitle()}
-          </div>
+        <div
+          onMouseEnter={this.hoverEnterHandler}
+          onMouseLeave={this.hoverLeaveHandler}>
+          {this.state.hover ? this.renderMWSText() : this.renderMWSTitle()}
         </div>
         <br style={{clear: 'both'}} />
-        <p style={{textAlign: 'justify', marginTop: '20px'}}>
+        <p style={{marginTop: '20px'}}>
           Enter a comma-separated list of key phrases into the top search bar
           and a set of formulae schemata (written in LaTeX with ?a, ?b, ... for
           query variables; they are marked in red in the formula preview). To

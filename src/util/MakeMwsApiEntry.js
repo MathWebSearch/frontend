@@ -60,6 +60,7 @@ function extractSurroundingWords(text, mathid) {
   return {before: before.reverse(), after: after};
 }
 
+
 function createVars(subst) {
   if (!subst) {
     return;

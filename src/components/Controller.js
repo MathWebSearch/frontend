@@ -7,6 +7,11 @@ import {MakeEntries} from '../util';
 import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
 
+/** The Controller should be the heart heart of this.
+ * It should keep track of all the state and provides all the needed functions
+ * to the presentation components.
+ * */
+
 class Controller extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +20,7 @@ class Controller extends React.Component {
       input_formula: null,
       resultListContent: null,
       limitmin: 0,
-      answsize: 30,
+      answsize: 50,
       progress: null,
       aggregation: 'segment',
     };
@@ -27,12 +32,12 @@ class Controller extends React.Component {
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
-    this.exampleInputHandler = this.exampleInputHandler.bind(this);
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
     this.aggrHandler = this.aggrHandler.bind(this);
   }
   componentWillMount() {
+    /** * This pulls out the query from the url */
     const location = window.location.toString().split('?query-math=');
     if (location.length < 2) {
       return;
@@ -75,10 +80,6 @@ class Controller extends React.Component {
     this.updateInputText(input_text);
   }
 
-  exampleInputHandler(example) {
-    this.updateInputText(example);
-  }
-
   updateInputText(input_text) {
     this.setState({input_text: input_text});
     this.sendLatexmlQuery(input_text);
@@ -91,6 +92,7 @@ class Controller extends React.Component {
 
   sendLatexmlQuery(input_text) {
     convertQuery(input_text).then(json => {
+      // console.log(json);
       if (json['status_code'] === 0) {
         this.setState({
           input_formula: json['result'],
@@ -192,7 +194,7 @@ class Controller extends React.Component {
           inputHandler={this.textinputHandler}
           exampleButton={
             <ExampleButton
-              exampleInputHandler={this.exampleInputHandler}
+              exampleInputHandler={this.updateInputText}
               exampleSubmitHandler={this.submitSearchHandler}
             />
           }

@@ -5,6 +5,7 @@
 .header .corpus {
   background-color: #226622;
   box-shadow: 0px 1px 1px 0px #337733;
+  z-index: 1;
   font-size: 2.5em;
   color: #fff;
   padding: 0.75em;
@@ -17,21 +18,20 @@
 
 .header .TitleContainer {
   background-color: #efefef;
-  max-height: 200px;
   margin-left: 10px;
   align: center;
   text-align: center;
 }
 
-.header .TitleContainer .MWSTitle {
+.header .MWSTitle {
   font-size: 2.5em;
   margin-left: 10px;
   padding: 0.75em;
   float: left;
 }
 
-.header .TitleContainer .MWSText {
-  padding: 0.75em;
+.header .MWSText {
+  padding: 0.93em;
   box-shadow: 1px 1px 1px 1px;
   z-index: 1;
   max-width: 80% ;

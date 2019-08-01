@@ -12,6 +12,7 @@ const examples = [
   ['Multiplicative Disjunction', '', '\\parr'],
   ['2x2-Matrix', '', '\\array{?a & ?b \\\\ ?c & ?d}'],
   ['Yoneda embedding', '', '?Y : ?C \\to [?C^{op}, Set]'],
+  ['range', '', '\\range{0}{10}'],
 ];
 
 export default function ExampleButton(props) {

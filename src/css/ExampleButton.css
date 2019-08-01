@@ -23,7 +23,7 @@
 .DropDownContent div {
   color: black;
   padding: 5px 10px;
-  /* text-decoration: none; */
+  text-decoration: none;
   display: block;
 }
 .DropDownContent div:hover {

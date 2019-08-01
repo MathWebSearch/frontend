@@ -7,7 +7,10 @@ import './css/App.css';
 function App() {
   return (
     <div className="App">
-      <MwsHeader />
+      <MwsHeader
+        corpusName={'nLab'}
+        corpusLink={'https://ncatlab.org/nlab/show/HomePage'}
+      />
       <br />
       <Controller />
       <br />
