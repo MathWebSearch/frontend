@@ -49,7 +49,7 @@ export default class ExampleButton extends React.Component {
   }
 }
 
-ExampleButton.protoTypes = {
+ExampleButton.propTypes = {
   exampleInputHandler: PropTypes.func.isRequired,
   exampleSubmitHandler: PropTypes.func.isRequired,
 };

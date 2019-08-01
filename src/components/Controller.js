@@ -94,14 +94,13 @@ class Controller extends React.Component {
     let json;
     try {
       json = await convertQuery(input_text);
-    } catch(e) {}
+    } catch (e) {}
 
     if (json === undefined) {
-      json = {'status_code': 1};
+      json = {status_code: 1};
     }
 
-    
-     // console.log(json);
+    // console.log(json);
     if (json['status_code'] === 0) {
       this.setState({
         input_formula: json['result'],
@@ -163,30 +162,32 @@ class Controller extends React.Component {
     event.preventDefault();
   }
 
-  sendSearchQuery(limitmin) {
+  async sendSearchQuery(limitmin) {
     const {input_formula, answsize} = this.state;
     if (!input_formula) {
       return;
     }
     this.setState({progress: <ProgressBar percent={33} />});
+    let json;
+    try {
+      json = await searchQuery(limitmin, answsize, input_formula);
+    } catch (e) {}
 
-    searchQuery(limitmin, answsize, input_formula).then(json => {
-      if (!json) {
-        return;
-      }
-      // console.log(json);
-      const hits = json['hits'] || [];
-      const {allEntries} = this.state.resultListContent || {};
-      var newContent = {...allEntries};
-      MakeEntries(hits, newContent, this.state.aggregation);
-      this.setState({
-        progress: <ProgressBar percent={100} />,
-        limitmin: limitmin + answsize,
-        resultListContent: {
-          total: json['total'],
-          allEntries: newContent,
-        },
-      });
+    if (!json) {
+      return;
+    }
+    // console.log(json);
+    const hits = json['hits'] || [];
+    const {allEntries} = this.state.resultListContent || {};
+    var newContent = {...allEntries};
+    MakeEntries(hits, newContent, this.state.aggregation);
+    this.setState({
+      progress: <ProgressBar percent={100} />,
+      limitmin: limitmin + answsize,
+      resultListContent: {
+        total: json['total'],
+        allEntries: newContent,
+      },
     });
   }
 
