@@ -15,23 +15,38 @@ const examples = [
   ['range', '', '\\range{0}{10}'],
 ];
 
-export default function ExampleButton(props) {
-  const {exampleInputHandler, exampleSubmitHandler} = props;
-  return (
-    <div className="DropDown">
-      <button className="DropDownbtn">Examples</button>
-      <div className="DropDownContent">
-        {examples.map(e => (
-          <div
-            key={examples.indexOf(e)}
-            onMouseOver={() => exampleInputHandler(e[2])}
-            onMouseUp={exampleSubmitHandler}>
-            {e[0]}
-          </div>
-        ))}
+export default class ExampleButton extends React.Component {
+  state = {expanded: false};
+
+  toggle = () => {
+    this.setState(({expanded}) => ({expanded: !expanded}));
+  }
+
+  close = () => {
+    this.setState({expanded: false});
+  }
+
+  render() {
+    const {exampleInputHandler, exampleSubmitHandler} = this.props;
+    const {expanded} = this.state;
+
+    return (
+      <div className={"DropDown"  + (expanded ? " active" : "")}>
+        <button className="DropDownbtn" onClick={this.toggle}>Examples</button>
+        <div className="DropDownContent">
+          {examples.map(e => (
+            <div
+              key={examples.indexOf(e)}
+              onMouseOver={() => exampleInputHandler(e[2])}
+              onMouseUp={exampleSubmitHandler}
+              onClick={this.close}>
+              {e[0]}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 ExampleButton.protoTypes = {
