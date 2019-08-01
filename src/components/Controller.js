@@ -90,19 +90,27 @@ class Controller extends React.Component {
     );
   }
 
-  sendLatexmlQuery(input_text) {
-    convertQuery(input_text).then(json => {
-      // console.log(json);
-      if (json['status_code'] === 0) {
-        this.setState({
-          input_formula: json['result'],
-        });
-      } else {
-        this.setState({
-          input_formula: '',
-        });
-      }
-    });
+  async sendLatexmlQuery(input_text) {
+    let json;
+    try {
+      json = await convertQuery(input_text);
+    } catch(e) {}
+
+    if (json === undefined) {
+      json = {'status_code': 1};
+    }
+
+    
+     // console.log(json);
+    if (json['status_code'] === 0) {
+      this.setState({
+        input_formula: json['result'],
+      });
+    } else {
+      this.setState({
+        input_formula: '',
+      });
+    }
   }
 
   toogleResultListEntry(key) {
