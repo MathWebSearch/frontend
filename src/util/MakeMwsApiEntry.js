@@ -1,6 +1,7 @@
 import React from 'react';
 import {MathML} from '../components/MathML';
 import '../css/ApiEntry.css';
+import {colors} from './Colors.js';
 // import {convertXpath, getElementBySimpleXpath} from './simpleXpath';
 
 function extractUrl(source) {
@@ -60,7 +61,6 @@ function extractSurroundingWords(text, mathid) {
   return {before: before.reverse(), after: after};
 }
 
-
 function createVars(subst) {
   if (!subst) {
     return;
@@ -68,11 +68,13 @@ function createVars(subst) {
   return (
     <div className="FlexContainer">
       <b> Subsitutions: </b>
-      {Object.keys(subst).map(qvar => {
+      {Object.keys(subst).map(( qvar, index ) => {
         return (
           <div key={qvar}>
-            <span className="FlexContainer">
-              <b style={{color: 'red'}}>{`${qvar}:`}</b>
+            <span
+              style={{backgroundColor: colors[index % colors.length]}}
+              className="FlexContainer">
+              <b>{`${qvar}:`}</b>
               <MathML mathstring={subst[qvar]} />
             </span>
           </div>
@@ -82,16 +84,36 @@ function createVars(subst) {
   );
 }
 
-function highlightFormula(source, subterm) {
+function extractXMLID(subterm) {
+  // TODO: error handling
+  const parser = new DOMParser();
+  const subtermDoc = parser.parseFromString(subterm, 'text/html');
+  const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
+  const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+  return xmlID;
+}
+
+function colorQvars(qvars, sourceDoc) {
+  Object.keys(qvars).forEach((qvar, index) => {
+    const xmlID = extractXMLID(qvars[qvar]);
+    console.log(xmlID);
+    const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
+      return e.getAttribute('xml:id') === xmlID;
+    });
+    if (node) {
+      node.setAttribute('mathcolor', colors[index % colors.length]);
+    }
+  });
+}
+
+function highlightFormula(source, subterm, qvars) {
   // new way to highlight the right part of subterm:
   // find the xmlid of the subterm and look for that xmlid in the source and
   // highlight it
   const parser = new DOMParser();
-  const subtermDoc = parser.parseFromString(subterm, 'text/html');
 
   try {
-    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
-    const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+    const xmlID = extractXMLID(source);
     const sourceDoc = parser.parseFromString(source, 'text/html');
     const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
       return e.getAttribute('xml:id') === xmlID;
@@ -99,6 +121,7 @@ function highlightFormula(source, subterm) {
     if (node) {
       node.setAttribute('class', 'Highlighted');
     }
+    colorQvars(qvars, sourceDoc);
     return sourceDoc.activeElement.innerHTML;
   } catch {
     console.log('no highlighting possible');
@@ -110,7 +133,7 @@ function getFormula(hit, text) {
   const url = extractUrl(hit.source);
   const local_id = hit.url;
   const xpath = hit.xpath;
-  const source = highlightFormula(hit.source, hit.subterm);
+  const source = highlightFormula(hit.source, hit.subterm, hit.subst);
   const context = extractSurroundingWords(text, `math${local_id}`);
   // console.log(context);
   return (
@@ -120,10 +143,10 @@ function getFormula(hit, text) {
         <MathML mathstring={source} />
         <div> {context.after} </div>
       </span>
-      <span className="FlexContainer">
+      {/*<span className="FlexContainer">
         <b className="Flex1">{'match : '}</b>
         <MathML mathstring={hit.subterm} />
-      </span>
+      </span>*/}
       {createVars(hit.subst)}
       <a
         href={url}
