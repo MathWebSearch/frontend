@@ -94,6 +94,9 @@ function extractXMLID(subterm) {
 }
 
 function colorQvars(qvars, sourceDoc) {
+  if (!qvars) {
+    return;
+  }
   Object.keys(qvars).forEach((qvar, index) => {
     const xmlID = extractXMLID(qvars[qvar]);
     // console.log(xmlID);
