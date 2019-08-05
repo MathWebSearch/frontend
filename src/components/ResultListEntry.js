@@ -10,8 +10,8 @@ export function ResultListEntry(props) {
     inner = <div>{formulas} </div>;
   }
   return (
-    <div className="ResultListEntry" onClick={() => clickHandler(id)}>
-      <b>{title}</b>
+    <div className="ResultListEntry">
+      <b onClick={() => clickHandler(id)}>{title}</b>
       {inner}
     </div>
   );
