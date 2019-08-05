@@ -68,7 +68,7 @@ function createVars(subst) {
   return (
     <div className="FlexContainer">
       <b> Subsitutions: </b>
-      {Object.keys(subst).map(( qvar, index ) => {
+      {Object.keys(subst).map((qvar, index) => {
         return (
           <div key={qvar}>
             <span
@@ -96,7 +96,7 @@ function extractXMLID(subterm) {
 function colorQvars(qvars, sourceDoc) {
   Object.keys(qvars).forEach((qvar, index) => {
     const xmlID = extractXMLID(qvars[qvar]);
-    console.log(xmlID);
+    // console.log(xmlID);
     const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
       return e.getAttribute('xml:id') === xmlID;
     });
@@ -110,10 +110,10 @@ function highlightFormula(source, subterm, qvars) {
   // new way to highlight the right part of subterm:
   // find the xmlid of the subterm and look for that xmlid in the source and
   // highlight it
-  const parser = new DOMParser();
 
   try {
-    const xmlID = extractXMLID(source);
+    const xmlID = extractXMLID(subterm);
+    const parser = new DOMParser();
     const sourceDoc = parser.parseFromString(source, 'text/html');
     const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
       return e.getAttribute('xml:id') === xmlID;
