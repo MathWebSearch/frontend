@@ -72,7 +72,7 @@ function createVars(subst) {
         return (
           <div key={qvar}>
             <span
-              style={{backgroundColor: colors[index % colors.length]}}
+              style={{color: colors[index % colors.length]}}
               className="FlexContainer">
               <b>{`${qvar}:`}</b>
               <MathML mathstring={subst[qvar]} />
