@@ -178,9 +178,10 @@ class Controller extends React.Component {
     }
     // console.log(json);
     const hits = json['hits'] || [];
+    const qvars = json['qvars'] || [];
     const {allEntries} = this.state.resultListContent || {};
     var newContent = {...allEntries};
-    MakeEntries(hits, newContent, this.state.aggregation);
+    MakeEntries(hits, newContent, qvars, this.state.aggregation);
     this.setState({
       progress: <ProgressBar percent={100} />,
       limitmin: limitmin + answsize,
