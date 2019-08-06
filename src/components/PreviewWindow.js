@@ -4,8 +4,25 @@ import '../css/PreviewWindow.css';
 import {MathML} from './MathML';
 import {colors} from '../util/Colors';
 
+function colorVar(mathstring) {
+  const parser = new DOMParser();
+  let i = 0;
+  let dict = {};
+  const doc = parser.parseFromString(mathstring, 'text/html');
+  Array.from(doc.getElementsByTagName('*')).forEach(node => {
+    if (node.getAttribute('mathcolor') === 'red') {
+      if (!(node.innerHTML in dict)) {
+        dict[node.innerHTML] = i++;
+      }
+      node.setAttribute('mathcolor', colors[dict[node.innerHTML]]);
+    }
+  });
+
+  return doc.activeElement.innerHTML;
+}
+
 export function PreviewWindow(props) {
-  let {mathstring} = props;
+  const {mathstring} = props;
   if ('' === mathstring) {
     return (
       <div className="PreviewWindow">
@@ -15,14 +32,10 @@ export function PreviewWindow(props) {
   }
   // this colors the qvar in the right color
   // it depends that hopfully nothing else has the attribute mathcolor = red
-  let i = 0;
-  mathstring = mathstring.replace(
-    /mathcolor="red"/g,
-    () => `mathcolor="${colors[i++ % colors.length]}"`,
-  );
+  const colored = colorVar(mathstring);
   return (
     <div className="PreviewWindow">
-      <MathML mathstring={mathstring} />
+      <MathML mathstring={colored} />
     </div>
   );
 }

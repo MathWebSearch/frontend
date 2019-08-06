@@ -140,7 +140,6 @@ function getFormula(hit, text) {
   const xpath = hit.xpath;
   const source = highlightFormula(hit.source, hit.subterm, hit.subst);
   const context = extractSurroundingWords(text, `math${local_id}`);
-  // console.log(context);
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <span className="FlexContainer">

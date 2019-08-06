@@ -1,6 +1,5 @@
 import React from 'react';
 import MathJax from 'react-mathjax-preview';
-// import ReactHtmlParser from 'react-html-parser';
 import '../css/MathML.css';
 
 export class MathML extends React.Component {
@@ -17,7 +16,6 @@ export class MathML extends React.Component {
     if (useMathJax) {
       //cut out alle the annotations that mathjax works
       pmml = pmml.replace(/<annotation[\s\S]*>[\s\S]*<\/annotation[\S]*>/g, '');
-      // return <MathJax className="Math" math={String.raw`${pmml}`} />;
       return <MathJax className="Math" math={pmml} />;
     }
 
