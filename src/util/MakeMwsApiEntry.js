@@ -104,6 +104,7 @@ function colorQvars(qvars, sourceDoc) {
       return e.getAttribute('xml:id') === xmlID;
     });
     if (node) {
+      // console.log(node);
       node.setAttribute('mathcolor', colors[index % colors.length]);
     }
   });
@@ -124,6 +125,7 @@ function highlightFormula(source, subterm, qvars) {
     if (node) {
       node.setAttribute('class', 'Highlighted');
     }
+    // color the qvars in a color
     colorQvars(qvars, sourceDoc);
     return sourceDoc.activeElement.innerHTML;
   } catch {
