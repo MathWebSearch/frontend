@@ -12,7 +12,7 @@ function colorVar(mathstring) {
   Array.from(doc.getElementsByTagName('*')).forEach(node => {
     if (node.getAttribute('mathcolor') === 'red') {
       if (!(node.innerHTML in dict)) {
-        dict[node.innerHTML] = i++;
+        dict[node.innerHTML] = i++%colors.length;
       }
       node.setAttribute('mathcolor', colors[dict[node.innerHTML]]);
     }

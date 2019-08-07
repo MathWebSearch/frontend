@@ -17,7 +17,6 @@ function extractUrl(source) {
 }
 
 function extractTitle(metastring) {
-  // console.log(metastring);
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(metastring, 'text/html');
   try {
@@ -132,16 +131,16 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
         // this comes from some wired xpath expressions
         // it seems that the arguments of an operator are it's childs and not
         // it siblings
-        if (!curr.firstElementChild) {
-            // TODO ok atm really no clue why this happens
+        if (!curr.lastElementChild) {
+          // TODO ok atm really no clue why this happens
           break;
         }
-        curr = curr.firstElementChild;
+        curr = curr.lastElementChild;
         path.unshift(idx - 1);
       }
     }
     if (!(name in dict)) {
-      dict[name] = i++;
+      dict[name] = i++%colors.length;
     }
     const xref = curr.getAttribute('xref');
     curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
