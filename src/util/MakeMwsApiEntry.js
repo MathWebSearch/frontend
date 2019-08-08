@@ -118,8 +118,18 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
     return;
   }
   let dict = {};
-  let i = 0;
-  qvars.forEach(entry => {
+  // sort to get a deterministic order for the colors
+  qvars.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  // console.log(qvars);
+  qvars.forEach((entry, index) => {
     const {name, xpath} = entry;
     let path = convertXpath(xpath);
     let curr = node;
@@ -131,16 +141,18 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
         // this comes from some wired xpath expressions
         // it seems that the arguments of an operator are it's childs and not
         // it siblings
-        if (!curr.lastElementChild) {
+        if (!curr.firstElementChild) {
           // TODO ok atm really no clue why this happens
-          break;
+          curr = curr.nextElementSibling;
+        } else {
+          curr = curr.firstElementChild;
         }
-        curr = curr.lastElementChild;
+        // console.log(curr, path);
         path.unshift(idx - 1);
       }
     }
     if (!(name in dict)) {
-      dict[name] = i++%colors.length;
+      dict[name] = index % colors.length;
     }
     const xref = curr.getAttribute('xref');
     curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
