@@ -92,23 +92,6 @@ function extractXMLID(subterm) {
   return xmlID;
 }
 
-// function colorQvars(qvars, sourceDoc) {
-//   if (!qvars) {
-//     return;
-//   }
-//   Object.keys(qvars).forEach((qvar, index) => {
-//     const xmlID = extractXMLID(qvars[qvar]);
-//     // console.log(xmlID);
-//     const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
-//       return e.getAttribute('xml:id') === xmlID;
-//     });
-//     if (node) {
-//       // console.log(node);
-//       node.setAttribute('mathcolor', colors[index % colors.length]);
-//     }
-//   });
-// }
-
 function findandcolorQvar(xmlID, qvars, sourceDoc) {
   // search the right cmml node
   const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
@@ -129,7 +112,7 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
     return 0;
   });
   // console.log(qvars);
-  qvars.forEach((entry, index) => {
+  qvars.forEach((entry) => {
     const {name, xpath} = entry;
     let path = convertXpath(xpath);
     let curr = node;
@@ -152,7 +135,7 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
       }
     }
     if (!(name in dict)) {
-      dict[name] = index % colors.length;
+      dict[name] = (Object.keys(dict).length) % colors.length;
     }
     const xref = curr.getAttribute('xref');
     curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
