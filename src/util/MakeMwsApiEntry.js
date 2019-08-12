@@ -1,7 +1,8 @@
 import React from 'react';
 import {MathML} from '../components/MathML';
 import '../css/ApiEntry.css';
-// import {convertXpath, getElementBySimpleXpath} from './simpleXpath';
+import {colors} from './Colors.js';
+import {convertXpath} from './simpleXpath';
 
 function extractUrl(source) {
   const parser = new DOMParser();
@@ -16,7 +17,6 @@ function extractUrl(source) {
 }
 
 function extractTitle(metastring) {
-  // console.log(metastring);
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(metastring, 'text/html');
   try {
@@ -60,7 +60,6 @@ function extractSurroundingWords(text, mathid) {
   return {before: before.reverse(), after: after};
 }
 
-
 function createVars(subst) {
   if (!subst) {
     return;
@@ -68,11 +67,13 @@ function createVars(subst) {
   return (
     <div className="FlexContainer">
       <b> Subsitutions: </b>
-      {Object.keys(subst).map(qvar => {
+      {Object.keys(subst).map((qvar, index) => {
         return (
           <div key={qvar}>
-            <span className="FlexContainer">
-              <b style={{color: 'red'}}>{`${qvar}:`}</b>
+            <span
+              style={{color: colors[index % colors.length]}}
+              className="FlexContainer">
+              <b>{`${qvar}:`}</b>
               <MathML mathstring={subst[qvar]} />
             </span>
           </div>
@@ -82,16 +83,77 @@ function createVars(subst) {
   );
 }
 
-function highlightFormula(source, subterm) {
+function extractXMLID(subterm) {
+  // TODO: error handling
+  const parser = new DOMParser();
+  const subtermDoc = parser.parseFromString(subterm, 'text/html');
+  const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
+  const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+  return xmlID;
+}
+
+function findandcolorQvar(xmlID, qvars, sourceDoc) {
+  // search the right cmml node
+  const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
+    return e.getAttribute('xref') === xmlID;
+  });
+  if (!node) {
+    return;
+  }
+  let dict = {};
+  // sort to get a deterministic order for the colors
+  qvars.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  // console.log(qvars);
+  qvars.forEach(entry => {
+    const {name, xpath} = entry;
+    let path = convertXpath(xpath);
+    let curr = node;
+    while (path.length > 0) {
+      let idx = path.shift();
+      if (idx < curr.children.length) {
+        curr = curr.children[idx];
+      } else {
+        // this comes from some wired xpath expressions
+        // it seems that the arguments of an operator are it's childs and not
+        // it siblings
+        if (!curr.firstElementChild) {
+          // TODO ok atm really no clue why this happens
+          curr = curr.nextElementSibling;
+        } else {
+          curr = curr.firstElementChild;
+        }
+        // console.log(curr, path);
+        path.unshift(idx - 1);
+      }
+    }
+    if (!(name in dict)) {
+      dict[name] = Object.keys(dict).length % colors.length;
+    }
+    const xref = curr.getAttribute('xref');
+    curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
+      return e.getAttribute('xml:id') === xref;
+    });
+    if (curr) {
+      curr.setAttribute('mathcolor', colors[dict[name]]);
+    }
+  });
+}
+
+function highlightFormula(source, subterm, qvars) {
   // new way to highlight the right part of subterm:
   // find the xmlid of the subterm and look for that xmlid in the source and
   // highlight it
-  const parser = new DOMParser();
-  const subtermDoc = parser.parseFromString(subterm, 'text/html');
-
   try {
-    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
-    const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+    const xmlID = extractXMLID(subterm);
+    const parser = new DOMParser();
     const sourceDoc = parser.parseFromString(source, 'text/html');
     const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
       return e.getAttribute('xml:id') === xmlID;
@@ -99,6 +161,9 @@ function highlightFormula(source, subterm) {
     if (node) {
       node.setAttribute('class', 'Highlighted');
     }
+    findandcolorQvar(xmlID, qvars, sourceDoc);
+    // color the qvars in a color
+    // colorQvars(qvars, sourceDoc);
     return sourceDoc.activeElement.innerHTML;
   } catch {
     console.log('no highlighting possible');
@@ -106,13 +171,13 @@ function highlightFormula(source, subterm) {
   }
 }
 
-function getFormula(hit, text) {
+function getFormula(hit, text, qvars) {
   const url = extractUrl(hit.source);
   const local_id = hit.url;
   const xpath = hit.xpath;
-  const source = highlightFormula(hit.source, hit.subterm);
+  // console.log(xpath);
+  const source = highlightFormula(hit.source, hit.subterm, qvars);
   const context = extractSurroundingWords(text, `math${local_id}`);
-  // console.log(context);
   return (
     <div className="Content" key={local_id.toString() + xpath}>
       <span className="FlexContainer">
@@ -120,10 +185,10 @@ function getFormula(hit, text) {
         <MathML mathstring={source} />
         <div> {context.after} </div>
       </span>
-      <span className="FlexContainer">
+      {/*<span className="FlexContainer">
         <b className="Flex1">{'match : '}</b>
         <MathML mathstring={hit.subterm} />
-      </span>
+      </span>*/}
       {createVars(hit.subst)}
       <a
         href={url}
@@ -139,7 +204,7 @@ function getFormula(hit, text) {
   );
 }
 
-export function MakeEntries(hits, allEntries, aggregate = 'segment') {
+export function MakeEntries(hits, allEntries, qvars, aggregate = 'segment') {
   for (let i = 0; i < hits.length; i++) {
     const local_id = hits[i].math_ids[0].url;
     const key =
@@ -155,7 +220,7 @@ export function MakeEntries(hits, allEntries, aggregate = 'segment') {
         formulas: [],
       };
     }
-    const newMath = getFormula(hits[i].math_ids[0], hits[i].source.text);
+    const newMath = getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
     allEntries[key]['formulas'].push(newMath);
     allEntries[key].active = false;
   }

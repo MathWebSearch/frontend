@@ -7,11 +7,13 @@ export function ResultListEntry(props) {
 
   var inner;
   if (active) {
-    inner = <div>{formulas} </div>;
+    inner = <div>{formulas}</div>;
   }
   return (
-    <div className="ResultListEntry" onClick={() => clickHandler(id)}>
-      <b>{title}</b>
+    <div className="ResultListEntry">
+      <div onClick={() => clickHandler(id)}>
+        <b>{title}</b>
+      </div>
       {inner}
     </div>
   );

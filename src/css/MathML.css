@@ -1,6 +1,5 @@
 .Highlighted {
-  color: black;
-  background-color: yellow;
+  background-color: #ffff99;
   border: 1px yellow;
   border-radius: 3px;
   max-width: 98%;

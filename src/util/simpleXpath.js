@@ -6,20 +6,19 @@ export function getElementBySimpleXpath(xpath, element) {
       return e.getAttribute('encoding') === 'MathML-Content';
     },
   );
-  // console.log(xpath, xpatharr);
-  // console.log(elem);
   try {
     while (xpatharr.length > 0) {
       let n = xpatharr.shift();
       // TODO: not sure why this happens but sometimes it take s a wrong way
-      if (n < elem.children.length) elem = elem.children[n];
-      else {
-        console.log('exited xpath to earlier than expacted');
-        // console.log(element);
-        // console.log(xpath);
-        // console.log(elem);
-        // console.log(xpatharr);
-        break;
+      if (n < elem.children.length) {
+        elem = elem.children[n];
+      } else {
+        if (!elem.firstElementChild) {
+          elem = elem.nextElementSibling;
+        } else {
+          elem = elem.firstElementChild;
+        }
+        xpatharr.unshift(n - 1);
       }
     }
     const xmlID = elem.getAttribute('xml:id');
