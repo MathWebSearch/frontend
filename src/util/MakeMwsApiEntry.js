@@ -112,7 +112,7 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
     return 0;
   });
   // console.log(qvars);
-  qvars.forEach((entry) => {
+  qvars.forEach(entry => {
     const {name, xpath} = entry;
     let path = convertXpath(xpath);
     let curr = node;
@@ -135,7 +135,7 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
       }
     }
     if (!(name in dict)) {
-      dict[name] = (Object.keys(dict).length) % colors.length;
+      dict[name] = Object.keys(dict).length % colors.length;
     }
     const xref = curr.getAttribute('xref');
     curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
