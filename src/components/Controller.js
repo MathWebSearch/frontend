@@ -177,7 +177,7 @@ class Controller extends React.Component {
     if (!json) {
       return;
     }
-    console.log(json);
+    // console.log(json);
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
     const {allEntries} = this.state.resultListContent || {};
