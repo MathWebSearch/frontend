@@ -213,7 +213,7 @@ class Controller extends React.Component {
         />
         <br style={{clear: 'both'}} />
         {last_took ? (
-          <div className="Stats">{`Last Query took ${(last_took/10e6).toFixed(4)} milliseconds`}</div>
+          <div className="Stats">{`Last Query took ${(last_took/10e9).toFixed(4)} seconds`}</div>
         ) : null}
         {this.updateResultList()}
       </div>
