@@ -23,6 +23,7 @@ class Controller extends React.Component {
       answsize: 30,
       progress: null,
       aggregation: 'segment',
+      sendlatexml: true,
     };
 
     this.textinputHandler = this.textinputHandler.bind(this);
@@ -81,8 +82,16 @@ class Controller extends React.Component {
   }
 
   updateInputText(input_text) {
-    this.setState({input_text: input_text});
-    this.sendLatexmlQuery(input_text);
+    if (this.state.sendlatexml) {
+      // this should avoid sending for every typed charakter sending an
+      // query, i hope to reduce the traffic a bit
+      this.sendLatexmlQuery(input_text);
+      setTimeout(() => {
+        this.setState({sendlatexml: true});
+        this.sendLatexmlQuery(this.state.input_text);
+      }, 1000);
+    }
+    this.setState({input_text: input_text, sendlatexml: false});
     window.history.pushState(
       null,
       null,
@@ -213,7 +222,9 @@ class Controller extends React.Component {
         />
         <br style={{clear: 'both'}} />
         {last_took ? (
-          <div className="Stats">{`Last Query took ${(last_took/10e9).toFixed(4)} seconds`}</div>
+          <div className="Stats">{`Last Query took ${(last_took / 10e9).toFixed(
+            4,
+          )} seconds`}</div>
         ) : null}
         {this.updateResultList()}
       </div>

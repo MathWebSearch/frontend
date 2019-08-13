@@ -5,13 +5,12 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-html-parser": "^2.0.2",
-    "react-mathjax-preview": "^0.1.11",
+    "react-mathjax-preview": "^0.1.12",
     "react-progress": "0.0.12",
-    "react-scripts": "3.0.1",
-    "xpath-react": "^6.1.0"
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,6 +34,7 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^0.19.1"
+    "http-proxy-middleware": "^0.19.1",
+    "nwb": "^0.23.0"
   }
 }

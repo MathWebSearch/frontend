@@ -21,3 +21,6 @@ button:hover {
 .Stats {
   text-align: center;
 }
+.Controller {
+    position: relative;
+}

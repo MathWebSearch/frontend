@@ -1,5 +1,6 @@
 .PreviewWindow {
     align: center;
+    top: 10px;
     padding: 1%;
     margin: 1px;
     font-size: 200%;
