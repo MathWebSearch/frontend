@@ -20,7 +20,7 @@ class Controller extends React.Component {
       input_formula: null,
       resultListContent: null,
       limitmin: 0,
-      answsize: 50,
+      answsize: 30,
       progress: null,
       aggregation: 'segment',
     };
@@ -36,7 +36,7 @@ class Controller extends React.Component {
     this.updateInputText = this.updateInputText.bind(this);
     this.aggrHandler = this.aggrHandler.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     /** * This pulls out the query from the url */
     const location = window.location.toString().split('?query-math=');
     if (location.length < 2) {
@@ -171,12 +171,13 @@ class Controller extends React.Component {
     let json;
     try {
       json = await searchQuery(limitmin, answsize, input_formula);
+      this.setState({progress: <ProgressBar percent={66} />});
     } catch (e) {}
 
     if (!json) {
       return;
     }
-    // console.log(json);
+    console.log(json);
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
     const {allEntries} = this.state.resultListContent || {};
@@ -189,11 +190,12 @@ class Controller extends React.Component {
         total: json['total'],
         allEntries: newContent,
       },
+      last_took: json.took,
     });
   }
 
   render() {
-    const {input_text, progress} = this.state;
+    const {input_text, progress, last_took} = this.state;
     return (
       <div className="Controller">
         {progress}
@@ -210,6 +212,9 @@ class Controller extends React.Component {
           }
         />
         <br style={{clear: 'both'}} />
+        {last_took ? (
+          <div className="Stats">{`Last Query took ${(last_took/10e6).toFixed(4)} milliseconds`}</div>
+        ) : null}
         {this.updateResultList()}
       </div>
     );
