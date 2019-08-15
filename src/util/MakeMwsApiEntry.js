@@ -220,8 +220,10 @@ export function MakeEntries(hits, allEntries, qvars, aggregate = 'segment') {
         formulas: [],
       };
     }
-    const newMath = getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
-    allEntries[key]['formulas'].push(newMath);
+    const newMath = () => {
+      return getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
+    };
+    allEntries[key].formulas.push(newMath);
     allEntries[key].active = false;
   }
 }

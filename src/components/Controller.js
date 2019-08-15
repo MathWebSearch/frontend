@@ -78,6 +78,7 @@ class Controller extends React.Component {
       });
       return;
     }
+    this.setState({sendlatexml: false});
     this.updateInputText(input_text);
   }
 
@@ -88,10 +89,9 @@ class Controller extends React.Component {
       this.sendLatexmlQuery(input_text);
       setTimeout(() => {
         this.setState({sendlatexml: true});
-        this.sendLatexmlQuery(this.state.input_text);
-      }, 1000);
+      }, 500);
     }
-    this.setState({input_text: input_text, sendlatexml: false});
+    this.setState({input_text: input_text});
     window.history.pushState(
       null,
       null,
@@ -186,7 +186,7 @@ class Controller extends React.Component {
     if (!json) {
       return;
     }
-    // console.log(json);
+    console.log(json);
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
     const {allEntries} = this.state.resultListContent || {};
