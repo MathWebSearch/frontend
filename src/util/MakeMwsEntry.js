@@ -53,9 +53,10 @@ export function MakeEntries(hits, allEntries) {
     const key = id_tags[0].innerHTML;
     if (!allEntries[key]) {
       const metadata = htmlDoc.getElementsByTagName('metadata')[0];
-      const title = metadata && metadata.getElementsByTagName('title')[0]
-        ? metadata.getElementsByTagName('title')[0].innerHTML
-        : key;
+      const title =
+        metadata && metadata.getElementsByTagName('title')[0]
+          ? metadata.getElementsByTagName('title')[0].innerHTML
+          : key;
       allEntries[key] = {
         key: key,
         title: title,
@@ -66,7 +67,7 @@ export function MakeEntries(hits, allEntries) {
     // this prevents that the same formula appears two times in the list
     // at this point we don not use the xpath thing so there is no point in
     // showing the same formula twice
-    const newMath = getFormula(htmlDoc, hits[i].math_ids[0]);
+    const newMath = () => getFormula(htmlDoc, hits[i].math_ids[0]);
     // allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
     allEntries[key]['formulas'].push(newMath);
   }

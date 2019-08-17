@@ -24,9 +24,7 @@ export function getElementBySimpleXpath(xpath, element) {
     const xmlID = elem.getAttribute('xml:id');
     // const pmml = element.getElementsByTagName('m:annotation-xml')[0];
     const pmml = element;
-    const node = Array.from(pmml.getElementsByTagName('*')).find(e => {
-      return e.getAttribute('xref') === xmlID;
-    });
+    const node = find_attribute_value(pmml, 'xref', xmlID);
     node.setAttribute('class', 'Highlighted');
   } catch {
     // yeah shit happens but then when not highlight something
@@ -49,4 +47,19 @@ export function convertXpath(xpath) {
     return parseInt(e) - 1; //xpath is one-based
   });
   return xpatharr;
+}
+
+/**
+ * This function tries to find an element with an attribute of value
+ * @param {HTMLDocument} doc
+ * @param {string} attribute
+ * @param {string} value
+ * @retrun node
+ *
+ * */
+export function find_attribute_value(doc, attribute, value) {
+  const node = Array.from(doc.getElementsByTagName('*')).find(e => {
+    return e.getAttribute(attribute) === value;
+  });
+  return node;
 }

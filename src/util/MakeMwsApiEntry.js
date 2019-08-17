@@ -2,7 +2,7 @@ import React from 'react';
 import {MathML} from '../components/MathML';
 import '../css/ApiEntry.css';
 import {colors} from './Colors.js';
-import {convertXpath} from './simpleXpath';
+import {convertXpath, find_attribute_value} from './simpleXpath';
 
 function extractUrl(source) {
   const parser = new DOMParser();
@@ -60,46 +60,31 @@ function extractSurroundingWords(text, mathid) {
   return {before: before.reverse(), after: after};
 }
 
-function createVars(subst) {
-  if (!subst) {
-    return;
-  }
-  return (
-    <div className="FlexContainer">
-      <b> Subsitutions: </b>
-      {Object.keys(subst).map((qvar, index) => {
-        return (
-          <div key={qvar}>
-            <span
-              style={{color: colors[index % colors.length]}}
-              className="FlexContainer">
-              <b>{`${qvar}:`}</b>
-              <MathML mathstring={subst[qvar]} />
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
+/**
+ * extracts the xmlID form the semantics node
+ * @param {subterm} string mathml as a string
+ * @return {string} xmlID
+ * */
 function extractXMLID(subterm) {
-  // TODO: error handling
-  const parser = new DOMParser();
-  const subtermDoc = parser.parseFromString(subterm, 'text/html');
-  const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
-  const xmlID = semantics.firstElementChild.getAttribute('xml:id');
-  return xmlID;
+  try {
+    const parser = new DOMParser();
+    const subtermDoc = parser.parseFromString(subterm, 'text/xml');
+    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
+    const xmlID = semantics.firstElementChild.getAttribute('xml:id');
+    return xmlID;
+  } catch {
+    console.log(`no xmlID found`);
+  }
 }
 
 function findandcolorQvar(xmlID, qvars, sourceDoc) {
   // search the right cmml node
-  const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
-    return e.getAttribute('xref') === xmlID;
-  });
+  const node = find_attribute_value(sourceDoc, 'xref', xmlID);
   if (!node) {
     return;
   }
+  // lookup table for colors, that the same variable gets always the same
+  // color
   let dict = {};
   // sort to get a deterministic order for the colors
   qvars.sort((a, b) => {
@@ -134,13 +119,14 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
         path.unshift(idx - 1);
       }
     }
+    // lookup for colors, if we have this variable for the first time
+    // pick new color
     if (!(name in dict)) {
       dict[name] = Object.keys(dict).length % colors.length;
     }
+    // take the xref and search for the presentation part of this node
     const xref = curr.getAttribute('xref');
-    curr = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
-      return e.getAttribute('xml:id') === xref;
-    });
+    curr = find_attribute_value(sourceDoc, 'xml:id', xref);
     if (curr) {
       curr.setAttribute('mathcolor', colors[dict[name]]);
     }
@@ -155,15 +141,11 @@ function highlightFormula(source, subterm, qvars) {
     const xmlID = extractXMLID(subterm);
     const parser = new DOMParser();
     const sourceDoc = parser.parseFromString(source, 'text/html');
-    const node = Array.from(sourceDoc.getElementsByTagName('*')).find(e => {
-      return e.getAttribute('xml:id') === xmlID;
-    });
+    const node = find_attribute_value(sourceDoc, 'xml:id', xmlID);
     if (node) {
       node.setAttribute('class', 'Highlighted');
     }
     findandcolorQvar(xmlID, qvars, sourceDoc);
-    // color the qvars in a color
-    // colorQvars(qvars, sourceDoc);
     return sourceDoc.activeElement.innerHTML;
   } catch {
     console.log('no highlighting possible');
@@ -171,6 +153,45 @@ function highlightFormula(source, subterm, qvars) {
   }
 }
 
+/**
+ * creates an jsx element containg for every query variable the substition
+ * @param {array} subst the subst array from the api reply
+ * @return {jsx}
+ * */
+function createVars(subst) {
+  if (!subst) {
+    return;
+  }
+  return (
+    <div className="FlexContainer">
+      <b> Subsitutions: </b>
+      {Object.keys(subst).map((qvar, index) => {
+        return (
+          <div key={qvar}>
+            <span
+              style={{color: colors[index % colors.length]}}
+              className="FlexContainer">
+              <b>{`${qvar}:`}</b>
+              <MathML mathstring={subst[qvar]} />
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * This function assambles an entry for a single search hit
+ *
+ * @param {object} hit: the hit object as it comes from the mwsapi
+ * @param {string} text: the text of the page
+ * @param {array} qvars: array that contains the name and xpath of the
+ * query variables
+ *
+ * @return {jsx-element} this is how a single hit is represented
+ *
+ * */
 function getFormula(hit, text, qvars) {
   const url = extractUrl(hit.source);
   const local_id = hit.url;
@@ -220,9 +241,9 @@ export function MakeEntries(hits, allEntries, qvars, aggregate = 'segment') {
         formulas: [],
       };
     }
-    const newMath = () => {
-      return getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
-    };
+    const newMath = () =>
+      getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
+
     allEntries[key].formulas.push(newMath);
     allEntries[key].active = false;
   }

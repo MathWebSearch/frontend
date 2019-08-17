@@ -23,7 +23,6 @@ class Controller extends React.Component {
       answsize: 30,
       progress: null,
       aggregation: 'segment',
-      sendlatexml: true,
     };
 
     this.textinputHandler = this.textinputHandler.bind(this);
@@ -78,19 +77,23 @@ class Controller extends React.Component {
       });
       return;
     }
-    this.setState({sendlatexml: false});
-    this.updateInputText(input_text);
+
+    // this should prevent that for every charakter that is typed in a
+    // latexmlquery is send. Instead there only every second there is an
+    // latexmlquery send, this hopfully reduceds the traffic
+    this.setState({input_text: input_text});
+    if (this.state.sendlatexmltimeout === undefined) {
+      this.setState({
+        sendlatexmltimeout: setTimeout(() => {
+          this.updateInputText(this.state.input_text);
+          this.setState({sendlatexmltimeout: undefined});
+        }, 1000),
+      });
+    }
   }
 
   updateInputText(input_text) {
-    if (this.state.sendlatexml) {
-      // this should avoid sending for every typed charakter sending an
-      // query, i hope to reduce the traffic a bit
-      this.sendLatexmlQuery(input_text);
-      setTimeout(() => {
-        this.setState({sendlatexml: true});
-      }, 500);
-    }
+    this.sendLatexmlQuery(input_text);
     this.setState({input_text: input_text});
     window.history.pushState(
       null,
@@ -186,7 +189,7 @@ class Controller extends React.Component {
     if (!json) {
       return;
     }
-    console.log(json);
+    // console.log(json);
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
     const {allEntries} = this.state.resultListContent || {};
