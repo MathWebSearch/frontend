@@ -10,6 +10,9 @@
 .ResultListEntry:hover {
   background-color: #226622;
 }
+.ResultListEntry:hover > div > b {
+  font-size: 1.2em;
+}
 .ResultListEntry .Content {
   border-radius: 5px;
   background-color: #eee;
