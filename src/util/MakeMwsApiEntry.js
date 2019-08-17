@@ -2,10 +2,12 @@ import React from 'react';
 import {MathML} from '../components/MathML';
 import '../css/ApiEntry.css';
 import {colors} from './Colors.js';
-import {convertXpath, find_attribute_value} from './simpleXpath';
+import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
+
+// the one parser to parse them all?
+const parser = new DOMParser();
 
 function extractUrl(source) {
-  const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(source, 'text/html');
   let math = htmlDoc.getElementsByTagName('math');
   if (0 === math.length) {
@@ -17,7 +19,6 @@ function extractUrl(source) {
 }
 
 function extractTitle(metastring) {
-  const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(metastring, 'text/html');
   try {
     const title = htmlDoc.getElementsByTagName('title')[0].innerText;
@@ -67,7 +68,6 @@ function extractSurroundingWords(text, mathid) {
  * */
 function extractXMLID(subterm) {
   try {
-    const parser = new DOMParser();
     const subtermDoc = parser.parseFromString(subterm, 'text/xml');
     const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
     const xmlID = semantics.firstElementChild.getAttribute('xml:id');
@@ -76,6 +76,16 @@ function extractXMLID(subterm) {
     console.log(`no xmlID found`);
   }
 }
+
+const sortbyename = (a, b) => {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+};
 
 function findandcolorQvar(xmlID, qvars, sourceDoc) {
   // search the right cmml node
@@ -87,38 +97,11 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
   // color
   let dict = {};
   // sort to get a deterministic order for the colors
-  qvars.sort((a, b) => {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  });
+  qvars.sort(sortbyename);
   // console.log(qvars);
   qvars.forEach(entry => {
     const {name, xpath} = entry;
-    let path = convertXpath(xpath);
-    let curr = node;
-    while (path.length > 0) {
-      let idx = path.shift();
-      if (idx < curr.children.length) {
-        curr = curr.children[idx];
-      } else {
-        // this comes from some wired xpath expressions
-        // it seems that the arguments of an operator are it's childs and not
-        // it siblings
-        if (!curr.firstElementChild) {
-          // TODO ok atm really no clue why this happens
-          curr = curr.nextElementSibling;
-        } else {
-          curr = curr.firstElementChild;
-        }
-        // console.log(curr, path);
-        path.unshift(idx - 1);
-      }
-    }
+    let curr = getElementBySimpleXpath(xpath, node);
     // lookup for colors, if we have this variable for the first time
     // pick new color
     if (!(name in dict)) {
@@ -139,7 +122,6 @@ function highlightFormula(source, subterm, qvars) {
   // highlight it
   try {
     const xmlID = extractXMLID(subterm);
-    const parser = new DOMParser();
     const sourceDoc = parser.parseFromString(source, 'text/html');
     const node = find_attribute_value(sourceDoc, 'xml:id', xmlID);
     if (node) {
@@ -245,6 +227,5 @@ export function MakeEntries(hits, allEntries, qvars, aggregate = 'segment') {
       getFormula(hits[i].math_ids[0], hits[i].source.text, qvars);
 
     allEntries[key].formulas.push(newMath);
-    allEntries[key].active = false;
   }
 }

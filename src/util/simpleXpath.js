@@ -1,12 +1,7 @@
 export function getElementBySimpleXpath(xpath, element) {
-  // this is stolen from the old frontend
-  let xpatharr = convertXpath(xpath);
-  let elem = Array.from(element.getElementsByTagName('m:annotation-xml')).find(
-    e => {
-      return e.getAttribute('encoding') === 'MathML-Content';
-    },
-  );
   try {
+    let elem = element;
+    let xpatharr = convertXpath(xpath);
     while (xpatharr.length > 0) {
       let n = xpatharr.shift();
       // TODO: not sure why this happens but sometimes it take s a wrong way
@@ -21,11 +16,7 @@ export function getElementBySimpleXpath(xpath, element) {
         xpatharr.unshift(n - 1);
       }
     }
-    const xmlID = elem.getAttribute('xml:id');
-    // const pmml = element.getElementsByTagName('m:annotation-xml')[0];
-    const pmml = element;
-    const node = find_attribute_value(pmml, 'xref', xmlID);
-    node.setAttribute('class', 'Highlighted');
+    return elem;
   } catch {
     // yeah shit happens but then when not highlight something
     console.log("didn't find something in simpleXpath");

@@ -1,6 +1,6 @@
 import React from 'react';
 import {MathML} from '../components/MathML';
-import {getElementBySimpleXpath} from './simpleXpath';
+import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
 
 function getFormula(htmlDoc, math_ids) {
   const local_id = math_ids.url;
@@ -20,7 +20,20 @@ function getFormula(htmlDoc, math_ids) {
     right = right ? right : newhtmlDoc.getElementsByTagName('m:math')[0];
     semantics = newhtmlDoc.getElementsByTagName('m:semantics')[0];
   }
-  getElementBySimpleXpath(xpath, semantics);
+
+  // get the right content mahtml
+  try {
+    const elem = Array.from(
+      semantics.getElementsByTagName('m:annotation-xml'),
+    ).find(e => {
+      return e.getAttribute('encoding') === 'MathML-Content';
+    });
+    const xmlID = getElementBySimpleXpath(xpath, elem).getAttribute('xml:id');
+    const node = find_attribute_value(semantics, 'xref', xmlID);
+    node.setAttribute('class', 'Highlighted');
+  } catch {
+    console.log('highlighting went wrong');
+  }
 
   const url = right.getAttribute('url');
   return (
