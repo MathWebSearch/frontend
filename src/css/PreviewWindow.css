@@ -2,13 +2,13 @@
     align: center;
     text-align: center;
     position: fixed;
-    top: 2%;
+    top: 5%;
     left: 78%;
     padding: 1%;
     margin: 1px;
     font-size: 200%;
     background-color: #EEE;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     min-width: 10%;
     min-height: 10%;
     max-width: 20%;
