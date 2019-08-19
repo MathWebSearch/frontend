@@ -12,7 +12,7 @@ export function sendJson(method, path, payload) {
   return fetch(url, data)
     .then(response => response.json())
     .catch(ex => {
-      console.error('sendJson failed', ex);
+      console.error(`sendJson failed on ${path}`, ex);
     });
 }
 

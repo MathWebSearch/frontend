@@ -51,7 +51,7 @@ export function PreviewWindow(props) {
   if ('' === mathstring) {
     return (
       <div className="PreviewWindow">
-        <b>Error with Math Prieview</b>
+        <b>Error with Math Preview</b>
       </div>
     );
   }

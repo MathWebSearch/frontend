@@ -5,6 +5,6 @@ export function latexmlQuery(literal) {
   payload.append('profile', 'itex');
   payload.append('preload', 'mws.sty');
   payload.append('stylesheet', 'mwsq.xsl');
-  payload.append('tex', literal);
+  payload.append('tex', `$${literal}$`);
   return sendJson('post', '/convert', payload);
 }
