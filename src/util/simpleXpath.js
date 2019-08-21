@@ -24,6 +24,13 @@ export function getElementBySimpleXpath(xpath, element) {
   }
 }
 
+/*
+ * function that takes a xpath expression as string and converts it to a array
+ * of index to children
+ * @param {string} xpath
+ * @return {array} index
+ * */
+
 export function convertXpath(xpath) {
   let xpatharr = xpath
     .split('/')

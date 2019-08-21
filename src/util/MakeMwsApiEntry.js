@@ -77,6 +77,9 @@ function extractXMLID(subterm) {
   }
 }
 
+/**
+ * sort function to sort qvars alphabetical by there name
+ * */
 const sortbyename = (a, b) => {
   if (a.name < b.name) {
     return -1;
