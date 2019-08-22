@@ -34,7 +34,6 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^0.19.1",
-    "nwb": "^0.23.0"
+    "http-proxy-middleware": "^0.19.1"
   }
 }

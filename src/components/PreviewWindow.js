@@ -14,24 +14,22 @@ function colorVar(mathstring) {
   const parser = new DOMParser();
   let dict = [];
   const doc = parser.parseFromString(mathstring, 'text/html');
-  Array.from(doc.getElementsByTagName('*')).forEach(node => {
+  Array.prototype.forEach.call(doc.getElementsByTagName('*'), node => {
     // its based on the assumption the qvars are red
     if (node.getAttribute('mathcolor') === 'red') {
+      // This is for the ranges they are also red
       if (node.innerHTML.match(/(\[|\]|.*\.\.\..*)/g)) {
-        // This is for the ranges they are also red
         return;
       }
-      if (!(dict.includes(node.innerHTML))) {
-        // dict[node.innerHTML] = i++ % colors.length;
+      // found a new variable
+      if (!dict.includes(node.innerHTML)) {
         dict.push(node.innerHTML);
       }
-      // node.setAttribute('mathcolor', colors[dict[node.innerHTML]]);
     }
   });
   // this is needed that we have to keep here the alphabetical order
   // so a needs get an lower index as b and so on
   dict.sort();
-  // console.log(dict);
   Array.from(doc.getElementsByTagName('*')).forEach(node => {
     if (node.getAttribute('mathcolor') === 'red') {
       if (dict.includes(node.innerHTML)) {

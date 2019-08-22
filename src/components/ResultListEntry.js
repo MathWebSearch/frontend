@@ -7,7 +7,7 @@ export function ResultListEntry(props) {
 
   var inner;
   if (active) {
-    inner = <div>{formulas.map(e => e())}</div>;
+    inner = <div>{formulas.map(newMath => newMath())}</div>;
   }
   return (
     <div className="ResultListEntry">

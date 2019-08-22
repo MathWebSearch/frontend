@@ -56,7 +56,7 @@ export function convertXpath(xpath) {
  *
  * */
 export function find_attribute_value(doc, attribute, value) {
-  const node = Array.from(doc.getElementsByTagName('*')).find(e => {
+  const node = Array.prototype.find.call(doc.getElementsByTagName('*'), e => {
     return e.getAttribute(attribute) === value;
   });
   return node;

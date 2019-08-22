@@ -36,6 +36,7 @@ class Controller extends React.Component {
     this.updateInputText = this.updateInputText.bind(this);
     this.aggrHandler = this.aggrHandler.bind(this);
   }
+
   componentDidMount() {
     /** * This pulls out the query from the url */
     const location = window.location.toString().split('?query-math=');
@@ -189,9 +190,10 @@ class Controller extends React.Component {
     if (!json) {
       return;
     }
-    // console.log(json);
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
+    // console.log(hits);
+    // console.log(qvars);
     const {allEntries} = this.state.resultListContent || {};
     var newContent = {...allEntries};
     MakeEntries(hits, newContent, qvars, this.state.aggregation);
