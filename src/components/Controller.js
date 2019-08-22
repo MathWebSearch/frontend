@@ -66,8 +66,7 @@ class Controller extends React.Component {
     this.sendSearchQuery(0);
   }
 
-  textinputHandler(event) {
-    const input_text = event.target.value;
+  textinputHandler(input_text) {
     if (input_text === this.state.input_text) {
       return;
     }
@@ -217,14 +216,13 @@ class Controller extends React.Component {
         <SearchBar
           text={input_text}
           submitHandler={this.submitSearchHandler}
-          inputHandler={this.textinputHandler}
-          exampleButton={
-            <ExampleButton
-              exampleInputHandler={this.updateInputText}
-              exampleSubmitHandler={this.submitSearchHandler}
-            />
-          }
-        />
+          inputHandler={this.textinputHandler}>
+          <ExampleButton
+            exampleInputHandler={this.updateInputText}
+            exampleSubmitHandler={this.submitSearchHandler}
+          />
+        </SearchBar>
+
         <br style={{clear: 'both'}} />
         {last_took ? (
           <div className="Stats">{`Last Query took ${(last_took / 10e9).toFixed(

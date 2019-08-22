@@ -1,6 +1,7 @@
 import React from 'react';
-import {colors} from '../util/Colors.js'; 
+import {colors} from '../util/Colors.js';
 import {MathML} from './MathML';
+import PropTypes from 'prop-types';
 
 /**
  * creates an jsx element containg for every query variable the substition
@@ -30,3 +31,7 @@ export default function Subsitutions(props) {
     </div>
   );
 }
+
+Subsitutions.propTypes = {
+  subst: PropTypes.array,
+};

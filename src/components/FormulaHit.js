@@ -4,6 +4,7 @@ import {MathML} from './MathML';
 import {highlightFormula} from '../util/formulaeHighlighting';
 import {extractSurroundingWords, extractUrl} from '../util/extractFunctions';
 import '../css/ApiEntry.css';
+import PropTypes from 'prop-types';
 
 /**
  * This function assambles an entry for a single search hit
@@ -31,10 +32,12 @@ export default function FormulaHit(props) {
         <div> {context.after} </div>
       </span>
       <Subsitutions subst={hit.subst} />
-      {xpath.length > 20? <span className="FlexContainer">
-        <b className="Flex1">{'match : '}</b>
-        <MathML mathstring={hit.subterm} />
-      </span> : null}
+      {xpath.length > 20 ? (
+        <span className="FlexContainer">
+          <b className="Flex1">{'match : '}</b>
+          <MathML mathstring={hit.subterm} />
+        </span>
+      ) : null}
       <a
         href={url}
         target="_blank"
@@ -48,3 +51,9 @@ export default function FormulaHit(props) {
     </div>
   );
 }
+
+FormulaHit.propTypes = {
+  hit: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
+  qvars: PropTypes.array,
+};
