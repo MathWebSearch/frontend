@@ -24,7 +24,7 @@ export default class CommandButton extends React.Component {
     return (
       <div className={'DropDown' + (expanded ? ' active' : '')}>
         <button className="DropDownbtn" onClick={this.toggle}>
-          Commands
+          Symbols
         </button>
         <div className="DropDownContent" onMouseLeave={this.close}>
           {commands.map((e, index) => (

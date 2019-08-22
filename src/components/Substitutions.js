@@ -33,5 +33,5 @@ export default function Subsitutions(props) {
 }
 
 Subsitutions.propTypes = {
-  subst: PropTypes.array,
+  subst: PropTypes.object,
 };
