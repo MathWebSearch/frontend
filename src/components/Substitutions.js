@@ -10,7 +10,7 @@ import {MathML} from './MathML';
 export default function Subsitutions(props) {
   const {subst} = props;
   if (!subst) {
-    return;
+    return null;
   }
   return (
     <div className="FlexContainer">
