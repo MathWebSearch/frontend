@@ -22,7 +22,7 @@ export class SearchBar extends React.Component {
   insertAtCursorPosition(text) {
     const oldvalue = this.textInput.current.value;
     const pos = this.textInput.current.selectionStart;
-    const newvalue = `${oldvalue.slice(0, pos)}${text}${oldvalue.slice(pos)}`;
+    const newvalue = `${oldvalue.slice(0, pos)} ${text} ${oldvalue.slice(pos)}`;
     this.props.inputHandler(newvalue);
   }
 
