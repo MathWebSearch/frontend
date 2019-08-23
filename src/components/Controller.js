@@ -45,7 +45,7 @@ class Controller extends React.Component {
     }
     const query = decodeURI(location.pop());
     this.setState({input_text: query});
-    this.sendLatexmlQuery(query);
+    this.textinputHandler(query);
   }
 
   aggrHandler() {
@@ -70,30 +70,24 @@ class Controller extends React.Component {
     if (input_text === this.state.input_text) {
       return;
     }
-    if ('' === input_text) {
-      this.setState({
-        input_text: '',
-        input_formula: null,
-      });
-      return;
-    }
 
     // this should prevent that for every charakter that is typed in a
     // latexmlquery is send. Instead there only every second there is an
     // latexmlquery send, this hopfully reduceds the traffic
     this.setState({input_text: input_text});
-    if (this.state.sendlatexmltimeout === undefined) {
+    if (!this.state.sendlatexmltimeout) {
       this.setState({
         sendlatexmltimeout: setTimeout(() => {
           this.updateInputText(this.state.input_text);
-          this.setState({sendlatexmltimeout: undefined});
+          this.setState({sendlatexmltimeout: null});
         }, 1000),
       });
     }
   }
 
   updateInputText(input_text) {
-    this.sendLatexmlQuery(input_text);
+    // i'll guess it is not nessecary to send this whitespaces to ltx
+    this.sendLatexmlQuery(input_text.replace(/\s*$/, ''));
     this.setState({input_text: input_text});
     window.history.pushState(
       null,
@@ -103,6 +97,14 @@ class Controller extends React.Component {
   }
 
   async sendLatexmlQuery(input_text) {
+    if ('' === input_text) {
+      // not really nessecary to send an empty string to latexml
+      this.setState({
+        input_text: '',
+        input_formula: null,
+      });
+      return;
+    }
     let json;
     try {
       json = await convertQuery(input_text);
