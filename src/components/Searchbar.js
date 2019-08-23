@@ -50,6 +50,7 @@ export class SearchBar extends React.Component {
         </button>
         {children}
         <CommandButton inputHandler={this.insertAtCursorPosition} />
+        <button onClick={() => inputHandler('')}>Clear</button>
       </div>
     );
   }
