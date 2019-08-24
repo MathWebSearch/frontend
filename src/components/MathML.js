@@ -1,6 +1,7 @@
 import React from 'react';
 // import MathJax from 'react-mathjax-preview';
 import '../css/MathML.css';
+import PropTypes from 'prop-types';
 
 export class MathML extends React.Component {
   render() {
@@ -11,7 +12,7 @@ export class MathML extends React.Component {
     // );
     let pmml = this.props.mathstring.replace(/m:/g, '');
     if (!pmml) {
-      return;
+      return null;
     }
     //if (useMathJax) {
     //  //cut out alle the annotations that mathjax works
@@ -22,3 +23,6 @@ export class MathML extends React.Component {
     return <div className="Math" dangerouslySetInnerHTML={{__html: pmml}} />;
   }
 }
+MathML.propTypes = {
+  mathstring: PropTypes.string,
+};

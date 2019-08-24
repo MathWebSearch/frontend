@@ -134,7 +134,7 @@ class Controller extends React.Component {
 
   updateResultList() {
     if (!this.state.resultListContent) {
-      return;
+      return null;
     }
     const {total, allEntries} = this.state.resultListContent;
     return (
@@ -150,7 +150,7 @@ class Controller extends React.Component {
   updatePreviewWindow() {
     const {input_formula} = this.state;
     if (null === input_formula) {
-      return;
+      return null;
     }
     return <PreviewWindow mathstring={input_formula} />;
   }
