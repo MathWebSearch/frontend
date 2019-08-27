@@ -54,6 +54,7 @@ function getFormula(htmlDoc, math_ids) {
 }
 
 export function MakeEntries(hits, allEntries) {
+  let newEntries = {...allEntries};
   const parser = new DOMParser();
   for (let i = 0; i < hits.length; i++) {
     const htmlDoc = parser.parseFromString(hits[i].xhtml, 'text/html');
@@ -64,24 +65,22 @@ export function MakeEntries(hits, allEntries) {
       continue;
     }
     const key = id_tags[0].innerHTML;
-    if (!allEntries[key]) {
+    if (!newEntries[key]) {
       const metadata = htmlDoc.getElementsByTagName('metadata')[0];
       const title =
         metadata && metadata.getElementsByTagName('title')[0]
           ? metadata.getElementsByTagName('title')[0].innerHTML
           : key;
-      allEntries[key] = {
+      newEntries[key] = {
         key: key,
         title: title,
         active: false,
         formulas: [],
       };
     }
-    // this prevents that the same formula appears two times in the list
-    // at this point we don not use the xpath thing so there is no point in
-    // showing the same formula twice
+
     const newMath = () => getFormula(htmlDoc, hits[i].math_ids[0]);
-    // allEntries[key]['formulas'].every(e => e.key !== newMath.key) &&
-    allEntries[key]['formulas'].push(newMath);
+    newEntries[key]['formulas'].push(newMath);
   }
+  return newEntries;
 }

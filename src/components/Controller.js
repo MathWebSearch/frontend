@@ -193,11 +193,13 @@ class Controller extends React.Component {
     }
     const hits = json['hits'] || [];
     const qvars = json['qvars'] || [];
-    // console.log(hits);
-    // console.log(qvars);
     const {allEntries} = this.state.resultListContent || {};
-    var newContent = {...allEntries};
-    MakeEntries(hits, newContent, qvars, this.state.aggregation);
+    const newContent = MakeEntries(
+      hits,
+      allEntries,
+      qvars,
+      this.state.aggregation,
+    );
     this.setState({
       progress: <ProgressBar percent={100} />,
       limitmin: limitmin + answsize,

@@ -5,7 +5,7 @@ import '../css/ResultListEntry.css';
 export function ResultListEntry(props) {
   const {id, active, title, formulas, clickHandler} = props;
 
-  var inner;
+  let inner;
   if (active) {
     inner = <div>{formulas.map(newMath => newMath())}</div>;
   }
