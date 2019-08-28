@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/ResultListEntry.css';
 
+
 export function ResultListEntry(props) {
   const {id, active, title, formulas, clickHandler} = props;
 

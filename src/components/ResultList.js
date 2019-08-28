@@ -34,9 +34,11 @@ export function ResultList(props) {
           }>
           Expand All
         </button>
-        <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
-          Go down
-        </button>
+        {typeof window.scrollTo === 'function' && window.scrollMaxY ? (
+          <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
+            Go down
+          </button>
+        ) : null}
         <button onClick={aggrHandler}>Change Aggregation</button>
       </div>
       <div>
@@ -58,7 +60,9 @@ export function ResultList(props) {
         <button onClick={showMore} disabled={curlength >= total}>
           Show More
         </button>
-        <button onClick={() => window.scrollTo(0, 0)}>Go up</button>
+        {typeof window.scrollTo === 'function' ? (
+          <button onClick={() => window.scrollTo(0, 0)}>Go up</button>
+        ) : null}
       </div>
     </div>
   );
