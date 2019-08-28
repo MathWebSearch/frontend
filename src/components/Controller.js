@@ -75,14 +75,15 @@ class Controller extends React.Component {
     // latexmlquery is send. Instead there only every second there is an
     // latexmlquery send, this hopfully reduceds the traffic
     this.setState({input_text: input_text});
-    if (!this.state.sendlatexmltimeout) {
-      this.setState({
-        sendlatexmltimeout: setTimeout(() => {
-          this.updateInputText(this.state.input_text);
-          this.setState({sendlatexmltimeout: null});
-        }, 1000),
-      });
+    if (this.state.sendlatexmltimeout) {
+      clearTimeout(this.state.sendlatexmltimeout);
     }
+    this.setState({
+      sendlatexmltimeout: setTimeout(() => {
+        this.updateInputText(this.state.input_text);
+        this.setState({sendlatexmltimeout: null});
+      }, 1000),
+    });
   }
 
   updateInputText(input_text) {

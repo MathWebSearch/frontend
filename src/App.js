@@ -1,20 +1,20 @@
 import React from 'react';
 import Controller from './components/Controller';
-import {MwsHeader} from './MWS_Header';
-import {MwsFooter} from './MWS_Footer';
+import {Header} from './components/Header';
+import {Footer} from './components/Footer';
 import './css/App.css';
 
 function App() {
   return (
     <div className="App">
-      <MwsHeader
+      <Header
         corpusName={'nLab'}
         corpusLink={'https://ncatlab.org/nlab/show/HomePage'}
       />
       <br />
       <Controller />
       <br />
-      <MwsFooter />
+      <Footer />
     </div>
   );
 }

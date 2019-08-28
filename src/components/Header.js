@@ -1,7 +1,7 @@
 import React from 'react';
-import './css/MWS_Header.css';
+import '../css/MWS_Header.css';
 
-export class MwsHeader extends React.Component {
+export class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {hover: false};

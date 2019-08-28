@@ -1,9 +1,9 @@
 import React from 'react';
-import './css/MWS_Footer.css';
-import kwarc from './img/kwarc_logo.png';
-import fau from './img/fau_logo.png';
+import '../css/MWS_Footer.css';
+import kwarc from '../img/kwarc_logo.png';
+import fau from '../img/fau_logo.png';
 
-export function MwsFooter() {
+export function Footer() {
   return (
     <div className="Footer">
       <div>
