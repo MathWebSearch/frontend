@@ -4,12 +4,14 @@ import {Header} from './components/Header';
 import {Footer} from './components/Footer';
 import './css/App.css';
 
+import { BRANDING_TITLE, BRANDING_URL } from "./branding";
+
 function App() {
   return (
     <div className="App">
       <Header
-        corpusName={'nLab'}
-        corpusLink={'https://ncatlab.org/nlab/show/HomePage'}
+        corpusName={BRANDING_TITLE}
+        corpusLink={BRANDING_URL}
       />
       <br />
       <Controller />

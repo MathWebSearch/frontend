@@ -1,3 +1,5 @@
+ARG REACT_APP_MWS_BRANDING_TITL="nLab"
+ARG REACT_APP_MWS_BRANDING_URL="https://ncatlab.org/nlab/show/HomePage"
 FROM node:12.6.0-alpine AS builder
 WORKDIR /app
 COPY . ./
