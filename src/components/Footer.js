@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/MWS_Footer.css';
 import kwarc from '../img/kwarc_logo.png';
 import fau from '../img/fau_logo.png';
+import odk from '../img/odk_logo.png';
 
 export function Footer() {
   return (
@@ -23,6 +24,13 @@ export function Footer() {
           rel="noopener noreferrer"
           className="footlink">
           <img src={fau} alt="FAU Erlangen-Nürnberg" />
+        </a>
+        <a
+          href="https://opendreamkit.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footlink">
+          <img src={odk} alt="OpenDreamKit" />
         </a>
       </div>
     </div>
