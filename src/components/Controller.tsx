@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {SearchBar} from './Searchbar';
-import {convertQuery, searchQuery} from '../Backend';
+import {ltxclient, mwsclient} from '../Backend';
 import {PreviewWindow} from './PreviewWindow';
 import {ResultList} from './ResultList';
 import {MakeEntries} from '../util';
@@ -22,7 +22,7 @@ interface State {
   input_formula: string | null;
   resultListContent: resultListContent | null;
   limitmin: number;
-  answsize: 30;
+  answsize: number;
   progress: any;
   aggregation: string;
   [key: string]: any;
@@ -118,24 +118,13 @@ class Controller extends React.Component<any, State> {
       });
       return;
     }
-    let json;
-    try {
-      json = await convertQuery(input_text);
-    } catch (e) {}
-
-    if (json === undefined) {
-      json = {status_code: 1};
+    try{
+      const input_formula = await ltxclient.fetchContent(input_text);
+      this.setState({input_formula: input_formula});
     }
-
-    // console.log(json);
-    if (json['status_code'] === 0) {
-      this.setState({
-        input_formula: json['result'],
-      });
-    } else {
-      this.setState({
-        input_formula: '',
-      });
+    catch(e){
+      console.error(e);
+      this.setState({input_formula: ''});
     }
   }
 
@@ -199,7 +188,8 @@ class Controller extends React.Component<any, State> {
     this.setState({progress: <ProgressBar percent={33} />});
     let json;
     try {
-      json = await searchQuery(limitmin, answsize, input_formula);
+      // json = await searchQuery(limitmin, answsize, input_formula);
+      json = await mwsclient.fetchContent(input_formula, answsize, limitmin);
       this.setState({progress: <ProgressBar percent={66} />});
     } catch (e) {}
 

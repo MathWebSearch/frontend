@@ -1,9 +1,11 @@
-import {latexmlQuery} from './Latexml';
-import {mwsApiQuery} from './MwsApi';
-import {mwsQuery} from './MwsPure';
+import {LTXClient} from './LTXClient';
+import {MWSClient, MWSAPIClient} from './MWSClient';
 
-const searchQuery =
-  process.env.REACT_APP_MWS_MODE === 'API' ? mwsApiQuery : mwsQuery;
-const convertQuery = latexmlQuery;
+const mwsclient =
+  process.env.REACT_APP_MWS_MODE === 'API'
+    ? new MWSAPIClient('/mws/')
+    : new MWSClient('/search');
 
-export {convertQuery, searchQuery};
+const ltxclient = new LTXClient('/convert');
+
+export {ltxclient, mwsclient};
