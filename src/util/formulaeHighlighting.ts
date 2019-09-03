@@ -1,5 +1,5 @@
 import {extractXMLID} from './extractFunctions';
-import {colors} from './Colors.js';
+import {colors} from './Colors';
 import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
 
 /**
@@ -57,9 +57,11 @@ export function highlightFormula(source, subterm, qvars) {
       node.setAttribute('class', 'Highlighted');
     }
     findandcolorQvar(xmlID, qvars, sourceDoc);
-    return sourceDoc.activeElement.innerHTML;
+    if (sourceDoc.activeElement) {
+      return sourceDoc.activeElement.innerHTML;
+    }
   } catch {
     console.log('no highlighting possible');
-    return source;
   }
+  return source;
 }

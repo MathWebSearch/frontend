@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import '../css/MWS_Footer.css';
 import kwarc from '../img/kwarc_logo.png';
 import fau from '../img/fau_logo.png';

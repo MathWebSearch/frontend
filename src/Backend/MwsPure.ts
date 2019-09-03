@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import 'isomorphic-fetch';
 import {extractQuery} from './Backend';
 
-export function mwsQuery(limitmin, answsize, math) {
+export function mwsQuery(limitmin:number, answsize:number, math:string) {
   const content = extractQuery(math);
   const query = `<mws:query xmlns:mws="http://www.mathweb.org/mws/ns"
         xmlns:m="http://www.w3.org/1998/Math/MathML"

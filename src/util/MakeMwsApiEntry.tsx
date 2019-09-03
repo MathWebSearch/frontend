@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {extractTitle} from './extractFunctions';
 import FormulaHit from '../components/FormulaHit';
 

@@ -1,14 +1,15 @@
-import React from 'react';
-import {colors} from '../util/Colors.js';
+import * as React from 'react';
+import {colors} from '../util/Colors';
 import {MathML} from './MathML';
 import PropTypes from 'prop-types';
 
 /**
  * creates an jsx element containg for every query variable the substition
- * @param {array} subst the subst array from the api reply
- * @return {jsx}
  * */
-export default function Subsitutions(props) {
+interface SubsitutionsProps{
+  subst: any;
+}
+export default function Subsitutions(props: SubsitutionsProps) {
   const {subst} = props;
   if (!subst) {
     return null;

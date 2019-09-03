@@ -1,9 +1,12 @@
-import React from 'react';
-import MathJax from 'react-mathjax-preview';
+import * as React from 'react';
 import '../css/MathML.css';
-import PropTypes from 'prop-types';
+const MathJax = require('react-mathjax-preview');
 
-export class MathML extends React.Component {
+interface MathMLProps {
+  mathstring: string;
+}
+
+export class MathML extends React.Component<MathMLProps, any> {
   render() {
     const agent = navigator.userAgent;
     const useMathJax = !(
@@ -23,6 +26,3 @@ export class MathML extends React.Component {
     return <div className="Math" dangerouslySetInnerHTML={{__html: pmml}} />;
   }
 }
-MathML.propTypes = {
-  mathstring: PropTypes.string,
-};

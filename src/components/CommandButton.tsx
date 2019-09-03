@@ -1,18 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {commands} from '../config/commands';
 
-export default class CommandButton extends React.Component {
-  state = {expanded: false};
+interface State {
+    expanded : boolean;
+}
+interface Props{
+    inputHandler: any;
+}
+
+export default class CommandButton extends React.Component<Props, State> {
+    state :State = {expanded: false};
 
   toggle = () => {
-    this.setState(({expanded}) => ({expanded: !expanded}));
+      this.setState(({expanded} :State) => ({expanded: !expanded}));
   };
 
   close = () => {
     this.setState({expanded: false});
   };
-  closeand = fkt => event => {
+  closeand = (fkt :any) => ( event : any) => {
     fkt(event);
     this.close();
   };
@@ -37,7 +43,3 @@ export default class CommandButton extends React.Component {
     );
   }
 }
-
-CommandButton.propTypes = {
-  inputHandler: PropTypes.func.isRequired,
-};

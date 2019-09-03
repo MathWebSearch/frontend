@@ -1,10 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import '../css/SearchBar.css';
 import CommandButton from './CommandButton';
 
-export class SearchBar extends React.Component {
-  constructor(props) {
+interface Props {
+  text: string;
+  submitHandler: any;
+  inputHandler: any;
+}
+
+export class SearchBar extends React.Component<Props, {}> {
+  textInput: any;
+  constructor(props: Props) {
     super(props);
     this.textInput = React.createRef();
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -14,19 +20,19 @@ export class SearchBar extends React.Component {
   componentDidMount() {
     this.textInput.current.focus();
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.text !== this.props.text) {
       this.textInput.current.focus();
     }
   }
-  insertAtCursorPosition(text) {
+  insertAtCursorPosition(text: string) {
     const oldvalue = this.textInput.current.value;
     const pos = this.textInput.current.selectionStart;
     const newvalue = `${oldvalue.slice(0, pos)} ${text} ${oldvalue.slice(pos)}`;
     this.props.inputHandler(newvalue);
   }
 
-  inputHandler(event) {
+  inputHandler(event: any) {
     const input_text = event.target.value;
     this.props.inputHandler(input_text);
   }
@@ -55,9 +61,3 @@ export class SearchBar extends React.Component {
     );
   }
 }
-
-SearchBar.propTypes = {
-  text: PropTypes.string.isRequired,
-  submitHandler: PropTypes.func.isRequired,
-  inputHandler: PropTypes.func.isRequired,
-};

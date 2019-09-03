@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Subsitutions from './Substitutions';
 import {MathML} from './MathML';
 import {highlightFormula} from '../util/formulaeHighlighting';
@@ -17,7 +17,12 @@ import PropTypes from 'prop-types';
  * @return {jsx-element} this is how a single hit is represented
  *
  * */
-export default function FormulaHit(props) {
+interface FromulaHitProps {
+  hit: any;
+  text: string;
+  qvars: any;
+}
+export default function FormulaHit(props: FromulaHitProps) {
   const {hit, text, qvars} = props;
   const url = extractUrl(hit.source);
   const local_id = hit.url;
@@ -38,16 +43,18 @@ export default function FormulaHit(props) {
           <MathML mathstring={hit.subterm} />
         </span>
       ) : null}
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={ev => {
-          ev.stopPropagation();
-          /*keeps it active even if clicked the link*/
-        }}>
-        Go to source
-      </a>
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={ev => {
+            ev.stopPropagation();
+            /*keeps it active even if clicked the link*/
+          }}>
+          Go to source
+        </a>
+      ) : null}
     </div>
   );
 }

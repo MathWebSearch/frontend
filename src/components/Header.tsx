@@ -1,8 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import '../css/MWS_Header.css';
 
-export class Header extends React.Component {
-  constructor(props) {
+export interface Props {
+  corpusName: string;
+  corpusLink: string;
+}
+interface HeaderState{
+    hover: boolean;
+}
+
+export class Header extends React.Component<Props, HeaderState> {
+  constructor(props: Props) {
     super(props);
     this.state = {hover: false};
     this.renderMWSText = this.renderMWSText.bind(this);

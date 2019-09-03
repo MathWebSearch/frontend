@@ -1,14 +1,22 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import '../css/ResultListEntry.css';
 
+interface ResultListEntryProps {
+  id: number;
+  active: boolean;
+  title: string;
+  formulas: any;
+  clickHandler: any;
+}
 
-export function ResultListEntry(props) {
+
+export function ResultListEntry(props :ResultListEntryProps) {
   const {id, active, title, formulas, clickHandler} = props;
 
   let inner;
   if (active) {
-    inner = <div>{formulas.map(newMath => newMath())}</div>;
+    inner = <div>{formulas.map(( newMath : any ) => newMath())}</div>;
   }
   return (
     <div className="ResultListEntry">

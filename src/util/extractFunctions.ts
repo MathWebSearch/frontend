@@ -1,7 +1,7 @@
 // the one parser to parse them all?
 const parser = new DOMParser();
 
-function extractUrl(source) {
+function extractUrl(source: string): string {
   const htmlDoc = parser.parseFromString(source, 'text/html');
   let math = htmlDoc.getElementsByTagName('math');
   if (0 === math.length) {
@@ -9,10 +9,10 @@ function extractUrl(source) {
   }
   htmlDoc.getElementsByTagName('m:math');
   const url = math[0].getAttribute('url');
-  return url;
+  return url || '';
 }
 
-function extractTitle(metastring) {
+function extractTitle(metastring: string) {
   const htmlDoc = parser.parseFromString(metastring, 'text/html');
   try {
     const title = htmlDoc.getElementsByTagName('title')[0].innerText;
@@ -22,15 +22,15 @@ function extractTitle(metastring) {
   }
 }
 
-function extractSurroundingWords(text, mathid) {
+function extractSurroundingWords(text: string, mathid: string) {
   const textsplit = text.split(' ').filter(e => e !== '');
   const index = textsplit.findIndex(e => e.match(new RegExp(`.*${mathid}.*`)));
   if (-1 === index) {
     return {};
   }
-  let before = [];
-  let after = [];
-  for (let i = 1; i < 10 && i; i++) {
+  let before: string[] = [];
+  let after: string[] = [];
+  for (let i = 1; i < 10; i++) {
     if (index + i >= textsplit.length) {
       break;
     }
@@ -60,20 +60,18 @@ function extractSurroundingWords(text, mathid) {
  * @param {subterm} string mathml as a string
  * @return {string} xmlID
  * */
-function extractXMLID(subterm) {
+function extractXMLID(subterm: string) {
   try {
     const subtermDoc = parser.parseFromString(subterm, 'text/xml');
-    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0];
-    const xmlID = semantics.firstElementChild.getAttribute('xml:id');
-    return xmlID;
+    const semantics = subtermDoc.getElementsByTagName('m:semantics')[0]
+      .firstElementChild;
+    if (semantics) {
+      const xmlID = semantics.getAttribute('xml:id');
+      return xmlID;
+    }
   } catch {
     console.log(`no xmlID found`);
   }
 }
 
-export {
-  extractUrl,
-  extractTitle,
-  extractSurroundingWords,
-  extractXMLID,
-};
+export {extractUrl, extractTitle, extractSurroundingWords, extractXMLID};

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {MathML} from '../components/MathML';
 import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
 
@@ -25,7 +25,7 @@ function getFormula(htmlDoc, math_ids) {
   try {
     const elem = Array.from(
       semantics.getElementsByTagName('m:annotation-xml'),
-    ).find(e => {
+    ).find((e: any) => {
       return e.getAttribute('encoding') === 'MathML-Content';
     });
     const xmlID = getElementBySimpleXpath(xpath, elem).getAttribute('xml:id');

@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import 'isomorphic-fetch';
 import {extractQuery} from './Backend';
 
-export function mwsApiQuery(limitmin, answsize, math) {
+export function mwsApiQuery(limitmin :number, answsize:number, math:string) {
   const content = extractQuery(math);
   const header = new Headers({
     Accept: 'application/json',
@@ -18,7 +18,6 @@ export function mwsApiQuery(limitmin, answsize, math) {
     headers: header,
     body: JSON.stringify(body),
   };
-  // console.log(payload);
   return fetch('/mws/', payload)
     .then(response => {
       // console.log(response);

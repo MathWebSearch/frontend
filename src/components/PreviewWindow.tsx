@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import '../css/PreviewWindow.css';
 import {MathML} from './MathML';
 import {colors} from '../util/Colors';
@@ -10,9 +9,9 @@ import {colors} from '../util/Colors';
  * @param {string} mathstring the xml of the math that should be presented as
  * string
  */
-function colorVar(mathstring) {
+function colorVar(mathstring: string): string {
   const parser = new DOMParser();
-  let dict = [];
+  let dict: Array<string> = [];
   const doc = parser.parseFromString(mathstring, 'text/html');
   Array.prototype.forEach.call(doc.getElementsByTagName('*'), node => {
     // its based on the assumption the qvars are red
@@ -41,10 +40,17 @@ function colorVar(mathstring) {
     }
   });
 
-  return doc.activeElement.innerHTML;
+  if (doc.activeElement) {
+    return doc.activeElement.innerHTML;
+  }
+  throw new Error('no activeElement!');
 }
 
-export function PreviewWindow(props) {
+interface PreviewWindowProps {
+  mathstring: string;
+}
+
+export function PreviewWindow(props: PreviewWindowProps) {
   const {mathstring} = props;
   if ('' === mathstring) {
     return (
@@ -62,7 +68,3 @@ export function PreviewWindow(props) {
     </div>
   );
 }
-
-PreviewWindow.propTypes = {
-  mathstring: PropTypes.string.isRequired,
-};

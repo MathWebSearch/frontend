@@ -1,10 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import '../css/ExampleButton.css';
 import {examples} from '../config/examples';
 
-export default class ExampleButton extends React.Component {
-  state = {expanded: false};
+interface ExampleButtonState {
+  expanded: boolean;
+}
+interface ExampleButtonProps {
+  exampleInputHandler: any;
+  exampleSubmitHandler: any;
+}
+
+export default class ExampleButton extends React.Component<
+  ExampleButtonProps,
+  ExampleButtonState
+> {
+  state: ExampleButtonState = {expanded: false};
 
   toggle = () => {
     this.setState(({expanded}) => ({expanded: !expanded}));
@@ -13,7 +23,7 @@ export default class ExampleButton extends React.Component {
   close = () => {
     this.setState({expanded: false});
   };
-  closeand = fkt => event => {
+  closeand = (fkt: any) => (event: any) => {
     fkt(event);
     this.close();
   };
@@ -41,8 +51,3 @@ export default class ExampleButton extends React.Component {
     );
   }
 }
-
-ExampleButton.propTypes = {
-  exampleInputHandler: PropTypes.func.isRequired,
-  exampleSubmitHandler: PropTypes.func.isRequired,
-};

@@ -1,20 +1,34 @@
-import React from 'react';
+import * as React from 'react';
 import {ResultListEntry} from './ResultListEntry';
 import PropTypes from 'prop-types';
 import '../css/ResultList.css';
 
-export function ResultList(props) {
+const scrollMaxY = () => {
+  return (
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight
+  );
+};
+interface ResultListProps {
+  total: number;
+  clickHandler: any;
+  allEntries: any;
+  showMore: any;
+  aggrHandler: any;
+}
+
+export function ResultList(props: ResultListProps) {
   const {total, clickHandler, allEntries, showMore, aggrHandler} = props;
   const curlength = allEntries
-    .map(e => e['formulas'].length)
-    .reduce((acc, cur) => acc + cur, 0);
+    .map((e: any) => e['formulas'].length)
+    .reduce((acc: number, cur: number) => acc + cur, 0);
   return (
     <div className="ResultList">
       Showing {curlength} of <b>{total}</b> results in {allEntries.length} pages
       <div className="ResultListTopLine">
         <button
           onClick={() =>
-            allEntries.forEach(entry => {
+            allEntries.forEach((entry: any) => {
               const {key, active} = entry;
               if (active) {
                 clickHandler(key);
@@ -25,7 +39,7 @@ export function ResultList(props) {
         </button>
         <button
           onClick={() =>
-            allEntries.forEach(entry => {
+            allEntries.forEach((entry: any) => {
               const {key, active} = entry;
               if (!active) {
                 clickHandler(key);
@@ -34,15 +48,15 @@ export function ResultList(props) {
           }>
           Expand All
         </button>
-        {typeof window.scrollTo === 'function' && window.scrollMaxY ? (
-          <button onClick={() => window.scrollTo(0, window.scrollMaxY)}>
+        {typeof window.scrollTo === 'function' && !scrollMaxY() ? (
+          <button onClick={() => window.scrollTo(0, scrollMaxY())}>
             Go down
           </button>
         ) : null}
         <button onClick={aggrHandler}>Change Aggregation</button>
       </div>
       <div>
-        {allEntries.map(entry => {
+          {allEntries.map(( entry: any ) => {
           const {key, active, title, formulas} = entry;
           return (
             <ResultListEntry

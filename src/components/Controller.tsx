@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {SearchBar} from './Searchbar';
 import {convertQuery, searchQuery} from '../Backend';
 import {PreviewWindow} from './PreviewWindow';
@@ -12,8 +12,24 @@ import {ProgressBar} from './Progress';
  * to the presentation components.
  * */
 
-class Controller extends React.Component {
-  constructor(props) {
+interface resultListContent {
+  total: number;
+  allEntries: any;
+}
+
+interface State {
+  input_text: string | null;
+  input_formula: string | null;
+  resultListContent: resultListContent | null;
+  limitmin: number;
+  answsize: 30;
+  progress: any;
+  aggregation: string;
+  [key: string]: any;
+}
+
+class Controller extends React.Component<any, State> {
+  constructor(props: any) {
     super(props);
     this.state = {
       input_text: '',
@@ -27,7 +43,7 @@ class Controller extends React.Component {
 
     this.textinputHandler = this.textinputHandler.bind(this);
     this.sendSearchQuery = this.sendSearchQuery.bind(this);
-    this.toggleResultListEntry = this.toogleResultListEntry.bind(this);
+    this.toogleResultListEntry = this.toogleResultListEntry.bind(this);
     this.updateResultList = this.updateResultList.bind(this);
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
@@ -43,7 +59,7 @@ class Controller extends React.Component {
     if (location.length < 2) {
       return;
     }
-    const query = decodeURI(location.pop());
+    const query = decodeURI(location.pop() || '');
     this.setState({input_text: query});
     this.textinputHandler(query);
   }
@@ -66,7 +82,7 @@ class Controller extends React.Component {
     this.sendSearchQuery(0);
   }
 
-  textinputHandler(input_text) {
+  textinputHandler(input_text: string) {
     if (input_text === this.state.input_text) {
       return;
     }
@@ -80,24 +96,20 @@ class Controller extends React.Component {
     }
     this.setState({
       sendlatexmltimeout: setTimeout(() => {
-        this.updateInputText(this.state.input_text);
+        this.updateInputText(this.state.input_text || '');
         this.setState({sendlatexmltimeout: null});
       }, 1000),
     });
   }
 
-  updateInputText(input_text) {
+  updateInputText(input_text: string) {
     // i'll guess it is not nessecary to send this whitespaces to ltx
     this.sendLatexmlQuery(input_text.replace(/\s*$/, ''));
     this.setState({input_text: input_text});
-    window.history.pushState(
-      null,
-      null,
-      `?query-math=${encodeURI(input_text)}`,
-    );
+    window.history.pushState(null, '', `?query-math=${encodeURI(input_text)}`);
   }
 
-  async sendLatexmlQuery(input_text) {
+  async sendLatexmlQuery(input_text: string) {
     if ('' === input_text) {
       // not really nessecary to send an empty string to latexml
       this.setState({
@@ -127,9 +139,11 @@ class Controller extends React.Component {
     }
   }
 
-  toogleResultListEntry(key) {
+  toogleResultListEntry(key: number) {
     let newContent = this.state.resultListContent;
-    newContent.allEntries[key].active = !newContent.allEntries[key].active;
+    if (newContent) {
+      newContent.allEntries[key].active = !newContent.allEntries[key].active;
+    }
     this.setState({resultListContent: newContent});
   }
 
@@ -141,7 +155,7 @@ class Controller extends React.Component {
     return (
       <ResultList
         total={total}
-        clickHandler={this.toggleResultListEntry}
+        clickHandler={this.toogleResultListEntry}
         allEntries={Object.keys(allEntries).map(k => allEntries[k])}
         showMore={this.getMoreResults}
         aggrHandler={this.aggrHandler}
@@ -163,7 +177,7 @@ class Controller extends React.Component {
     this.sendSearchQuery(this.state.limitmin);
   }
 
-  submitSearchHandler(event) {
+  submitSearchHandler(event: Event) {
     if ('' === this.state.input_formula) {
       return;
     }
@@ -177,7 +191,7 @@ class Controller extends React.Component {
     event.preventDefault();
   }
 
-  async sendSearchQuery(limitmin) {
+  async sendSearchQuery(limitmin: number) {
     const {input_formula, answsize} = this.state;
     if (!input_formula) {
       return;
@@ -219,7 +233,7 @@ class Controller extends React.Component {
         {progress}
         {this.updatePreviewWindow()}
         <SearchBar
-          text={input_text}
+          text={input_text || ''}
           submitHandler={this.submitSearchHandler}
           inputHandler={this.textinputHandler}>
           <ExampleButton

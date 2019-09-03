@@ -14,6 +14,6 @@ const MWS_URL =
 
 module.exports = function(app) {
   app.use(proxy('/convert', {target: LATEXML_URL}));
-  app.use(proxy('/mws/', {target: MWSAPI_URL}));
+  app.use(proxy('/mws', {target: MWSAPI_URL}));
   app.use(proxy('/search', {target: MWS_URL}));
 };
