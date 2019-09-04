@@ -3,9 +3,9 @@ import {SearchBar} from './Searchbar';
 import {ltxclient, mwsclient} from '../Backend';
 import {PreviewWindow} from './PreviewWindow';
 import {ResultList} from './ResultList';
-import {MakeEntries} from '../util';
 import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
+import {IMWSClientResult, IFormulaHit} from '../Backend/client';
 
 /** The Controller should be the heart heart of this.
  * It should keep track of all the state and provides all the needed functions
@@ -14,7 +14,7 @@ import {ProgressBar} from './Progress';
 
 interface resultListContent {
   total: number;
-  allEntries: any;
+  allEntries: IFormulaHit[];
 }
 
 interface State {
@@ -43,14 +43,12 @@ class Controller extends React.Component<any, State> {
 
     this.textinputHandler = this.textinputHandler.bind(this);
     this.sendSearchQuery = this.sendSearchQuery.bind(this);
-    this.toogleResultListEntry = this.toogleResultListEntry.bind(this);
     this.updateResultList = this.updateResultList.bind(this);
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
     this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
-    this.aggrHandler = this.aggrHandler.bind(this);
   }
 
   componentDidMount() {
@@ -62,24 +60,6 @@ class Controller extends React.Component<any, State> {
     const query = decodeURI(location.pop() || '');
     this.setState({input_text: query});
     this.textinputHandler(query);
-  }
-
-  aggrHandler() {
-    // TODO in long term sight this is not that clever
-    // because we send a new request, i'll guess it would be better to change
-    // this in just reodering the results we already have but this needs a
-    // lil more restructuring
-    const {aggregation} = this.state;
-    let newAggregation = 'segment';
-    if (aggregation === 'segment') {
-      newAggregation = '';
-    }
-    this.setState({
-      resultListContent: null,
-      aggregation: newAggregation,
-      limitmin: 0,
-    });
-    this.sendSearchQuery(0);
   }
 
   textinputHandler(input_text: string) {
@@ -118,22 +98,13 @@ class Controller extends React.Component<any, State> {
       });
       return;
     }
-    try{
+    try {
       const input_formula = await ltxclient.fetchContent(input_text);
       this.setState({input_formula: input_formula});
-    }
-    catch(e){
+    } catch (e) {
       console.error(e);
       this.setState({input_formula: ''});
     }
-  }
-
-  toogleResultListEntry(key: number) {
-    let newContent = this.state.resultListContent;
-    if (newContent) {
-      newContent.allEntries[key].active = !newContent.allEntries[key].active;
-    }
-    this.setState({resultListContent: newContent});
   }
 
   updateResultList() {
@@ -144,9 +115,8 @@ class Controller extends React.Component<any, State> {
     return (
       <ResultList
         total={total}
-        allEntries={Object.keys(allEntries).map(k => allEntries[k])}
+        allEntries={allEntries}
         showMore={this.getMoreResults}
-        aggrHandler={this.aggrHandler}
       />
     );
   }
@@ -185,34 +155,22 @@ class Controller extends React.Component<any, State> {
       return;
     }
     this.setState({progress: <ProgressBar percent={33} />});
-    let json;
+    let result: IMWSClientResult;
     try {
-      // json = await searchQuery(limitmin, answsize, input_formula);
-      json = await mwsclient.fetchContent(input_formula, answsize, limitmin);
-      this.setState({progress: <ProgressBar percent={66} />});
-    } catch (e) {}
-
-    if (!json) {
-      return;
+      result = await mwsclient.fetchContent(input_formula, answsize, limitmin);
+      const {allEntries} = this.state.resultListContent || {};
+      this.setState({
+        progress: <ProgressBar percent={100} />,
+        limitmin: limitmin + answsize,
+        resultListContent: {
+          total: result.total,
+          allEntries: [...(allEntries || []), ...result.entries],
+        },
+        last_took: result.took,
+      });
+    } catch (e) {
+      console.log('sendSearchQuery failed');
     }
-    const hits = json['hits'] || [];
-    const qvars = json['qvars'] || [];
-    const {allEntries} = this.state.resultListContent || {};
-    const newContent = MakeEntries(
-      hits,
-      allEntries,
-      qvars,
-      this.state.aggregation,
-    );
-    this.setState({
-      progress: <ProgressBar percent={100} />,
-      limitmin: limitmin + answsize,
-      resultListContent: {
-        total: json['total'],
-        allEntries: newContent,
-      },
-      last_took: json.took,
-    });
   }
 
   render() {

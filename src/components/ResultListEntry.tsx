@@ -1,16 +1,18 @@
 import * as React from 'react';
 import '../css/ResultListEntry.css';
 import {expandContext} from './ResultList';
+import {IFormulaHit} from '../Backend/client.d';
+import FormulaHit from './FormulaHit';
 
 interface ResultListEntryProps {
   title: string;
-  formulas: Array<Function>;
+  formulahits: Array<IFormulaHit>;
 }
 /*
  * A single Entry in the result list can include multiple fromulahits
  * */
 export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
-  const {title, formulas} = props;
+  const {title, formulahits} = props;
   const [active, setValue] = React.useState<boolean>(false);
   const hook = React.useContext(expandContext);
   const toggleExpansion = () => {
@@ -22,7 +24,13 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
 
   let inner: React.ReactNode;
   if (active) {
-    inner = <div>{formulas.map((newMath: Function) => newMath())}</div>;
+    inner = (
+      <div>
+        {formulahits.map((entry: IFormulaHit, index: number) => (
+          <FormulaHit key={index} {...entry} />
+        ))}
+      </div>
+    );
   }
   return (
     <div className="ResultListEntry">

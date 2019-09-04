@@ -34,7 +34,11 @@ export class MWSClient extends Client {
     throw new Error('not jet implemented');
   }
 
-  async fetchContent(math: string, answsize: number, limitmin: number = 0) {
+  async fetchContent(
+    math: string,
+    answsize: number,
+    limitmin: number = 0,
+  ): Promise<IMWSClientResult> {
     const content = this.extractQuery(math);
     const payload = this.createPayload(content, answsize, limitmin);
     let json: JSON;
@@ -44,8 +48,7 @@ export class MWSClient extends Client {
       console.log('fetchContent in MWSClient failed', e);
       throw e;
     }
-    console.log(this.unpackJson(json));
-    return json;
+    return this.unpackJson(json);
   }
 }
 
@@ -67,15 +70,16 @@ export class MWSAPIClient extends MWSClient {
     const min = json['from'] || 0;
     let ret: Array<IFormulaHit> = [];
     const hits = json['hits'] || [];
-    hits.forEach((hit: any, index:number) => {
+    hits.forEach((hit: any, index: number) => {
       ret.push({
-        id: min + index, 
+        id: min + index,
+        local_id: hit.url,
         segment: hit.source.segment.replace(/\s+/, ' ').trim(),
         title: extractTitle(hit.source.metadata) || undefined,
         url: extractUrl(hit.math_ids[0].source),
         source: hit.math_ids[0].source,
         subterm: hit.math_ids[0].subterm,
-        subtermxpath: hit.math_ids[0].xpath,
+        xpath: hit.math_ids[0].xpath,
         substituitons: hit.math_ids[0].subst,
         queryvariablesxpath: qvars,
         text: hit.source.text,

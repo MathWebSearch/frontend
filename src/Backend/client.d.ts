@@ -16,7 +16,8 @@ export interface ISubstitution {
 }
 
 export interface IFormulaHit {
-  id:number;
+  id: number;
+  local_id: number;
   /** the document the hit comes fromt*/
   segment: string;
   /** the title from metadata */
@@ -28,7 +29,7 @@ export interface IFormulaHit {
   /** the mathml for the subterm that was hit with the searchquery  */
   subterm: string;
   /** the xpath to subterm in source */
-  subtermxpath: string;
+  xpath: string;
   /** Array of the terms of subsitions */
   substituitons: ISubstitutions;
   /** Query variables xpath */
