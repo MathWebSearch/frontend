@@ -2,7 +2,7 @@ import * as React from 'react';
 import {SearchBar} from './Searchbar';
 import {ltxclient, mwsclient} from '../Backend';
 import {PreviewWindow} from './PreviewWindow';
-import {ResultList} from './ResultList';
+import ResultList from './ResultList';
 import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
 import {IMWSClientResult, IFormulaHit} from '../Backend/client';
@@ -43,7 +43,6 @@ class Controller extends React.Component<any, State> {
 
     this.textinputHandler = this.textinputHandler.bind(this);
     this.sendSearchQuery = this.sendSearchQuery.bind(this);
-    this.updateResultList = this.updateResultList.bind(this);
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
@@ -107,19 +106,6 @@ class Controller extends React.Component<any, State> {
     }
   }
 
-  updateResultList() {
-    if (!this.state.resultListContent) {
-      return null;
-    }
-    const {total, allEntries} = this.state.resultListContent;
-    return (
-      <ResultList
-        total={total}
-        allEntries={allEntries}
-        showMore={this.getMoreResults}
-      />
-    );
-  }
   updatePreviewWindow() {
     const {input_formula} = this.state;
     if (null === input_formula) {
@@ -174,7 +160,7 @@ class Controller extends React.Component<any, State> {
   }
 
   render() {
-    const {input_text, progress, last_took} = this.state;
+    const {input_text, progress, last_took, resultListContent} = this.state;
     return (
       <div className="Controller">
         {progress}
@@ -188,14 +174,15 @@ class Controller extends React.Component<any, State> {
             exampleSubmitHandler={this.submitSearchHandler}
           />
         </SearchBar>
-
         <br style={{clear: 'both'}} />
         {last_took ? (
           <div className="Stats">{`Last Query took ${(last_took / 10e9).toFixed(
             4,
           )} seconds`}</div>
         ) : null}
-        {this.updateResultList()}
+        {resultListContent ? (
+          <ResultList {...resultListContent} showMore={this.getMoreResults} />
+        ) : null}
       </div>
     );
   }

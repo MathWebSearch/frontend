@@ -42,7 +42,7 @@ export const expandContext = React.createContext(false);
 
 type Taggregation = 'None' | 'Title';
 
-export function ResultList(props: ResultListProps): JSX.Element {
+export default function ResultList(props: ResultListProps): JSX.Element | null {
   const {total, allEntries, showMore} = props;
   const curlength = allEntries.length;
   const [expandAll, setExpandAll] = React.useState();
@@ -58,6 +58,10 @@ export function ResultList(props: ResultListProps): JSX.Element {
   const [aggregation, setAggregation] = React.useState<Taggregation>('None');
   const toggleAggregation = () =>
     aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
+  if (!allEntries) {
+    return null;
+  }
+
   return (
     <expandContext.Provider value={expandAll}>
       <div className="ResultList">
