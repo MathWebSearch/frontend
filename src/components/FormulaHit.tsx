@@ -22,7 +22,7 @@ interface FromulaHitProps {
   text: string;
   qvars: any;
 }
-export default function FormulaHit(props: FromulaHitProps) {
+export default function FormulaHit(props: FromulaHitProps) :JSX.Element {
   const {hit, text, qvars} = props;
   const url = extractUrl(hit.source);
   const local_id = hit.url;

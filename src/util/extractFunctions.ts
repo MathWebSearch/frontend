@@ -13,12 +13,12 @@ function extractUrl(source: string): string {
 }
 
 function extractTitle(metastring: string) {
-  const htmlDoc = parser.parseFromString(metastring, 'text/html');
   try {
+    const htmlDoc = parser.parseFromString(metastring, 'text/html');
     const title = htmlDoc.getElementsByTagName('title')[0].innerText;
-    return title;
+    return title.replace(/\n/g, '').trim();
   } catch {
-    return null;
+    return '';
   }
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../css/MathML.css';
-const MathJax = require('react-mathjax-preview');
+import MathJax from 'react-mathjax-preview';
 
 interface MathMLProps {
   mathstring: string;
