@@ -144,7 +144,6 @@ class Controller extends React.Component<any, State> {
     return (
       <ResultList
         total={total}
-        clickHandler={this.toogleResultListEntry}
         allEntries={Object.keys(allEntries).map(k => allEntries[k])}
         showMore={this.getMoreResults}
         aggrHandler={this.aggrHandler}
