@@ -1,9 +1,15 @@
 import {Client} from './Client';
 import {find_attribute_value} from '../util/simpleXpath';
-import {Ipayload, IFormulaHit, Iqvar, IMWSClientResult} from './client';
+import {
+  Ipayload,
+  IFormulaHit,
+  Iqvar,
+  IMWSClientResult,
+  IMWSAPIResponse,
+} from './client';
 import {extractTitle, extractUrl} from '../util/extractFunctions';
 
-export class MWSClient extends Client {
+export class MWSClient<ResponseType> extends Client {
   constructor(url: string) {
     super(url, 'POST');
   }
@@ -30,7 +36,7 @@ export class MWSClient extends Client {
     };
   }
 
-  unpackJson(json: JSON): IMWSClientResult {
+  unpackJson(json: ResponseType): IMWSClientResult {
     throw new Error('not jet implemented');
   }
 
@@ -41,7 +47,7 @@ export class MWSClient extends Client {
   ): Promise<IMWSClientResult> {
     const content = this.extractQuery(math);
     const payload = this.createPayload(content, answsize, limitmin);
-    let json: JSON;
+    let json: ResponseType;
     try {
       json = await this.sendJson(payload);
     } catch (e) {
@@ -55,7 +61,7 @@ export class MWSClient extends Client {
 /**
  * class for interaction with MWSAPI
  * */
-export class MWSAPIClient extends MWSClient {
+export class MWSAPIClient extends MWSClient<IMWSAPIResponse> {
   private header: Headers;
   constructor(url: string) {
     super(url);
@@ -65,15 +71,16 @@ export class MWSAPIClient extends MWSClient {
     });
   }
 
-  unpackJson(json: JSON): IMWSClientResult {
-    const qvars: Iqvar[] = json['qvars'] || [];
-    const min = json['from'] || 0;
+  unpackJson(json: IMWSAPIResponse): IMWSClientResult {
+    console.log(json);
+    const qvars: Iqvar[] = json.qvars || [];
+    const min = json.from || 0;
     let ret: Array<IFormulaHit> = [];
-    const hits = json['hits'] || [];
+    const hits = json.hits || [];
     hits.forEach((hit: any, index: number) => {
       ret.push({
         id: min + index,
-        local_id: hit.url,
+        local_id: hit.math_ids[0].url,
         segment: hit.source.segment.replace(/\s+/, ' ').trim(),
         title: extractTitle(hit.source.metadata) || undefined,
         url: extractUrl(hit.math_ids[0].source),
@@ -86,7 +93,7 @@ export class MWSAPIClient extends MWSClient {
       });
     });
 
-    return {total: json['total'], entries: ret, took: json['took']};
+    return {total: json.total, entries: ret, took: json.took};
   }
 
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {

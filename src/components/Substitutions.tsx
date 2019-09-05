@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {colors} from '../util/Colors';
+import {colors} from '../config/Colors';
 import {MathML} from './MathML';
 import PropTypes from 'prop-types';
 

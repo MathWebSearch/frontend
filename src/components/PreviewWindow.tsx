@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../css/PreviewWindow.css';
 import {MathML} from './MathML';
-import {colors} from '../util/Colors';
+import {colors} from '../config/Colors';
 /**
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color

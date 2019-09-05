@@ -29,6 +29,9 @@ const goUpButton = (): React.ReactNode =>
  */
 export const expandContext = React.createContext(undefined);
 
+interface Ipartition {
+  [title: string]: IFormulaHit[];
+}
 type Taggregation = 'None' | 'Title';
 /*
  * creates an array of ResultListEntries based on the choosen aggregation
@@ -39,12 +42,16 @@ function aggregate(
 ): React.ReactNodeArray {
   switch (kind) {
     case 'Title':
-      let partition = {};
+      let partition: Ipartition = {};
       for (let entry of allEntries) {
-        if (!partition[entry.title || entry.segment]) {
-          partition[entry.title || entry.segment] = [];
+        const title= entry.title || entry.segment;
+        if (!title) {
+          continue;
         }
-        partition[entry.title || entry.segment].push(entry);
+        if (!partition[title]) {
+          partition[title] = [];
+        }
+        partition[title].push(entry);
       }
       return Object.keys(partition).map((title: string, index: number) => (
         <ResultListEntry

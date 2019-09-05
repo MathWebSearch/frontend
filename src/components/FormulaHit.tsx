@@ -22,6 +22,7 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
   } = props;
   const newsource = highlightFormula(source, subterm, qvars);
   const context = extractSurroundingWords(text, `math${local_id}`);
+  console.log(context);
   return (
     <div className="Content">
       <span className="FlexContainer">
@@ -43,7 +44,6 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
           rel="noopener noreferrer"
           onClick={ev => {
             ev.stopPropagation();
-            /*keeps it active even if clicked the link*/
           }}>
           Go to source
         </a>

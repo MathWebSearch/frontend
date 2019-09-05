@@ -6,6 +6,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -13,8 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": true
   },
   "include": ["src"]
 }

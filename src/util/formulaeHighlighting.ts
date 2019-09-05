@@ -1,11 +1,12 @@
 import {extractXMLID} from './extractFunctions';
-import {colors} from './Colors';
+import {colors} from '../config/Colors';
 import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
+import {Iqvar} from '../Backend/client.d';
 
 /**
  * sort function to sort qvars alphabetical by there name
  * */
-const sortbyename = (a, b) => {
+const sortbyename = (a: Iqvar, b: Iqvar): number => {
   if (a.name < b.name) {
     return -1;
   }
@@ -15,7 +16,18 @@ const sortbyename = (a, b) => {
   return 0;
 };
 
-function findandcolorQvar(xmlID, qvars, sourceDoc) {
+/**
+ *  Function to the substituions of the queryvariables in sourceDoc and color the in diffrent
+ *  colors accordingly to the colors in Colors.js
+ **/
+interface Icolormap {
+  [name: string]: number;
+}
+function findandcolorQvar(
+  xmlID: string,
+  qvars: Array<Iqvar>,
+  sourceDoc: HTMLDocument,
+) {
   // search the right cmml node
   const node = find_attribute_value(sourceDoc, 'xref', xmlID);
   if (!node) {
@@ -23,10 +35,9 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
   }
   // lookup table for colors, that the same variable gets always the same
   // color
-  let dict = {};
-  // sort to get a deterministic order for the colors
+  let dict: Icolormap = {};
   qvars.sort(sortbyename);
-  // console.log(qvars);
+
   qvars.forEach(entry => {
     const {name, xpath} = entry;
     let curr = getElementBySimpleXpath(xpath, node);
@@ -44,10 +55,15 @@ function findandcolorQvar(xmlID, qvars, sourceDoc) {
   });
 }
 
-export function highlightFormula(source, subterm, qvars) {
-  // new way to highlight the right part of subterm:
-  // find the xmlid of the subterm and look for that xmlid in the source and
-  // highlight it
+/*
+ * function to apply the highlighting of subterm in source and coloring the
+ * qvars in the right color
+ * */
+export function highlightFormula(
+  source: string,
+  subterm: string,
+  qvars: Array<Iqvar>,
+): string {
   try {
     const xmlID = extractXMLID(subterm);
     const parser = new DOMParser();

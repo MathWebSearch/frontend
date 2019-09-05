@@ -1,4 +1,5 @@
 import {Client} from './Client';
+import {ILTXResponse} from './client.d';
 
 /*
  * this is the class to send the conversion queries to latexml
@@ -17,18 +18,19 @@ export class LTXClient extends Client {
     payload.append('tex', `$${literal}$`);
     return payload;
   }
+
   async fetchContent(literal: string): Promise<string> {
     const payload = this.createUrlParams(literal);
-    let json: JSON;
+    let json: ILTXResponse;
     try {
       json = await this.sendJson({body: payload});
     } catch (e) {
       console.log('fetchContent in LTXClient failed', e);
       throw e;
     }
-    if (json['status_code']!== 0) {
-      throw new Error(json['status']);
+    if (json.status_code !== 0) {
+      throw new Error(json.status);
     }
-    return json['result'];
+    return json.result;
   }
 }

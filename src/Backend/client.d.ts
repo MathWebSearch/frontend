@@ -43,3 +43,20 @@ export interface IMWSClientResult {
   entries: Array<IFormulaHit>;
   took?: number;
 }
+
+export interface ILTXResponse {
+  status_code: number;
+  log: string;
+  result: string;
+  status: string;
+}
+export interface IMWSAPIResponse {
+  from: number;
+  qvars: Array<Iqvars>;
+  hits: Array<any>;
+  took: number;
+  kind: string;
+  stats: any;
+  total: number;
+  size: number;
+}

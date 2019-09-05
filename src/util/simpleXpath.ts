@@ -1,9 +1,9 @@
-export function getElementBySimpleXpath(xpath, element) {
+export function getElementBySimpleXpath(xpath:string , element: any) {
   try {
     let elem = element;
     let xpatharr = convertXpath(xpath);
     while (xpatharr.length > 0) {
-      let n = xpatharr.shift();
+      let n = xpatharr.shift() || -1;
       // TODO: not sure why this happens but sometimes it take s a wrong way
       if (n < elem.children.length) {
         elem = elem.children[n];
@@ -31,7 +31,7 @@ export function getElementBySimpleXpath(xpath, element) {
  * @return {array} index
  * */
 
-export function convertXpath(xpath) {
+export function convertXpath(xpath: string) :Array<number> {
   let xpatharr = xpath
     .split('/')
     .join('')
@@ -41,10 +41,9 @@ export function convertXpath(xpath) {
     .join('')
     .split('*');
   xpatharr.shift();
-  xpatharr = xpatharr.map(function(e) {
+  return xpatharr.map(function(e) {
     return parseInt(e) - 1; //xpath is one-based
   });
-  return xpatharr;
 }
 
 /**
@@ -55,7 +54,7 @@ export function convertXpath(xpath) {
  * @retrun node
  *
  * */
-export function find_attribute_value(doc, attribute, value) {
+export function find_attribute_value(doc:HTMLDocument, attribute:string, value:string) : HTMLElement {
   const node = Array.prototype.find.call(doc.getElementsByTagName('*'), e => {
     return e.getAttribute(attribute) === value;
   });

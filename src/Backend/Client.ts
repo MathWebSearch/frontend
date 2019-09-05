@@ -1,12 +1,12 @@
 /**
- * this should be the base class for all the backend queries 
+ * this should be the base class for all the backend queries
  * */
 import 'isomorphic-fetch';
 import {Ipayload} from './client.d';
 export abstract class Client {
   constructor(public url: string, public method: string = 'POST') {}
 
-  async sendJson(payload: Ipayload): Promise<JSON> {
+  async sendJson<T>(payload: Ipayload): Promise<T> {
     const data = {
       method: this.method,
       ...payload,

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Progress from 'react-progress';
+const Progress = require('react-progress');
 
-interface Props{
-    percent: number;
+interface Props {
+  percent: number;
 }
 export class ProgressBar extends React.Component<Props, {}> {
   render() {
