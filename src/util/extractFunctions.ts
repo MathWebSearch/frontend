@@ -46,7 +46,6 @@ function extractSurroundingWords(
   const index = textsplit.findIndex(e => e.match(new RegExp(`.*${mathid}.*`)));
   let before: string[] = [];
   let after: string[] = [];
-    console.log('no index', mathid);
   if (-1 === index) {
     return {before, after};
   }

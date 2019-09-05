@@ -72,7 +72,6 @@ export class MWSAPIClient extends MWSClient<IMWSAPIResponse> {
   }
 
   unpackJson(json: IMWSAPIResponse): IMWSClientResult {
-    console.log(json);
     const qvars: Iqvar[] = json.qvars || [];
     const min = json.from || 0;
     let ret: Array<IFormulaHit> = [];

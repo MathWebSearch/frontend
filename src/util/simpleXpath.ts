@@ -3,7 +3,7 @@ export function getElementBySimpleXpath(xpath:string , element: any) {
     let elem = element;
     let xpatharr = convertXpath(xpath);
     while (xpatharr.length > 0) {
-      let n = xpatharr.shift() || -1;
+      let n = xpatharr.shift() || 0;
       // TODO: not sure why this happens but sometimes it take s a wrong way
       if (n < elem.children.length) {
         elem = elem.children[n];

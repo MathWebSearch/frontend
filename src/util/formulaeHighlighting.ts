@@ -33,8 +33,7 @@ function findandcolorQvar(
   if (!node) {
     return;
   }
-  // lookup table for colors, that the same variable gets always the same
-  // color
+  /** lookup table for colors, that the same variable gets always the same color*/
   let dict: Icolormap = {};
   qvars.sort(sortbyename);
 
