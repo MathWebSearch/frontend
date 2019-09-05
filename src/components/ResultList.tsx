@@ -3,21 +3,67 @@ import {ResultListEntry} from './ResultListEntry';
 import '../css/ResultList.css';
 import {IFormulaHit} from '../Backend/client.d';
 
-const scrollMaxY = () => {
+/**
+ *  function to detect if there is need for scrolling
+ * */
+const scrollMaxY = (): number => {
   return (
     document.documentElement.scrollHeight -
     document.documentElement.clientHeight
   );
 };
-
-const goDown = () =>
+/*
+ * function to return a button to go Up or down if possible
+ * */
+const goDownButton = (): React.ReactNode =>
   typeof window.scrollTo === 'function' ? (
     <button onClick={() => window.scrollTo(0, scrollMaxY())}>Go down</button>
   ) : null;
-const goUp = () =>
+const goUpButton = (): React.ReactNode =>
   typeof window.scrollTo === 'function' ? (
     <button onClick={() => window.scrollTo(0, 0)}>Go up</button>
   ) : null;
+
+/**
+ * Context to propagate if expandall/closeall was clicked
+ */
+export const expandContext = React.createContext(undefined);
+
+type Taggregation = 'None' | 'Title';
+/*
+ * creates an array of ResultListEntries based on the choosen aggregation
+ * */
+function aggregate(
+  allEntries: IFormulaHit[],
+  kind: Taggregation = 'None',
+): React.ReactNodeArray {
+  switch (kind) {
+    case 'Title':
+      let partition = {};
+      for (let entry of allEntries) {
+        if (!partition[entry.title || entry.segment]) {
+          partition[entry.title || entry.segment] = [];
+        }
+        partition[entry.title || entry.segment].push(entry);
+      }
+      return Object.keys(partition).map((title: string, index: number) => (
+        <ResultListEntry
+          key={index}
+          title={title}
+          formulahits={partition[title]}
+        />
+      ));
+    case 'None':
+    default:
+      return allEntries.map((entry: IFormulaHit, index: number) => (
+        <ResultListEntry
+          key={index}
+          title={entry.title || entry.segment}
+          formulahits={[entry]}
+        />
+      ));
+  }
+}
 
 interface ResultListProps {
   total: number;
@@ -25,23 +71,10 @@ interface ResultListProps {
   showMore: any;
 }
 
-const createPartition = (allEntries: IFormulaHit[]): React.ReactNodeArray => {
-  let partition = {};
-  for (let entry of allEntries) {
-    if (!partition[entry.title || entry.segment]) {
-      partition[entry.title || entry.segment] = [];
-    }
-    partition[entry.title || entry.segment].push(entry);
-  }
-  return Object.keys(partition).map((title: string, index: number) => (
-    <ResultListEntry key={index} title={title} formulahits={partition[title]} />
-  ));
-};
-
-export const expandContext = React.createContext(false);
-
-type Taggregation = 'None' | 'Title';
-
+/*
+ * Function component the displays the results as List
+ * has as state the aggregation and if the expandAll/closeall was clicked
+ * */
 export default function ResultList(props: ResultListProps): JSX.Element | null {
   const {total, allEntries, showMore} = props;
   const curlength = allEntries.length;
@@ -55,7 +88,7 @@ export default function ResultList(props: ResultListProps): JSX.Element | null {
     setTimeout(() => setExpandAll(undefined), 10);
   };
 
-  const [aggregation, setAggregation] = React.useState<Taggregation>('None');
+  const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
   const toggleAggregation = () =>
     aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
   if (!allEntries) {
@@ -70,25 +103,15 @@ export default function ResultList(props: ResultListProps): JSX.Element | null {
         <div className="ResultListTopLine">
           <button onClick={close}>Close All</button>
           <button onClick={exp}>Expand All</button>
-          {goDown()}
+          {goDownButton()}
           <button onClick={toggleAggregation}>Change Aggregation</button>
         </div>
-        <div>
-          {aggregation === 'None'
-            ? allEntries.map((entry: IFormulaHit, index: number) => (
-                <ResultListEntry
-                  key={index}
-                  title={entry.title || entry.segment}
-                  formulahits={[entry]}
-                />
-              ))
-            : createPartition(allEntries)}
-        </div>
+        <>{aggregate(allEntries, aggregation)}</>
         <div className="ButtonList">
           <button onClick={showMore} disabled={curlength >= total}>
             Show More
           </button>
-          {goUp()}
+          {goUpButton()}
         </div>
       </div>
     </expandContext.Provider>

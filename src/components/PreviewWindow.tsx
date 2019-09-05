@@ -50,7 +50,7 @@ interface PreviewWindowProps {
   mathstring: string;
 }
 
-export function PreviewWindow(props: PreviewWindowProps) {
+export function PreviewWindow(props: PreviewWindowProps) : JSX.Element {
   const {mathstring} = props;
   if ('' === mathstring) {
     return (

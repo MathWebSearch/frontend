@@ -4,7 +4,7 @@ import kwarc from '../img/kwarc_logo.png';
 import fau from '../img/fau_logo.png';
 import odk from '../img/odk_logo.png';
 
-export function Footer() {
+export function Footer(): JSX.Element{
   return (
     <div className="Footer">
       <div>

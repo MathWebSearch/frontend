@@ -3,7 +3,6 @@ import {SearchBar} from './Searchbar';
 import {ltxclient, mwsclient} from '../Backend';
 import {PreviewWindow} from './PreviewWindow';
 import ResultList from './ResultList';
-import ExampleButton from './ExampleButton';
 import {ProgressBar} from './Progress';
 import {IMWSClientResult, IFormulaHit} from '../Backend/client';
 
@@ -46,7 +45,6 @@ class Controller extends React.Component<any, State> {
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
     this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
-    this.updatePreviewWindow = this.updatePreviewWindow.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
   }
 
@@ -106,14 +104,6 @@ class Controller extends React.Component<any, State> {
     }
   }
 
-  updatePreviewWindow() {
-    const {input_formula} = this.state;
-    if (null === input_formula) {
-      return null;
-    }
-    return <PreviewWindow mathstring={input_formula} />;
-  }
-
   getMoreResults() {
     if (!this.state.resultListContent) {
       return;
@@ -160,19 +150,15 @@ class Controller extends React.Component<any, State> {
   }
 
   render() {
-    const {input_text, progress, last_took, resultListContent} = this.state;
+    const {input_text, input_formula, progress, last_took, resultListContent} = this.state;
     return (
       <div className="Controller">
         {progress}
-        {this.updatePreviewWindow()}
+        {input_formula ? <PreviewWindow mathstring={input_formula} /> : null}
         <SearchBar
           text={input_text || ''}
           submitHandler={this.submitSearchHandler}
           inputHandler={this.textinputHandler}>
-          <ExampleButton
-            exampleInputHandler={this.updateInputText}
-            exampleSubmitHandler={this.submitSearchHandler}
-          />
         </SearchBar>
         <br style={{clear: 'both'}} />
         {last_took ? (

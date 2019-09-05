@@ -3,6 +3,15 @@
   display: inline-block;
 }
 
+.DropDownactive {
+  position: relative;
+  display: inline-block;
+}
+
+.DropDownactive .DropDownContent {
+  display: block;
+}
+
 .DropDownbtn {
   background-color: #4caf50;
   color: white;
@@ -29,10 +38,6 @@
 }
 .DropDownContent div:hover {
   background-color: #ddd;
-}
-
-.DropDown.active .DropDownContent {
-  display: block;
 }
 
 .DropDown:hover .DropDownbtn {
