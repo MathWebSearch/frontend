@@ -5,6 +5,7 @@ import {PreviewWindow} from './PreviewWindow';
 import ResultList from './ResultList';
 import {ProgressBar} from './Progress';
 import {IMWSClientResult, IFormulaHit} from '../Backend/client';
+import {debounce} from '../util/Debounce';
 
 /** The Controller should be the heart heart of this.
  * It should keep track of all the state and provides all the needed functions
@@ -23,7 +24,6 @@ interface State {
   limitmin: number;
   answsize: number;
   progress: any;
-  aggregation: string;
   [key: string]: any;
 }
 
@@ -37,10 +37,10 @@ class Controller extends React.Component<any, State> {
       limitmin: 0,
       answsize: 30,
       progress: null,
-      aggregation: 'segment',
     };
 
-    this.textinputHandler = this.textinputHandler.bind(this);
+    /*debounce the ltx query */
+    this.sendLatexmlQuery = debounce(this.sendLatexmlQuery, 1000);
     this.sendSearchQuery = this.sendSearchQuery.bind(this);
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
@@ -56,31 +56,13 @@ class Controller extends React.Component<any, State> {
     }
     const query = decodeURI(location.pop() || '');
     this.setState({input_text: query});
-    this.textinputHandler(query);
-  }
-
-  textinputHandler(input_text: string) {
-    if (input_text === this.state.input_text) {
-      return;
-    }
-
-    // this should prevent that for every charakter that is typed in a
-    // latexmlquery is send. Instead there only every second there is an
-    // latexmlquery send, this hopfully reduceds the traffic
-    this.setState({input_text: input_text, input_formula: ''});
-    if (this.state.sendlatexmltimeout) {
-      clearTimeout(this.state.sendlatexmltimeout);
-    }
-    this.setState({
-      sendlatexmltimeout: setTimeout(() => {
-        this.updateInputText(this.state.input_text || '');
-        this.setState({sendlatexmltimeout: null});
-      }, 1000),
-    });
+    this.updateInputText(query);
   }
 
   updateInputText(input_text: string) {
-    // i'll guess it is not nessecary to send this whitespaces to ltx
+    if (input_text === this.state.input_text) {
+      return;
+    }
     this.sendLatexmlQuery(input_text.replace(/\s*$/, ''));
     this.setState({input_text: input_text, input_formula: ''});
     window.history.pushState(null, '', `?query-math=${encodeURI(input_text)}`);
@@ -145,7 +127,7 @@ class Controller extends React.Component<any, State> {
         last_took: result.took,
       });
     } catch (e) {
-      console.log('sendSearchQuery failed');
+      console.error('sendSearchQuery failed', e);
     }
   }
 
@@ -164,7 +146,7 @@ class Controller extends React.Component<any, State> {
         <SearchBar
           text={input_text || ''}
           submitHandler={this.submitSearchHandler}
-          inputHandler={this.textinputHandler}
+          inputHandler={this.updateInputText}
         />
         <br style={{clear: 'both'}} />
         {last_took ? (
