@@ -3,8 +3,8 @@ import {MWSClient, MWSAPIClient} from './MWSClient';
 
 const mwsclient =
   process.env.REACT_APP_MWS_MODE === 'API'
-    ? new MWSAPIClient('/mws/')
-    : new MWSClient('/search');
+    ? new MWSAPIClient()
+    : new MWSClient();
 
 const ltxclient = new LTXClient('/convert');
 

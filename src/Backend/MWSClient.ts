@@ -10,7 +10,7 @@ import {
 import {extractTitle, extractUrl} from '../util/extractFunctions';
 
 export class MWSClient<ResponseType> extends Client {
-  constructor(url: string) {
+  constructor(url: string = '/mws') {
     super(url, 'POST');
   }
   extractQuery(math: string): string {
@@ -51,7 +51,7 @@ export class MWSClient<ResponseType> extends Client {
     try {
       json = await this.sendJson(payload);
     } catch (e) {
-      console.log('fetchContent in MWSClient failed', e);
+      console.log(`fetchContent in ${this.constructor.name} failed`, e);
       throw e;
     }
     return this.unpackJson(json);
@@ -63,7 +63,7 @@ export class MWSClient<ResponseType> extends Client {
  * */
 export class MWSAPIClient extends MWSClient<IMWSAPIResponse> {
   private header: Headers;
-  constructor(url: string) {
+  constructor(url: string = '/mws/') {
     super(url);
     this.header = new Headers({
       Accept: 'application/json',

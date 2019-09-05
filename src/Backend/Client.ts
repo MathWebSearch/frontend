@@ -1,8 +1,9 @@
+import 'isomorphic-fetch';
+import {Ipayload} from './client.d';
+
 /**
  * this should be the base class for all the backend queries
  * */
-import 'isomorphic-fetch';
-import {Ipayload} from './client.d';
 export abstract class Client {
   constructor(public url: string, public method: string = 'POST') {}
 
