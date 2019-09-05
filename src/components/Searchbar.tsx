@@ -10,6 +10,10 @@ interface Props {
   inputHandler: any;
 }
 
+/*
+* The search with the buttons
+* */
+
 export class SearchBar extends React.Component<Props, {}> {
   textInput: any;
   constructor(props: Props) {

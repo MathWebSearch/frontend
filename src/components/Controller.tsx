@@ -67,7 +67,7 @@ class Controller extends React.Component<any, State> {
     // this should prevent that for every charakter that is typed in a
     // latexmlquery is send. Instead there only every second there is an
     // latexmlquery send, this hopfully reduceds the traffic
-    this.setState({input_text: input_text});
+    this.setState({input_text: input_text, input_formula: ''});
     if (this.state.sendlatexmltimeout) {
       clearTimeout(this.state.sendlatexmltimeout);
     }
@@ -82,7 +82,7 @@ class Controller extends React.Component<any, State> {
   updateInputText(input_text: string) {
     // i'll guess it is not nessecary to send this whitespaces to ltx
     this.sendLatexmlQuery(input_text.replace(/\s*$/, ''));
-    this.setState({input_text: input_text});
+    this.setState({input_text: input_text, input_formula: ''});
     window.history.pushState(null, '', `?query-math=${encodeURI(input_text)}`);
   }
 
@@ -150,7 +150,13 @@ class Controller extends React.Component<any, State> {
   }
 
   render() {
-    const {input_text, input_formula, progress, last_took, resultListContent} = this.state;
+    const {
+      input_text,
+      input_formula,
+      progress,
+      last_took,
+      resultListContent,
+    } = this.state;
     return (
       <div className="Controller">
         {progress}
@@ -158,8 +164,8 @@ class Controller extends React.Component<any, State> {
         <SearchBar
           text={input_text || ''}
           submitHandler={this.submitSearchHandler}
-          inputHandler={this.textinputHandler}>
-        </SearchBar>
+          inputHandler={this.textinputHandler}
+        />
         <br style={{clear: 'both'}} />
         {last_took ? (
           <div className="Stats">{`Last Query took ${(last_took / 10e9).toFixed(

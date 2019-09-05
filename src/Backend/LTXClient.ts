@@ -4,7 +4,6 @@ import {ILTXResponse} from './client.d';
 /*
  * this is the class to send the conversion queries to latexml
  * */
-
 export class LTXClient extends Client {
   constructor(url: string) {
     super(url, 'POST');

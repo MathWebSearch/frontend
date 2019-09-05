@@ -6,8 +6,9 @@ import {colors} from '../config/Colors';
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color
  *
- * @param {string} mathstring the xml of the math that should be presented as
+ * @param  mathstring the xml of the math that should be presented as
  * string
+ * @return mathml as string with colored variables
  */
 function colorVar(mathstring: string): string {
   const parser = new DOMParser();
@@ -49,8 +50,11 @@ function colorVar(mathstring: string): string {
 interface PreviewWindowProps {
   mathstring: string;
 }
-
-export function PreviewWindow(props: PreviewWindowProps) : JSX.Element {
+/**
+* Function component that shows mathml equations
+* @param mathstring the string that should be showed
+* */
+export function PreviewWindow(props: PreviewWindowProps): JSX.Element {
   const {mathstring} = props;
   if ('' === mathstring) {
     return (
