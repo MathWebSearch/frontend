@@ -44,7 +44,7 @@ function aggregate(
     case 'Title':
       let partition: Ipartition = {};
       for (let entry of allEntries) {
-        const title= entry.title || entry.segment;
+        const title = entry.title || entry.segment;
         if (!title) {
           continue;
         }
@@ -96,8 +96,11 @@ export default function ResultList(props: ResultListProps): JSX.Element | null {
   };
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
-  const toggleAggregation = () =>
+  const toggleAggregation = () => {
+    /* first close every thing */
+    close();
     aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
+  };
   if (!allEntries) {
     return null;
   }

@@ -41,10 +41,10 @@ class Controller extends React.Component<any, State> {
 
     /*debounce the ltx query */
     this.sendLatexmlQuery = debounce(this.sendLatexmlQuery, 1000);
+    this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
     this.sendSearchQuery = this.sendSearchQuery.bind(this);
     this.submitSearchHandler = this.submitSearchHandler.bind(this);
     this.getMoreResults = this.getMoreResults.bind(this);
-    this.sendLatexmlQuery = this.sendLatexmlQuery.bind(this);
     this.updateInputText = this.updateInputText.bind(this);
   }
 
