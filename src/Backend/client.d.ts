@@ -27,11 +27,11 @@ export interface IFormulaHit {
   /** the mathml for the complete formula */
   source: string;
   /** the mathml for the subterm that was hit with the searchquery  */
-  subterm: string;
+  subterm?: string;
   /** the xpath to subterm in source */
   xpath: string;
   /** Array of the terms of subsitions */
-  substituitons: ISubstitutions;
+  substituitons?: ISubstitutions;
   /** Query variables xpath */
   queryvariablesxpath: Array<Iqvar>;
   /** the text from the document */
@@ -50,13 +50,21 @@ export interface ILTXResponse {
   result: string;
   status: string;
 }
-export interface IMWSAPIResponse {
-  from: number;
+
+export interface IResponseType {
+  from?: number; /*limitmin that i will add if it is not in */
   qvars: Array<Iqvars>;
   hits: Array<any>;
+  total: number;
+}
+
+export interface IMWSAPIResponse extends IResponseType{
   took: number;
   kind: string;
   stats: any;
-  total: number;
   size: number;
+}
+
+export interface IMWSResponse extends IResponseType{
+  time: number /* time in ms time in ms?*/;
 }

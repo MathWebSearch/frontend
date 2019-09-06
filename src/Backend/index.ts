@@ -1,5 +1,5 @@
 import {LTXClient} from './LTXClient';
-import {MWSClient, MWSAPIClient} from './MWSClient';
+import {MWSAPIClient, MWSClient} from './MWSClient';
 
 const mwsclient =
   process.env.REACT_APP_MWS_MODE === 'API'

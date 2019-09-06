@@ -8,6 +8,8 @@ import {IFormulaHit} from '../Backend/client.d';
 
 /**
  * This function assambles an entry for a single search hit
+ *  Maybe TODO implement the substituitons for the case pure mws so extract them from the source
+ *
  * */
 export default function FormulaHit(props: IFormulaHit): JSX.Element {
   const {
@@ -20,7 +22,7 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
     subterm,
     queryvariablesxpath: qvars,
   } = props;
-  const newsource = highlightFormula(source, subterm, qvars);
+  const newsource = highlightFormula(source, subterm, qvars, xpath);
   const context = extractSurroundingWords(text, `math${local_id}`);
   return (
     <div className="Content">
@@ -30,7 +32,7 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
         <div> {context.after} </div>
       </span>
       <Subsitutions subst={subst} />
-      {xpath.length > 20 ? (
+      {xpath.length > 20 && subterm ? (
         <span className="FlexContainer">
           <b className="Flex1">{'match : '}</b>
           <MathML mathstring={subterm} />

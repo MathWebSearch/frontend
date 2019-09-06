@@ -60,13 +60,24 @@ function findandcolorQvar(
  * */
 export function highlightFormula(
   source: string,
-  subterm: string,
+  subterm: string | undefined,
   qvars: Array<Iqvar>,
+  xpath: string,
 ): string {
   try {
-    const xmlID = extractXMLID(subterm);
     const parser = new DOMParser();
     const sourceDoc = parser.parseFromString(source, 'text/html');
+    let xmlID;
+    if (subterm) {
+      xmlID = extractXMLID(subterm);
+    } else {
+      /* case we dont have a subterm so we search if for our own*/
+      const node = getElementBySimpleXpath(
+        xpath,
+        find_attribute_value(sourceDoc, 'encoding', 'MathML-Content'),
+      );
+      xmlID = node.getAttribute('xref');
+    }
     const node = find_attribute_value(sourceDoc, 'xml:id', xmlID);
     if (node) {
       node.setAttribute('class', 'Highlighted');
@@ -75,8 +86,8 @@ export function highlightFormula(
     if (sourceDoc.activeElement) {
       return sourceDoc.activeElement.innerHTML;
     }
-  } catch {
-    console.log('no highlighting possible');
+  } catch (err) {
+    console.log('no highlighting possible', err);
   }
   return source;
 }

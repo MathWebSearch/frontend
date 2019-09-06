@@ -1,28 +1,22 @@
-import {Client} from './Client';
-import {find_attribute_value} from '../util/simpleXpath';
+import {SearchClient} from './Client';
 import {
   Ipayload,
   IFormulaHit,
   Iqvar,
   IMWSClientResult,
   IMWSAPIResponse,
+  IMWSResponse,
 } from './client';
 import {extractTitle, extractUrl} from '../util/extractFunctions';
+import {find_attribute_value} from '../util/simpleXpath';
 
-export class MWSClient<ResponseType> extends Client {
+/*
+ * class for directly communicating with an mws instance
+ * */
+export class MWSClient extends SearchClient<IMWSResponse> {
   constructor(url: string = '/mws') {
-    super(url, 'POST');
+    super(url);
   }
-  extractQuery(math: string): string {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(math, 'text/xml');
-    const node = find_attribute_value(xmlDoc, 'encoding', 'MWS-Query');
-    if (node) {
-      return node.innerHTML;
-    }
-    throw new Error('Did not found an MWS-Query element');
-  }
-
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {
     return {
       body: `<mws:query xmlns:mws="http://www.mathweb.org/mws/ns"
@@ -36,32 +30,48 @@ export class MWSClient<ResponseType> extends Client {
     };
   }
 
-  unpackJson(json: ResponseType): IMWSClientResult {
-    throw new Error('not jet implemented');
-  }
+  unpackJson(json: IMWSResponse): IMWSClientResult {
+    const qvars: Iqvar[] = json.qvars || [];
+    const from = json.from || 0;
+    let ret: Array<IFormulaHit> = [];
+    const hits = json.hits || [];
+    const parser = new DOMParser();
+    hits.forEach((hit: any, index: number) => {
+      const local_id = hit.math_ids[0].url;
+      const xhtmldoc = parser.parseFromString(hit.xhtml, 'text/html');
+      const ids = xhtmldoc.getElementsByTagName('id');
+      if (!ids[0].textContent) {
+        /*lets assume if there is the id missing then it's useless to go on*/
+        return;
+      }
+      const math_node = find_attribute_value(xhtmldoc, 'local_id', local_id);
+      /** for the case that the actual math node is a string or not*/
+      const source = math_node.textContent || math_node.innerHTML;
+      if (!source) {
+        /* if no source then it is useless to go on*/
+        return;
+      }
+      ret.push({
+        id: index + from,
+        local_id,
+        segment: ids[0].textContent,
+        title: xhtmldoc.title || '',
+        url: extractUrl(source) || undefined,
+        source,
+        xpath: hit.math_ids[0].xpath,
+        queryvariablesxpath: qvars,
+        text: xhtmldoc.getElementsByTagName('text')[0].textContent || '',
+      });
+    });
 
-  async fetchContent(
-    math: string,
-    answsize: number,
-    limitmin: number = 0,
-  ): Promise<IMWSClientResult> {
-    const content = this.extractQuery(math);
-    const payload = this.createPayload(content, answsize, limitmin);
-    let json: ResponseType;
-    try {
-      json = await this.sendJson(payload);
-    } catch (e) {
-      console.log(`fetchContent in ${this.constructor.name} failed`, e);
-      throw e;
-    }
-    return this.unpackJson(json);
+    return {total: json.total, entries: ret, took: json.time * 1000};
   }
 }
 
 /**
  * class for interaction with MWSAPI
  * */
-export class MWSAPIClient extends MWSClient<IMWSAPIResponse> {
+export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
   private header: Headers;
   constructor(url: string = '/mws/') {
     super(url);

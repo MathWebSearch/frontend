@@ -54,7 +54,7 @@ export function convertXpath(xpath: string) :Array<number> {
  * @retrun node
  *
  * */
-export function find_attribute_value(doc:HTMLDocument, attribute:string, value:string) : HTMLElement {
+export function find_attribute_value(doc: HTMLDocument, attribute:string, value:string) : HTMLElement {
   const node = Array.prototype.find.call(doc.getElementsByTagName('*'), e => {
     return e.getAttribute(attribute) === value;
   });
