@@ -4,15 +4,18 @@ import {IAction} from '../interfaces';
 
 export function updateInputTextAction(new_text: string): IAction {
   window.history.pushState(null, '', `?query-math=${encodeURI(new_text)}`);
-  return {type: 'UPDATE_INPUT_TEXT', payload: {input_text: new_text}};
+  return {
+    type: 'UPDATE_INPUT_TEXT',
+    payload: {input_text: new_text, input_formula: null},
+  };
 }
 
 export const convertAction = (dispatch: any) => async (input_text: string) => {
-  const clean_text = input_text.replace(/\s*$/, '');
+  const clean_text = input_text.replace(/\s*$/g, '');
   let input_formula: string | null = '';
   if ('' !== clean_text) {
     try {
-      input_formula = await ltxclient.fetchContent(input_text);
+      input_formula = await ltxclient.fetchContent(clean_text);
     } catch (e) {
       input_formula = '';
     }
@@ -21,9 +24,6 @@ export const convertAction = (dispatch: any) => async (input_text: string) => {
   }
   return dispatch({type: 'CONVERT', payload: {input_formula}});
 };
-
-// const debouncedconvertAction = debounce(convertAction, 1000);
-// export { debouncedconvertAction as convertAction};
 
 export const searchAction = (dispatch: any) => async (
   answsize: number,
@@ -46,6 +46,8 @@ export const searchAction = (dispatch: any) => async (
       total: result.total,
       allEntries: [...currentList, ...result.entries],
       took: result.took,
+      triggerSearch: false,
+      progress: 66,
     };
   } catch (e) {
     console.error('searchAction failed', e);
@@ -54,4 +56,14 @@ export const searchAction = (dispatch: any) => async (
   let ret: IAction = {type: 'SEARCH', payload};
 
   return dispatch(ret);
+};
+
+export const triggerSearchAction = (): IAction => {
+  return {
+    type: 'TRIGGER_SEARCH',
+    payload: {triggerSearch: true, allEntries: undefined, progress: 20},
+  };
+};
+export const updateProgressAction = (new_progress: number): IAction => {
+  return {type: 'UPDATE_PROGRESS', payload: {progress: new_progress}};
 };

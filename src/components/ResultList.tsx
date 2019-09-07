@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {ResultListEntry} from './ResultListEntry';
 import '../css/ResultList.css';
-import {IFormulaHit} from '../Backend/client.d';
 import {Store} from '../store/Store';
 import {searchAction} from '../store/Actions';
+
+import AggregatedResultListEntry from './AggregatedResultListEntry';
 
 /**
  *  function to detect if there is need for scrolling
@@ -31,64 +31,34 @@ const goUpButton = (): React.ReactNode =>
  */
 export const expandContext = React.createContext(undefined);
 
-interface Ipartition {
-  [title: string]: IFormulaHit[];
-}
-type Taggregation = 'None' | 'Title';
-/*
- * creates an array of ResultListEntries based on the choosen aggregation
- * */
-function aggregate(
-  allEntries: IFormulaHit[],
-  kind: Taggregation = 'None',
-): React.ReactNodeArray {
-  switch (kind) {
-    case 'Title':
-      let partition: Ipartition = {};
-      for (let entry of allEntries) {
-        const title = entry.title || entry.segment;
-        if (!title) {
-          continue;
-        }
-        if (!partition[title]) {
-          partition[title] = [];
-        }
-        partition[title].push(entry);
-      }
-      return Object.keys(partition).map((title: string, index: number) => (
-        <ResultListEntry
-          key={index}
-          title={title}
-          formulahits={partition[title]}
-        />
-      ));
-    case 'None':
-    default:
-      return allEntries.map((entry: IFormulaHit, index: number) => (
-        <ResultListEntry
-          key={index}
-          title={entry.title || entry.segment}
-          formulahits={[entry]}
-        />
-      ));
-  }
-}
-
+export type Taggregation = 'None' | 'Title';
 /*
  * Function component the displays the results as List
  * has as state the aggregation and if the expandAll/closeall was clicked
  * */
 export default function ResultList(): JSX.Element | null {
   const {state, dispatch} = React.useContext(Store);
-  const {total, allEntries, input_formula, limitmin, answsize} = state;
+  const {
+    total,
+    allEntries,
+    input_formula,
+    limitmin,
+    answsize,
+    triggerSearch,
+  } = state;
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
   const [expandAll, setExpandAll] = React.useState();
 
-  const showMore = () => {
-    searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
+  const showMore = async () => {
+    await searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
   };
 
+  React.useEffect(() => {
+    if (triggerSearch) {
+      showMore();
+    }
+  });
   if (!allEntries) {
     return null;
   }
@@ -120,7 +90,7 @@ export default function ResultList(): JSX.Element | null {
           {goDownButton()}
           <button onClick={toggleAggregation}>Change Aggregation</button>
         </div>
-        <>{aggregate(allEntries, aggregation)}</>
+        <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
         <div className="ButtonList">
           <button onClick={showMore} disabled={curlength >= total}>
             Show More

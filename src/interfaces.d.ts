@@ -11,19 +11,28 @@ export interface IState {
   limitmin: number;
   answsize: number;
   last_took?: number;
+  triggerSearch: bool;
+  progress: number;
 }
 
 export interface IAction {
-  type: 'UPDATE_INPUT_TEXT' | 'CONVERT' | 'SEARCH' | 'DEFAULT';
-  payload:
-    | {
-        limitmin?: number;
-        input_formula?: string;
-        input_text?: string;
-        total?: number;
-        took?: number;
-        allEntries?: Array<IFormulaHit>;
-      };
+  type:
+    | 'UPDATE_INPUT_TEXT'
+    | 'CONVERT'
+    | 'SEARCH'
+    | 'TRIGGER_SEARCH'
+    | 'UPDATE_PROGRESS'
+    | 'DEFAULT';
+  payload: {
+    limitmin?: number;
+    input_formula?: string | null;
+    input_text?: string;
+    total?: number;
+    took?: number;
+    allEntries?: Array<IFormulaHit>;
+    triggerSearch?: bool;
+    progress?: number,
+  };
 }
 
 export interface IStore {

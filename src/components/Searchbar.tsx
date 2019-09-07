@@ -6,8 +6,7 @@ import {examples} from '../config/examples';
 
 import {Store} from '../store/Store';
 import {
-  convertAction,
-  searchAction,
+  triggerSearchAction,
   updateInputTextAction,
 } from '../store/Actions';
 
@@ -17,17 +16,16 @@ import {
 export function SearchBar() {
   const {state, dispatch} = React.useContext(Store);
   const textInput: React.RefObject<HTMLInputElement> = React.createRef();
-  const {input_text, answsize, input_formula} = state;
+  const {input_text} = state;
 
-  const updateandConvert = (text: string) => {
+  const updateandFocus = (text: string) => {
     dispatch(updateInputTextAction(text));
-    convertAction(dispatch)(text);
     textInput && textInput.current && textInput.current.focus();
   };
 
   const inputHandler = async (event: React.SyntheticEvent) => {
     const target: HTMLInputElement = event.target as HTMLInputElement;
-    updateandConvert(target.value);
+    updateandFocus(target.value);
     event.preventDefault();
   };
 
@@ -38,10 +36,11 @@ export function SearchBar() {
     const oldvalue = textInput.current.value || '';
     const pos = textInput.current.selectionStart || 0;
     const newvalue = `${oldvalue.slice(0, pos)} ${text} ${oldvalue.slice(pos)}`;
-    updateandConvert(newvalue);
+    updateandFocus(newvalue);
   };
   const submitHandler = (event: React.SyntheticEvent) => {
-    searchAction(dispatch)(answsize, input_formula);
+    // searchAction(dispatch)(answsize, input_formula);
+    dispatch(triggerSearchAction());
     event.preventDefault();
   };
 
@@ -59,7 +58,7 @@ export function SearchBar() {
         <button
           className="clearButton"
           type="button"
-          onClick={() => updateandConvert('')}
+          onClick={() => updateandFocus('')}
           disabled={input_text === ''}>
           &times;
         </button>
@@ -74,7 +73,7 @@ export function SearchBar() {
           submitHandler(event)
         }
         list={examples}
-        hoverHandler={(element: string) => updateandConvert(element)}
+        hoverHandler={(element: string) => updateandFocus(element)}
         reducer={(element: Array<string>) => {
           return {
             text: element[0],

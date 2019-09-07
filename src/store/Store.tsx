@@ -16,6 +16,8 @@ const initialState: IState = {
   total: 0,
   limitmin: 0,
   answsize: 30,
+  triggerSearch: false,
+  progress: 0,
 };
 
 /*
@@ -30,6 +32,13 @@ function reducer(state: IState, action: IAction): IState {
       return {...state, ...action.payload};
     case 'SEARCH':
       return {...state, ...action.payload};
+    case 'TRIGGER_SEARCH':
+      return {...state, ...action.payload};
+    case 'UPDATE_PROGRESS':
+      if (state.progress !== action.payload.progress) {
+        return {...state, ...action.payload};
+      }
+      return state;
     case 'DEFAULT':
     default:
       return state;
