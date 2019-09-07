@@ -2,6 +2,8 @@ import * as React from 'react';
 import {ResultListEntry} from './ResultListEntry';
 import '../css/ResultList.css';
 import {IFormulaHit} from '../Backend/client.d';
+import {Store} from '../store/Store';
+import {searchAction} from '../store/Actions';
 
 /**
  *  function to detect if there is need for scrolling
@@ -72,20 +74,25 @@ function aggregate(
   }
 }
 
-interface ResultListProps {
-  total: number;
-  allEntries: IFormulaHit[];
-  showMore: any;
-}
-
 /*
  * Function component the displays the results as List
  * has as state the aggregation and if the expandAll/closeall was clicked
  * */
-export default function ResultList(props: ResultListProps): JSX.Element | null {
-  const {total, allEntries, showMore} = props;
-  const curlength = allEntries.length;
+export default function ResultList(): JSX.Element | null {
+  const {state, dispatch} = React.useContext(Store);
+  const {total, allEntries, input_formula, limitmin, answsize} = state;
+
+  const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
   const [expandAll, setExpandAll] = React.useState();
+
+  const showMore = () => {
+    searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
+  };
+
+  if (!allEntries) {
+    return null;
+  }
+
   const exp = () => {
     setExpandAll(true);
     setTimeout(() => setExpandAll(undefined), 10);
@@ -94,16 +101,13 @@ export default function ResultList(props: ResultListProps): JSX.Element | null {
     setExpandAll(false);
     setTimeout(() => setExpandAll(undefined), 10);
   };
+  const curlength = allEntries.length;
 
-  const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
   const toggleAggregation = () => {
     /* first close every thing */
     close();
     aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
   };
-  if (!allEntries) {
-    return null;
-  }
 
   return (
     <expandContext.Provider value={expandAll}>

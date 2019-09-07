@@ -1,7 +1,9 @@
 import * as React from 'react';
 import '../css/PreviewWindow.css';
-import {MathML} from './MathML';
+import MathML from './MathML';
 import {colors} from '../config/Colors';
+import {Store} from '../store/Store';
+import {convertAction} from '../store/Actions';
 /**
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color
@@ -47,15 +49,21 @@ function colorVar(mathstring: string): string {
   throw new Error('no activeElement!');
 }
 
-interface PreviewWindowProps {
-  mathstring: string;
-}
 /**
-* Function component that shows mathml equations
-* @param mathstring the string that should be showed
-* */
-export function PreviewWindow(props: PreviewWindowProps): JSX.Element {
-  const {mathstring} = props;
+ * Function component that shows mathml equations
+ * @param mathstring the string that should be showed
+ * */
+export function PreviewWindow(): JSX.Element | null {
+  const {state, dispatch} = React.useContext(Store);
+  const {input_text, input_formula: mathstring} = state;
+  React.useEffect(() => {
+    if (input_text !== '' && mathstring === null) {
+      convertAction(dispatch)(input_text);
+    }
+  });
+  if (null === mathstring) {
+    return null;
+  }
   if ('' === mathstring) {
     return (
       <div className="PreviewWindow">

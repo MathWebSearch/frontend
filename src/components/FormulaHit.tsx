@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Subsitutions from './Substitutions';
-import {MathML} from './MathML';
+import MathML from './MathML';
 import {highlightFormula} from '../util/formulaeHighlighting';
 import {extractSurroundingWords} from '../util/extractFunctions';
 import '../css/ApiEntry.css';
