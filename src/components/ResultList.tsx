@@ -1,12 +1,12 @@
 import * as React from 'react';
 import '../css/ResultList.css';
 import {Store} from '../store/Store';
-import {searchAction} from '../store/Actions';
+import {searchAction, showMoreAction} from '../store/Actions';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
 /**
- *  function to detect if there is need for scrolling
+ *  function to detect if there is need for scrolling and that hopfully works in every browser
  * */
 const scrollMaxY = (): number => {
   return (
@@ -49,29 +49,28 @@ export default function ResultList(): JSX.Element | null {
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
   const [expandAll, setExpandAll] = React.useState();
-
-  const showMore = async () => {
+  const search = async () =>
     await searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
-  };
 
   React.useEffect(() => {
     if (triggerSearch) {
-      showMore();
+      search();
     }
   });
   if (!allEntries) {
     return null;
   }
 
+  /* callback to expand all*/
   const exp = () => {
     setExpandAll(true);
     setTimeout(() => setExpandAll(undefined), 10);
   };
+  /* callback to close all*/
   const close = () => {
     setExpandAll(false);
     setTimeout(() => setExpandAll(undefined), 10);
   };
-  const curlength = allEntries.length;
 
   const toggleAggregation = () => {
     /* first close every thing */
@@ -79,11 +78,12 @@ export default function ResultList(): JSX.Element | null {
     aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
   };
 
+  const curlength = allEntries.length;
+
   return (
     <expandContext.Provider value={expandAll}>
       <div className="ResultList">
-        Showing {curlength} of <b>{total}</b> results in {allEntries.length}{' '}
-        pages
+        Showing {curlength} of <b>{total}</b> results
         <div className="ResultListTopLine">
           <button onClick={close}>Close All</button>
           <button onClick={exp}>Expand All</button>
@@ -92,9 +92,13 @@ export default function ResultList(): JSX.Element | null {
         </div>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
         <div className="ButtonList">
-          <button onClick={showMore} disabled={curlength >= total}>
-            Show More
-          </button>
+          {curlength < total ? (
+            <button
+              onClick={() => dispatch(showMoreAction())}
+              disabled={curlength >= total}>
+              Show More
+            </button>
+          ) : null}
           {goUpButton()}
         </div>
       </div>

@@ -61,9 +61,22 @@ export const searchAction = (dispatch: any) => async (
 export const triggerSearchAction = (): IAction => {
   return {
     type: 'TRIGGER_SEARCH',
-    payload: {triggerSearch: true, allEntries: undefined, progress: 20},
+    payload: {
+      triggerSearch: true,
+      allEntries: undefined,
+      progress: 20,
+      limitmin: 0,
+    },
   };
 };
+
+export const showMoreAction = (): IAction => {
+  return {
+    type: 'SHOW_MORE',
+    payload: {triggerSearch: true, progress: 20},
+  };
+};
+
 export const updateProgressAction = (new_progress: number): IAction => {
   return {type: 'UPDATE_PROGRESS', payload: {progress: new_progress}};
 };

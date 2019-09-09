@@ -34,6 +34,8 @@ function reducer(state: IState, action: IAction): IState {
       return {...state, ...action.payload};
     case 'TRIGGER_SEARCH':
       return {...state, ...action.payload};
+    case 'SHOW_MORE':
+      return {...state, ...action.payload};
     case 'UPDATE_PROGRESS':
       if (state.progress !== action.payload.progress) {
         return {...state, ...action.payload};

@@ -22,6 +22,7 @@ export interface IAction {
     | 'SEARCH'
     | 'TRIGGER_SEARCH'
     | 'UPDATE_PROGRESS'
+    | 'SHOW_MORE'
     | 'DEFAULT';
   payload: {
     limitmin?: number;
