@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Header} from './components/Header';
 import {Footer} from './components/Footer';
-import './css/App.css';
 
 import {SearchBar} from './components/Searchbar';
 import {PreviewWindow} from './components/PreviewWindow';

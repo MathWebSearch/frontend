@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  margin: 0 auto;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  background: rgba(255, 255, 255, 0.5);
+  width: 960px;
+}
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  margin: 1px;
+}
+button:hover {
+  background-color: #226622;
+  box-shadow: 2px 5px 5px 2px gray;
+  cursor: pointer;
+}
+button:disabled{
+  background-color: gray;
+}
+button:disabled:hover {
+  box-shadow: none;
+  cursor: auto;
+}
+
+.Stats {
+  text-align: center;
+}
+.Controller {
+  position: relative;
+}
