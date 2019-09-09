@@ -52,19 +52,19 @@ export interface ILTXResponse {
 }
 
 export interface IResponseType {
-  from?: number; /*limitmin that i will add if it is not in */
+  from?: number /*limitmin that i will add if it is not in */;
   qvars: Array<Iqvars>;
   hits: Array<any>;
   total: number;
 }
 
-export interface IMWSAPIResponse extends IResponseType{
+export interface IMWSAPIResponse extends IResponseType {
   took: number;
   kind: string;
   stats: any;
   size: number;
 }
 
-export interface IMWSResponse extends IResponseType{
+export interface IMWSResponse extends IResponseType {
   time: number /* time in ms time in ms?*/;
 }

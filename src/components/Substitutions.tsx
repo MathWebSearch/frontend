@@ -7,7 +7,7 @@ import styles from './ResultListEntry.module.css';
 /**
  * creates an jsx element containg for every query variable the substition
  * */
-interface SubsitutionsProps{
+interface SubsitutionsProps {
   subst: any;
 }
 export default function Subsitutions(props: SubsitutionsProps) {

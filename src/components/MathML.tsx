@@ -22,5 +22,7 @@ export default function MathML(props: MathMLProps) {
     return <MathJax className={styles.Math} math={pmml} />;
   }
 
-  return <div className={styles.Math} dangerouslySetInnerHTML={{__html: pmml}} />;
+  return (
+    <div className={styles.Math} dangerouslySetInnerHTML={{__html: pmml}} />
+  );
 }

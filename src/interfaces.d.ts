@@ -32,7 +32,7 @@ export interface IAction {
     took?: number;
     allEntries?: Array<IFormulaHit>;
     triggerSearch?: bool;
-    progress?: number,
+    progress?: number;
   };
 }
 

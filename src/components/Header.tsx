@@ -5,8 +5,8 @@ export interface Props {
   brandingTitle: string;
   brandingLink: string;
 }
-interface HeaderState{
-    hover: boolean;
+interface HeaderState {
+  hover: boolean;
 }
 
 export class Header extends React.Component<Props, HeaderState> {

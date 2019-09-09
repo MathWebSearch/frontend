@@ -9,10 +9,8 @@ const Progress = require('react-progress');
 export function ProgressBar(): JSX.Element {
   const {state, dispatch} = React.useContext(Store);
   React.useEffect(() => {
-    state.progress === 66 && setTimeout(
-      () => dispatch(updateProgressAction(100)),
-      300,
-    );
+    state.progress === 66 &&
+      setTimeout(() => dispatch(updateProgressAction(100)), 300);
   });
   return <Progress percent={state.progress} height={4} color={'#4caf50'} />;
 }

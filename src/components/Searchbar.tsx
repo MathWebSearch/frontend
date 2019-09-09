@@ -1,10 +1,7 @@
 import * as React from 'react';
 import {ExampleButton, SymbolButton} from './Buttons';
 import {Store} from '../store/Store';
-import {
-  triggerSearchAction,
-  updateInputTextAction,
-} from '../store/Actions';
+import {triggerSearchAction, updateInputTextAction} from '../store/Actions';
 import styles from './SearchBar.module.css';
 
 /*
@@ -42,7 +39,7 @@ export function SearchBar() {
   };
 
   return (
-    <div className={ styles.SearchBar }>
+    <div className={styles.SearchBar}>
       <form id="form1" onSubmit={submitHandler}>
         <input
           autoFocus
@@ -50,10 +47,10 @@ export function SearchBar() {
           value={input_text}
           onChange={inputHandler}
           ref={textInput}
-          className={ styles.textInput }
+          className={styles.textInput}
         />
         <button
-          className={ styles.clearButton }
+          className={styles.clearButton}
           type="button"
           onClick={() => updateandFocus('')}
           disabled={input_text === ''}>

@@ -32,7 +32,7 @@ button:hover {
   box-shadow: 2px 5px 5px 2px gray;
   cursor: pointer;
 }
-button:disabled{
+button:disabled {
   background-color: gray;
 }
 button:disabled:hover {
