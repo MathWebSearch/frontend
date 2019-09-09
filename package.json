@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.3",
-    "babel-polyfill": "^6.26.0",
+    "@types/node": "^12.7.4",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
     "isomorphic-fetch": "^2.2.1",
@@ -15,16 +16,11 @@
     "react-mathjax-preview": "^0.1.13",
     "react-progress": "0.0.12",
     "react-scripts": "^3.1.1",
-    "react-scripts-ts": "^3.1.0",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "awesome-typescript-loader": "^5.2.1",
-    "source-map-loader": "^0.2.4",
     "typescript": "^3.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scriptss build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "production": "npm run build && node express.js"
