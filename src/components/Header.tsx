@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/MWS_Header.css';
+import styles from './Header.module.css';
 
 export interface Props {
   brandingTitle: string;
@@ -19,11 +19,11 @@ export class Header extends React.Component<Props, HeaderState> {
     this.hoverLeaveHandler = this.hoverLeaveHandler.bind(this);
   }
   renderMWSTitle() {
-    return <b className="MWSTitle"> MathWebSearch</b>;
+    return <b className={styles.MWSTitle}> MathWebSearch</b>;
   }
   renderMWSText() {
     return (
-      <div className="MWSText">
+      <div className={styles.MWSText}>
         The <a href={'http://search.mathweb.org'}>MathWebSearch</a> system (MWS)
         is a content-based search engine for mathematical formulae. It indexes
         MathML formulae, using a technique derived from automated theorem
@@ -42,9 +42,9 @@ export class Header extends React.Component<Props, HeaderState> {
 
   render() {
     return (
-      <div className="header">
+      <div className={styles.header}>
         <a
-          className="corpus"
+          className={styles.corpus}
           href={this.props.brandingLink}
           target="_blank"
           rel="noopener noreferrer">
