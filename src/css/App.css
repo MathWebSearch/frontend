@@ -18,8 +18,10 @@ button:hover {
   box-shadow: 2px 5px 5px 2px gray;
   cursor: pointer;
 }
+button:disabled{
+  background-color: gray;
+}
 button:disabled:hover {
-  background-color: #4caf50;
   box-shadow: none;
   cursor: auto;
 }

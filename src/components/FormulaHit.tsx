@@ -3,7 +3,7 @@ import Subsitutions from './Substitutions';
 import MathML from './MathML';
 import {highlightFormula} from '../util/formulaeHighlighting';
 import {extractSurroundingWords} from '../util/extractFunctions';
-import '../css/ApiEntry.css';
+import styles from './ResultListEntry.module.css';
 import {IFormulaHit} from '../Backend/client.d';
 
 /**
@@ -25,16 +25,16 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
   const newsource = highlightFormula(source, subterm, qvars, xpath);
   const context = extractSurroundingWords(text, `math${local_id}`);
   return (
-    <div className="Content">
-      <span className="FlexContainer">
+    <div className={styles.Content}>
+      <span className={styles.FlexContainer}>
         <div> {context.before}</div>
         <MathML mathstring={newsource} />
         <div> {context.after} </div>
       </span>
       <Subsitutions subst={subst} />
       {xpath.length > 20 && subterm ? (
-        <span className="FlexContainer">
-          <b className="Flex1">{'match : '}</b>
+        <span className={styles.FlexContainer}>
+          <b className={styles.Flex1}>{'match : '}</b>
           <MathML mathstring={subterm} />
         </span>
       ) : null}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/PreviewWindow.css';
+import styles from './PreviewWindow.module.css';
 import MathML from './MathML';
 import {colors} from '../config/Colors';
 import {Store} from '../store/Store';
@@ -66,7 +66,7 @@ export function PreviewWindow(): JSX.Element | null {
   }
   if ('' === mathstring) {
     return (
-      <div className="PreviewWindow">
+      <div className={styles.PreviewWindow}>
         <b>Error with Math Preview</b>
       </div>
     );
@@ -75,7 +75,7 @@ export function PreviewWindow(): JSX.Element | null {
   // it depends that hopfully nothing else has the attribute mathcolor = red
   const colored = colorVar(mathstring);
   return (
-    <div className="PreviewWindow">
+    <div className={styles.PreviewWindow}>
       <MathML mathstring={colored} />
     </div>
   );

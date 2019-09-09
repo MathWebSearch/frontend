@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/ResultListEntry.css';
+import styles from './ResultListEntry.module.css';
 import {expandContext} from './ResultList';
 import {IFormulaHit} from '../Backend/client.d';
 import FormulaHit from './FormulaHit';
@@ -36,7 +36,7 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
     );
   }
   return (
-    <div className="ResultListEntry">
+    <div className={styles.ResultListEntry}>
       <div onClick={toggleExpansion}>
         <b>{title}</b>
       </div>

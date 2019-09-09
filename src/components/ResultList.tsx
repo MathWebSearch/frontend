@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/ResultList.css';
+import styles from './ResultList.module.css';
 import {Store} from '../store/Store';
 import {searchAction, showMoreAction} from '../store/Actions';
 
@@ -84,16 +84,16 @@ export default function ResultList(): JSX.Element | null {
 
   return (
     <expandContext.Provider value={expandAll}>
-      <div className="ResultList">
+      <div className={styles.ResultList}>
         Showing {curlength} of <b>{total}</b> results
-        <div className="ResultListTopLine">
+        <div className={styles.ResultListTopLine}>
           <button onClick={close}>Close All</button>
           <button onClick={exp}>Expand All</button>
           {goDownButton()}
           <button onClick={toggleAggregation}>Change Aggregation</button>
         </div>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
-        <div className="ButtonList">
+        <div className={styles.ButtonList}>
           {curlength < total ? (
             <button
               onClick={() => dispatch(showMoreAction())}
