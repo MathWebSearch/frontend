@@ -6,7 +6,6 @@ const Progress = require('react-progress');
 /*
  * Progressbar on the top
  * */
-
 export function ProgressBar(): JSX.Element {
   const {state, dispatch} = React.useContext(Store);
   React.useEffect(() => {

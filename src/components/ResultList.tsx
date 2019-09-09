@@ -28,6 +28,8 @@ const goUpButton = (): React.ReactNode =>
 
 /**
  * Context to propagate if expandall/closeall was clicked
+ * boolean context is set to true if expandAll was clicked and false if closeall was clicked
+ * undefined is initial State
  */
 export const expandContext = React.createContext(undefined);
 

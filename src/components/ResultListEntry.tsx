@@ -10,6 +10,9 @@ interface ResultListEntryProps {
 }
 /*
  * A single Entry in the result list can include multiple fromulahits
+ * the state indicates if this is closed (just showing the title)
+ * or expandend (also showing the formulahit(x))
+ * the expandContext indicates if the expand all/close all botton was clicked
  * */
 export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   const {title, formulahits} = props;
