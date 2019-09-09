@@ -17,7 +17,7 @@ export const convertAction = (dispatch: any) => async (input_text: string) => {
     try {
       input_formula = await ltxclient.fetchContent(clean_text);
     } catch (e) {
-      input_formula = '';
+      input_formula = null;
     }
   } else {
     input_formula = null;

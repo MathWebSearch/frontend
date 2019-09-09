@@ -13,7 +13,7 @@ import styles from './SearchBar.module.css';
 export function SearchBar() {
   const {state, dispatch} = React.useContext(Store);
   const textInput: React.RefObject<HTMLInputElement> = React.createRef();
-  const {input_text} = state;
+  const {input_text, input_formula} = state;
 
   const updateandFocus = (text: string) => {
     dispatch(updateInputTextAction(text));
@@ -61,7 +61,7 @@ export function SearchBar() {
         </button>
         <br />
       </form>
-      <button type="submit" form="form1">
+      <button type="submit" form="form1" disabled={!input_formula}>
         Search
       </button>
       {ExampleButton(submitHandler, updateandFocus)}
