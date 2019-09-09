@@ -2,8 +2,8 @@ import * as React from 'react';
 import '../css/MWS_Header.css';
 
 export interface Props {
-  corpusName: string;
-  corpusLink: string;
+  brandingTitle: string;
+  brandingLink: string;
 }
 interface HeaderState{
     hover: boolean;
@@ -45,10 +45,10 @@ export class Header extends React.Component<Props, HeaderState> {
       <div className="header">
         <a
           className="corpus"
-          href={this.props.corpusLink}
+          href={this.props.brandingLink}
           target="_blank"
           rel="noopener noreferrer">
-          {this.props.corpusName}
+          {this.props.brandingTitle}
         </a>
         <div
           onMouseEnter={this.hoverEnterHandler}

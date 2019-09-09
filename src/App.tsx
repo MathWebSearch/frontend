@@ -10,13 +10,13 @@ import {ProgressBar} from './components/Progress';
 
 import {StoreProvider} from './store/Store';
 
-import {BRANDING_TITLE, BRANDING_URL} from './branding';
+import {BRANDING_TITLE, BRANDING_URL} from './config/';
 
 function App() {
   return (
     <>
       <div className="App">
-        <Header corpusName={BRANDING_TITLE} corpusLink={BRANDING_URL} />
+        <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
         <br />
         <StoreProvider>
           <ProgressBar />

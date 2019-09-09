@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './DropDownButton.module.css';
 
 /*
- * A DropDown Button that shows on click the contens
+ * A DropDown Button that shows on click the contents
  *
  * */
 interface IDropDownEntry {
@@ -39,11 +39,13 @@ export default function DropDownButton<T>(
   };
 
   return (
-    <div className={expanded ? styles.DropDownactive : styles.DropDown}>
+    <div
+      className={expanded ? styles.DropDownactive : styles.DropDown}
+      onMouseLeave={close}>
       <button className={styles.DropDownbtn} onClick={toggle}>
         {name}
       </button>
-      <div className={styles.DropDownContent} onMouseLeave={close}>
+      <div className={styles.DropDownContent}>
         {list.map((entry: T, index: number) => {
           const {text, clickarg, hoverarg} = reducer(entry);
           return (

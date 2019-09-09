@@ -1,8 +1,6 @@
 import * as React from 'react';
 import '../css/SearchBar.css';
-import DropDownButton from './DropDownButton';
-import {commands} from '../config/commands';
-import {examples} from '../config/examples';
+import {ExampleButton, SymbolButton} from './Buttons';
 
 import {Store} from '../store/Store';
 import {
@@ -67,31 +65,8 @@ export function SearchBar() {
       <button type="submit" form="form1">
         Search
       </button>
-      <DropDownButton
-        name="Examples"
-        clickHandler={(_: string, event: React.SyntheticEvent) =>
-          submitHandler(event)
-        }
-        list={examples}
-        hoverHandler={(element: string) => updateandFocus(element)}
-        reducer={(element: Array<string>) => {
-          return {
-            text: element[0],
-            clickarg: element[2],
-            hoverarg: element[2],
-          };
-        }}
-      />
-      <DropDownButton
-        name="Symbols"
-        clickHandler={(element: string, _: React.SyntheticEvent) =>
-          insertAtCursorPosition(element)
-        }
-        list={commands}
-        reducer={(element: string) => {
-          return {text: element, clickarg: element};
-        }}
-      />
+      {ExampleButton(submitHandler, updateandFocus)}
+      {SymbolButton(insertAtCursorPosition)}
     </div>
   );
 }

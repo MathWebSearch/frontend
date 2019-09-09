@@ -1,4 +1,4 @@
-export const commands = [
+export const symbolList = [
 '\\aleph',
 '\\alpha',
 '\\amalg',

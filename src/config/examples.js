@@ -1,4 +1,4 @@
-export const examples = [
+export const exampleList = [
   //  Name                    Text                LaTeX Math
   ['Everything', '', '?x'],
   ['Sequence', 'sequence', '?a \\rightarrow ?b \\rightarrow ?c'],
