@@ -18,21 +18,20 @@ The configuring is done with various environment variables:
 
 ## Usage:
   -
-    ```
-    $ npm install
-    $ npm start
-    ```
-    starts an development server on http://localhost:3000
+      ```
+      $ npm install
+      $ npm start
+      ```
+      starts an development server on http://localhost:3000
 
    -
-    ```
-     $ npm install
-     $ npm run production
-    ```
-    starts a provisional production build that uses (express.js)[https://expressjs.com/] to serve the static files and proxy the backend calls
+      ```  
+      $ npm install
+      $ npm run production
+      ```
+      starts a provisional production build that uses [express.js](https://expressjs.com/) to serve the static files and proxy the backend calls
 
-   -
-     for convenience there is also a dockerfile to create an docker image
+   - for convenience there is also a dockerfile to create an docker image
 
 
 ## License
