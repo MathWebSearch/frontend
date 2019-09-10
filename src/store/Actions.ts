@@ -10,21 +10,32 @@ export function updateInputTextAction(new_text: string): IAction {
   };
 }
 
+/**
+ * Action to send the input_text to the Latexml-daemon it is debounced with that timer
+ * to reduce the amount of queries to the server while input
+ **/
+let timeout: NodeJS.Timeout;
 export const convertAction = (dispatch: any) => async (input_text: string) => {
-  const clean_text = input_text.replace(/\s*$/g, '');
-  let input_formula: string | null = '';
-  if ('' !== clean_text) {
-    try {
-      input_formula = await ltxclient.fetchContent(clean_text);
-    } catch (e) {
-      input_formula = null;
+  clearTimeout(timeout);
+  timeout = setTimeout(async () => {
+    const clean_text = input_text.replace(/\s*$/g, '');
+    let input_formula: string | null = null;
+    if ('' !== clean_text) {
+      try {
+        input_formula = await ltxclient.fetchContent(clean_text);
+      } catch (e) {
+        input_formula = null;
+      }
+    } else {
+      input_formula = '';
     }
-  } else {
-    input_formula = null;
-  }
-  return dispatch({type: 'CONVERT', payload: {input_formula}});
+    return dispatch({type: 'CONVERT', payload: {input_formula}});
+  }, 1000);
 };
 
+/*
+ * Action to search for a fromula
+ **/
 export const searchAction = (dispatch: any) => async (
   answsize: number,
   input_formula: string,
@@ -58,6 +69,9 @@ export const searchAction = (dispatch: any) => async (
   return dispatch(ret);
 };
 
+/*
+ * Action to trigger an Search action
+ **/
 export const triggerSearchAction = (): IAction => {
   return {
     type: 'TRIGGER_SEARCH',
@@ -70,6 +84,10 @@ export const triggerSearchAction = (): IAction => {
   };
 };
 
+/*
+ * Action to trigger an Search action that uses the same input_formula as the current state
+ * to get the next results
+ **/
 export const showMoreAction = (): IAction => {
   return {
     type: 'SHOW_MORE',
@@ -77,6 +95,9 @@ export const showMoreAction = (): IAction => {
   };
 };
 
+/*
+ * Action to Update the percentage for the Progressbar
+ **/
 export const updateProgressAction = (new_progress: number): IAction => {
   return {type: 'UPDATE_PROGRESS', payload: {progress: new_progress}};
 };
