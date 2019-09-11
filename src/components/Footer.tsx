@@ -3,6 +3,7 @@ import styles from './Footer.module.css';
 import kwarc from '../img/kwarc_logo.png';
 import fau from '../img/fau_logo.png';
 import odk from '../img/odk_logo.png';
+import eu from '../img/eu.svg';
 
 export function Footer(): JSX.Element {
   return (
@@ -31,6 +32,13 @@ export function Footer(): JSX.Element {
           rel="noopener noreferrer"
           className={styles.footlink}>
           <img src={odk} alt="OpenDreamKit" />
+        </a>
+        <a
+          href="https://europa.eu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.footlink}>
+          <img src={eu} alt="EU" />
         </a>
       </div>
     </div>
