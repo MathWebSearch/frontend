@@ -88,16 +88,18 @@ export default function ResultList(): JSX.Element | null {
   return (
     <expandContext.Provider value={expandAll}>
       <div className={styles.ResultList}>
-        Showing {curlength} of <b>{total}</b> formulas
+        <span>
+          Showing {curlength} of <b>{total}</b> formulas
+        </span>
         <div className={styles.ResultListTopLine}>
-          <button className={styles.button} onClick={close}>
+          <button className={styles.item} onClick={close}>
             Close All
           </button>
-          <button className={styles.button} onClick={exp}>
+          <button className={styles.item} onClick={exp}>
             Expand All
           </button>
           {goDownButton()}
-          <div className={styles.button}>
+          <div className={styles.item}>
             <label className={styles.container}>
               {`group formulas by ${BRANDING_TITLE} Document`}
               <input

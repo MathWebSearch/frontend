@@ -21,6 +21,7 @@ code {
   width: 960px;
 }
 button {
+  display: inline;
   background-color: #4caf50;
   color: white;
   padding: 10px;
