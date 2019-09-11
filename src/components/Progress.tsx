@@ -15,6 +15,10 @@ export function ProgressBar(): JSX.Element {
   });
   return <Progress percent={state.progress} height={4} color={'#4caf50'} />;
 }
+
+/*
+ * A spinner as loading indicator
+ */
 const override = `
   display: block;
   margin: 0 auto;

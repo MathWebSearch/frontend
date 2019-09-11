@@ -49,6 +49,7 @@ export default function ResultList(): JSX.Element | null {
     limitmin,
     answsize,
     triggerSearch,
+    took,
   } = state;
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
@@ -90,7 +91,8 @@ export default function ResultList(): JSX.Element | null {
       <div className={styles.ResultList}>
         <span>
           Showing {curlength} of <b>{total}</b> formulas
-        </span>
+        </span>{' '}
+        <span>Query took {took / 10e9} s daemon time</span>
         <div className={styles.ResultListTopLine}>
           <button className={styles.item} onClick={close}>
             Close All
@@ -113,7 +115,9 @@ export default function ResultList(): JSX.Element | null {
         </div>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
         <div className={styles.ButtonList}>
-          {curlength < total ? (
+          {triggerSearch ? (
+            <Spinner />
+          ) : curlength < total ? (
             <button
               onClick={() => dispatch(showMoreAction())}
               disabled={curlength >= total}>
