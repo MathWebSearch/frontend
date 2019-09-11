@@ -3,6 +3,7 @@ import styles from './ResultList.module.css';
 import {Store} from '../store/Store';
 import {searchAction, showMoreAction} from '../store/Actions';
 import {Spinner} from './Progress';
+import {BRANDING_TITLE} from '../config';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -89,10 +90,24 @@ export default function ResultList(): JSX.Element | null {
       <div className={styles.ResultList}>
         Showing {curlength} of <b>{total}</b> formulas
         <div className={styles.ResultListTopLine}>
-          <button onClick={close}>Close All</button>
-          <button onClick={exp}>Expand All</button>
+          <button className={styles.button} onClick={close}>
+            Close All
+          </button>
+          <button className={styles.button} onClick={exp}>
+            Expand All
+          </button>
           {goDownButton()}
-          <button onClick={toggleAggregation}>Change Aggregation</button>
+          <div className={styles.button}>
+            <label className={styles.container}>
+              {`group formulas by ${BRANDING_TITLE} Document`}
+              <input
+                type="checkbox"
+                checked={aggregation === 'Title'}
+                onChange={toggleAggregation}
+              />
+              <span className={styles.checkmark} />
+            </label>
+          </div>
         </div>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
         <div className={styles.ButtonList}>
