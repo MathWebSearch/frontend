@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Store} from '../store/Store';
 import {updateProgressAction} from '../store/Actions';
+import {ClipLoader} from 'react-spinners';
 const Progress = require('react-progress');
 
 /*
@@ -13,4 +14,13 @@ export function ProgressBar(): JSX.Element {
       setTimeout(() => dispatch(updateProgressAction(100)), 300);
   });
   return <Progress percent={state.progress} height={4} color={'#4caf50'} />;
+}
+const override = `
+  display: block;
+  margin: 0 auto;
+  border-color: #4caf50;
+`;
+
+export function Spinner(): JSX.Element {
+  return <ClipLoader css={override} loading={true} color={'#4caf50'} />;
 }

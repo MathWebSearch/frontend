@@ -16,6 +16,7 @@
     "react-mathjax-preview": "^0.1.13",
     "react-progress": "0.0.12",
     "react-scripts": "^3.1.1",
+    "react-spinners": "^0.6.1",
     "typescript": "^3.6.2"
   },
   "scripts": {

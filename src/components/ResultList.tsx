@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from './ResultList.module.css';
 import {Store} from '../store/Store';
 import {searchAction, showMoreAction} from '../store/Actions';
+import {Spinner} from './Progress';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -60,7 +61,8 @@ export default function ResultList(): JSX.Element | null {
     }
   });
   if (!allEntries) {
-    return null;
+    /* show loading indictor only when searching */
+    return triggerSearch ? <Spinner /> : null;
   }
 
   /* callback to expand all*/
@@ -85,7 +87,7 @@ export default function ResultList(): JSX.Element | null {
   return (
     <expandContext.Provider value={expandAll}>
       <div className={styles.ResultList}>
-        Showing {curlength} of <b>{total}</b> results
+        Showing {curlength} of <b>{total}</b> formulas
         <div className={styles.ResultListTopLine}>
           <button onClick={close}>Close All</button>
           <button onClick={exp}>Expand All</button>
