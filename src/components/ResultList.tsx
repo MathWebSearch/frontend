@@ -97,11 +97,11 @@ export default function ResultList(): JSX.Element | null {
           query
         </div>
         <div className={styles.ResultListTopLine}>
+          <button className={styles.item} onClick={exp}>
+            Open All
+          </button>
           <button className={styles.item} onClick={close}>
             Close All
-          </button>
-          <button className={styles.item} onClick={exp}>
-            Expand All
           </button>
           {goDownButton()}
           <div className={styles.item}>
