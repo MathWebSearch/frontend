@@ -5,6 +5,7 @@ import {highlightFormula} from '../util/formulaeHighlighting';
 import {extractSurroundingWords} from '../util/extractFunctions';
 import styles from './ResultListEntry.module.css';
 import {IFormulaHit} from '../Backend/client.d';
+import {BRANDING_TITLE} from '../config';
 
 /**
  * This function assambles an entry for a single search hit
@@ -46,7 +47,7 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
           onClick={ev => {
             ev.stopPropagation();
           }}>
-          Go to source
+         view in {BRANDING_TITLE}
         </a>
       ) : null}
     </div>
