@@ -4,7 +4,7 @@ import MathML from './MathML';
 import {highlightFormula} from '../util/formulaeHighlighting';
 import {extractSurroundingWords} from '../util/extractFunctions';
 import styles from './ResultListEntry.module.css';
-import {IFormulaHit} from '../Backend/client.d';
+import {IFormulaHit} from '../interfaces';
 import {BRANDING_TITLE} from '../config';
 
 /**

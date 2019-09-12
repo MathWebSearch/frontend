@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ResultListEntry} from './ResultListEntry';
-import {IFormulaHit} from '../Backend/client';
+import {IFormulaHit} from '../interfaces';
 import {Taggregation} from './ResultList';
 
 interface Ipartition {

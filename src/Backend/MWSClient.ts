@@ -1,12 +1,11 @@
 import {SearchClient} from './Client';
 import {
   Ipayload,
-  IFormulaHit,
-  Iqvar,
   IMWSClientResult,
   IMWSAPIResponse,
   IMWSResponse,
 } from './client';
+import {IFormulaHit, Iqvar} from '../interfaces.d';
 import {extractTitle, extractUrl} from '../util/extractFunctions';
 import {find_attribute_value} from '../util/simpleXpath';
 

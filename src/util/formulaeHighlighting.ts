@@ -1,7 +1,7 @@
 import {extractXMLID} from './extractFunctions';
 import {colors} from '../config/Colors';
 import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
-import {Iqvar} from '../Backend/client.d';
+import {Iqvar} from '../interfaces';
 import styles from '../components/MathML.module.css';
 import {errorLog} from '../config';
 

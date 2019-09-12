@@ -1,5 +1,5 @@
 import {mwsclient, ltxclient} from '../Backend';
-import {IFormulaHit} from '../Backend/client';
+import {IFormulaHit} from '../interfaces';
 import {IAction} from '../interfaces';
 import {errorLog} from '../config';
 
