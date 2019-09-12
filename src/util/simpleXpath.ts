@@ -1,3 +1,5 @@
+import {errorLog} from '../config';
+
 export function getElementBySimpleXpath(xpath:string , element: any) {
   try {
     let elem = element;
@@ -19,7 +21,7 @@ export function getElementBySimpleXpath(xpath:string , element: any) {
     return elem;
   } catch {
     // yeah shit happens but then when not highlight something
-    console.log("didn't find something in simpleXpath");
+    errorLog("didn't find something in simpleXpath");
     return;
   }
 }

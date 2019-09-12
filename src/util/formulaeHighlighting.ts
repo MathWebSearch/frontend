@@ -3,6 +3,7 @@ import {colors} from '../config/Colors';
 import {getElementBySimpleXpath, find_attribute_value} from './simpleXpath';
 import {Iqvar} from '../Backend/client.d';
 import styles from '../components/MathML.module.css';
+import {errorLog} from '../config';
 
 /**
  * sort function to sort qvars alphabetical by there name
@@ -88,7 +89,7 @@ export function highlightFormula(
       return sourceDoc.activeElement.innerHTML;
     }
   } catch (err) {
-    console.log('no highlighting possible', err);
+    errorLog('no highlighting possible', err);
   }
   return source;
 }

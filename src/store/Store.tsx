@@ -41,6 +41,8 @@ function reducer(state: IState, action: IAction): IState {
         return {...state, ...action.payload};
       }
       return state;
+    case 'RESET':
+      return initialState;
     case 'DEFAULT':
     default:
       return state;

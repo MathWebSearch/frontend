@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import {Ipayload, IMWSClientResult, IResponseType} from './client.d';
 import {find_attribute_value} from '../util/simpleXpath';
+import {errorLog} from '../config';
 
 /**
  * this should be the base class for all the backend queries
@@ -64,7 +65,7 @@ export abstract class SearchClient<
         json.from = limitmin;
       }
     } catch (e) {
-      console.log(`fetchContent in ${this.constructor.name} failed`, e);
+      errorLog(`fetchContent in ${this.constructor.name} failed`, e);
       throw e;
     }
     return this.unpackJson(json);

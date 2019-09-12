@@ -51,7 +51,9 @@ function colorVar(mathstring: string): string {
 
 /**
  * Function component that shows mathml equations
- * @param mathstring the string that should be showed
+ * @param mathstring the string that should be showed null indcates nothing to show
+ * empty string indicates error
+ *
  * */
 export function PreviewWindow(): JSX.Element | null {
   const {state, dispatch} = React.useContext(Store);

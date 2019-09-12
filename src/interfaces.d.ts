@@ -23,7 +23,8 @@ export interface IAction {
     | 'TRIGGER_SEARCH'
     | 'UPDATE_PROGRESS'
     | 'SHOW_MORE'
-    | 'DEFAULT';
+    | 'DEFAULT'
+    | 'RESET';
   payload: {
     limitmin?: number;
     input_formula?: string | null;

@@ -12,10 +12,11 @@ export const examples =
   process.env.REACT_APP_DISABLE_EXAMPLES !== 'true'
     ? examplejson.exampleList
     : null;
-export const symbols = !process.env.REACT_APP_DISABLE_SYMBOLS
-  || process.env.REACT_APP_DISABLE_SYMBOLS !== 'true'
-  ? symboljson.symbolList
-  : null;
+export const symbols =
+  !process.env.REACT_APP_DISABLE_SYMBOLS ||
+  process.env.REACT_APP_DISABLE_SYMBOLS !== 'true'
+    ? symboljson.symbolList
+    : null;
 
 export const BRANDING_TITLE =
   process.env.REACT_APP_MWS_BRANDING_TITLE || 'nLab';
@@ -25,3 +26,6 @@ export const BRANDING_URL =
 
 export const MWS_MODE =
   process.env.REACT_APP_MWS_MODE === 'API' ? 'API' : 'MWS';
+
+export const errorLog =
+  process.env.NODE_ENV !== 'production' ? (...args) => console.error(...args) : () => {};

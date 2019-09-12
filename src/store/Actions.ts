@@ -1,6 +1,7 @@
 import {mwsclient, ltxclient} from '../Backend';
 import {IFormulaHit} from '../Backend/client';
 import {IAction} from '../interfaces';
+import {errorLog} from '../config';
 
 export function updateInputTextAction(new_text: string): IAction {
   window.history.pushState(null, '', `?query-math=${encodeURI(new_text)}`);
@@ -18,16 +19,19 @@ let timeout: NodeJS.Timeout;
 export const convertAction = (dispatch: any) => async (input_text: string) => {
   clearTimeout(timeout);
   timeout = setTimeout(async () => {
+    /* trim the whitespaces at the end of input */
     const clean_text = input_text.replace(/\s*$/g, '');
     let input_formula: string | null = null;
     if ('' !== clean_text) {
       try {
         input_formula = await ltxclient.fetchContent(clean_text);
       } catch (e) {
-        input_formula = null;
+        /* empty string indicates error for preview */
+        input_formula = '';
       }
     } else {
-      input_formula = '';
+      /* null indicates nothing to preview*/
+      input_formula = null;
     }
     return dispatch({type: 'CONVERT', payload: {input_formula}});
   }, 1000);
@@ -61,8 +65,10 @@ export const searchAction = (dispatch: any) => async (
       progress: 66,
     };
   } catch (e) {
-    console.error('searchAction failed', e);
-    return dispatch({type: 'DEFAULT', payload: null});
+    /* In case of an error  */
+    errorLog('searchAction failed', e);
+    alert('Sorry, but this search failed for some reason');
+    return dispatch({type: 'RESET', payload: {}});
   }
   let ret: IAction = {type: 'SEARCH', payload};
 

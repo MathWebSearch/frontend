@@ -1,5 +1,6 @@
 import {Client} from './Client';
 import {ILTXResponse} from './client.d';
+import {errorLog} from '../config';
 
 /*
  * this is the class to send the conversion queries to latexml
@@ -24,7 +25,7 @@ export class LTXClient extends Client {
     try {
       json = await this.sendJson({body: payload});
     } catch (e) {
-      console.log('fetchContent in LTXClient failed', e);
+      errorLog('fetchContent in LTXClient failed', e);
       throw e;
     }
     if (json.status_code !== 0) {
