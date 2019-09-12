@@ -73,3 +73,5 @@ export interface IFormulaHit {
   /** the text from the document */
   text: string;
 }
+
+export type Taggregation = 'None' | 'Title';

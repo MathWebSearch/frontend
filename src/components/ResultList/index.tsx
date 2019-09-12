@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styles from './ResultList.module.css';
-import {Store} from '../store/Store';
-import {searchAction, showMoreAction} from '../store/Actions';
-import {Spinner} from './Progress';
-import {BRANDING_TITLE} from '../config';
+import {Store} from '../../store/Store';
+import {searchAction, showMoreAction} from '../../store/Actions';
+import {Spinner} from '.././Progress';
+import {BRANDING_TITLE} from '../../config';
+import {Taggregation} from '../../interfaces';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -35,7 +36,6 @@ const goUpButton = (): React.ReactNode =>
  */
 export const expandContext = React.createContext(undefined);
 
-export type Taggregation = 'None' | 'Title';
 /*
  * Function component the displays the results as List
  * has as state the aggregation and if the expandAll/closeall was clicked

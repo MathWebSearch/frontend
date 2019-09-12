@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './Footer.module.css';
-import kwarc from '../img/kwarc_logo.png';
-import fau from '../img/fau_logo.png';
-import odk from '../img/odk_logo.png';
-import eu from '../img/eu.svg';
+import kwarc from '../../img/kwarc_logo.png';
+import fau from '../../img/fau_logo.png';
+import odk from '../../img/odk_logo.png';
+import eu from '../../img/eu.svg';
 
 export function Footer(): JSX.Element {
   return (

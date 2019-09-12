@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './ResultListEntry.module.css';
-import {expandContext} from './ResultList';
-import {IFormulaHit} from '../interfaces';
+import {expandContext} from '../ResultList';
+import {IFormulaHit} from '../../interfaces';
 import FormulaHit from './FormulaHit';
 
 interface ResultListEntryProps {

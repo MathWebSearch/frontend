@@ -1,7 +1,7 @@
 import * as React from 'react';
 import DropDownButton from './DropDownButton';
-import {examples} from '../config';
-import {symbols} from '../config';
+import {examples} from '../../config';
+import {symbols} from '../../config';
 
 /*
  * Function that returns the ExampleButton that updates onhover the text

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {colors} from '../config/Colors';
-import MathML from './MathML';
+import {colors} from '../../config/Colors';
+import MathML from '../MathML';
 import PropTypes from 'prop-types';
 import styles from './ResultListEntry.module.css';
 

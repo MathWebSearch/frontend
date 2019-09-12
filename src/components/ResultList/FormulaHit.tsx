@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Subsitutions from './Substitutions';
-import MathML from './MathML';
-import {highlightFormula} from '../util/formulaeHighlighting';
-import {extractSurroundingWords} from '../util/extractFunctions';
+import MathML from '../MathML';
+import {highlightFormula} from '../../util/formulaeHighlighting';
+import {extractSurroundingWords} from '../../util/extractFunctions';
 import styles from './ResultListEntry.module.css';
-import {IFormulaHit} from '../interfaces';
-import {BRANDING_TITLE} from '../config';
+import {IFormulaHit} from '../../interfaces';
+import {BRANDING_TITLE} from '../../config';
 
 /**
  * This function assambles an entry for a single search hit

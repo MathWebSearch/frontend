@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styles from './PreviewWindow.module.css';
-import MathML from './MathML';
-import {colors} from '../config/Colors';
-import {Store} from '../store/Store';
-import {convertAction} from '../store/Actions';
+import MathML from '.././MathML';
+import {colors} from '../../config/Colors';
+import {Store} from '../../store/Store';
+import {convertAction} from '../../store/Actions';
 /**
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color

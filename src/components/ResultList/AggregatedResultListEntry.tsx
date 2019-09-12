@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ResultListEntry} from './ResultListEntry';
-import {IFormulaHit} from '../interfaces';
-import {Taggregation} from './ResultList';
+import {IFormulaHit} from '../../interfaces';
+import {Taggregation} from '../../interfaces';
 
 interface Ipartition {
   [title: string]: IFormulaHit[];
