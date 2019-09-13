@@ -27,6 +27,7 @@ button {
   padding: 10px;
   border: none;
   margin: 1px;
+  font-size: 14px;
 }
 button:hover {
   background-color: #226622;
@@ -39,11 +40,4 @@ button:disabled {
 button:disabled:hover {
   box-shadow: none;
   cursor: auto;
-}
-
-.Stats {
-  text-align: center;
-}
-.Controller {
-  position: relative;
 }

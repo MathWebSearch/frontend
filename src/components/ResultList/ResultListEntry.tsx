@@ -37,7 +37,7 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   }
   return (
     <div className={styles.ResultListEntry}>
-      <div onClick={toggleExpansion}>
+      <div onClick={toggleExpansion} className={styles.title}>
         <b>{title}</b>
       </div>
       {inner}
