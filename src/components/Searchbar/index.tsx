@@ -10,7 +10,13 @@ import styles from './SearchBar.module.css';
 export function SearchBar() {
   const {state, dispatch} = React.useContext(Store);
   const textInput: React.RefObject<HTMLInputElement> = React.createRef();
-  const {input_text, input_formula} = state;
+  const {
+    input_text,
+    input_formula,
+    current_formula,
+    limitmin,
+    answsize,
+  } = state;
 
   const updateandFocus = (text: string) => {
     dispatch(updateInputTextAction(text));
@@ -39,7 +45,13 @@ export function SearchBar() {
   };
 
   return (
-    <div className={styles.SearchBar}>
+    <div
+      className={styles.SearchBar}
+      onMouseEnter={() =>
+        answsize < limitmin &&
+        input_formula === current_formula &&
+        updateandFocus(input_text)
+      }>
       <form id="form1" onSubmit={submitHandler}>
         <input
           autoFocus
@@ -58,7 +70,10 @@ export function SearchBar() {
         </button>
         <br />
       </form>
-      <button type="submit" form="form1" disabled={!input_formula}>
+      <button
+        type="submit"
+        form="form1"
+        disabled={!input_formula || input_formula === current_formula}>
         Search
       </button>
       {ExampleButton(submitHandler, updateandFocus)}

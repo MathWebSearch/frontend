@@ -6,6 +6,7 @@ export interface resultListContent {
 export interface IState {
   input_text: string | null;
   input_formula: string | null;
+  current_formula: string | null;
   allEntries?: Array<IFormulaHit>;
   total: number;
   limitmin: number;
@@ -28,6 +29,7 @@ interface ISearchAction {
   type: 'SEARCH';
   payload: {
     limitmin: number;
+    current_formula: string;
     total: number;
     allEntries: Array<IFormulaHit>;
     took?: number | undefined;
@@ -50,7 +52,7 @@ interface IUpdateprogressaction {
 }
 interface IShowmoreaction {
   type: 'SHOW_MORE';
-  payload: {triggerSearch: boolean; progress: number};
+  payload: {triggerSearch: boolean; progress: number, input_formula: string};
 }
 interface IDefaultaction {
   type: 'DEFAULT';

@@ -13,6 +13,7 @@ const getURL = (): string => {
 const initialState: IState = {
   input_text: getURL(),
   input_formula: null,
+  current_formula: null,
   total: 0,
   limitmin: 0,
   answsize: 30,

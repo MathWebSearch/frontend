@@ -58,6 +58,7 @@ export const searchAction = (dispatch: any) => async (
     );
     payload = {
       limitmin: limitmin + answsize,
+      current_formula: input_formula,
       total: result.total,
       allEntries: [...currentList, ...result.entries],
       took: result.took,
@@ -94,10 +95,10 @@ export const triggerSearchAction = (): IAction => {
  * Action to trigger an Search action that uses the same input_formula as the current state
  * to get the next results
  **/
-export const showMoreAction = (): IAction => {
+export const showMoreAction = (current_formula: string): IAction => {
   return {
     type: 'SHOW_MORE',
-    payload: {triggerSearch: true, progress: 20},
+    payload: {triggerSearch: true, progress: 20, input_formula: current_formula},
   };
 };
 

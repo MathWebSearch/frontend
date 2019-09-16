@@ -46,6 +46,7 @@ export default function ResultList(): JSX.Element | null {
     total,
     allEntries,
     input_formula,
+    current_formula,
     limitmin,
     answsize,
     triggerSearch,
@@ -54,12 +55,12 @@ export default function ResultList(): JSX.Element | null {
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('None');
   const [expandAll, setExpandAll] = React.useState();
-  const search = async () =>
-    await searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
+  const search = async (formula: string) =>
+    await searchAction(dispatch)(answsize, formula, limitmin, allEntries);
 
   React.useEffect(() => {
     if (triggerSearch) {
-      search();
+      search(input_formula);
     }
   });
   if (!allEntries) {
@@ -121,7 +122,7 @@ export default function ResultList(): JSX.Element | null {
             <Spinner />
           ) : curlength < total ? (
             <button
-              onClick={() => dispatch(showMoreAction())}
+              onClick={() => dispatch(showMoreAction(current_formula))}
               disabled={curlength >= total}>
               Show More
             </button>
