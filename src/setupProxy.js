@@ -12,8 +12,9 @@ const MWS_URL =
     ? 'http://localhost:9090'
     : process.env.REACT_APP_MWS_URL;
 
+const mode = process.env.REACT_APP_MWS_MODE === 'API';
+
 module.exports = function(app) {
   app.use(proxy('/convert', {target: LATEXML_URL}));
-  app.use(proxy('/mws/', {target: MWSAPI_URL}));
-  app.use(proxy('/search', {target: MWS_URL}));
+  app.use(proxy('/mws', {target: mode ? MWSAPI_URL: MWS_URL}));
 };
