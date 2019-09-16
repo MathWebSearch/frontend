@@ -16,6 +16,7 @@ export function SearchBar() {
     current_formula,
     limitmin,
     answsize,
+    triggerSearch,
   } = state;
 
   const updateandFocus = (text: string) => {
@@ -73,7 +74,7 @@ export function SearchBar() {
       <button
         type="submit"
         form="form1"
-        disabled={!input_formula || input_formula === current_formula}>
+        disabled={!input_formula || input_formula === current_formula || triggerSearch}>
         Search
       </button>
       {ExampleButton(submitHandler, updateandFocus)}

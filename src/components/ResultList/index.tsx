@@ -94,7 +94,7 @@ export default function ResultList(): JSX.Element | null {
           Showing {curlength} of <b>{total}</b> formulas
         </span>{' '}
         <div>
-          The daemon used {(took / 10e9).toFixed(4)} seconds for the last query
+          The daemon used {(took / 1e9).toFixed(4)} seconds for the last query
         </div>
         <div className={styles.ResultListTopLine}>
           <button className={styles.item} onClick={exp}>
