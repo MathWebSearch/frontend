@@ -109,6 +109,7 @@ export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
       expressions: [content],
       from: limitmin,
       size: answsize,
+      complete: false,
     };
     return {
       headers: this.header,
