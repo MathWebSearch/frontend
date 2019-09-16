@@ -21,6 +21,7 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   const toggleExpansion = () => {
     setValue(!active);
   };
+  /* check if openall/closeall button was clicked */
   if (active !== hook && hook !== undefined) {
     setValue(hook);
   }

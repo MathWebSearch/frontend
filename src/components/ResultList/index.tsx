@@ -52,7 +52,7 @@ export default function ResultList(): JSX.Element | null {
     took,
   } = state;
 
-  const [aggregation, setAggregation] = React.useState<Taggregation>('Title');
+  const [aggregation, setAggregation] = React.useState<Taggregation>('None');
   const [expandAll, setExpandAll] = React.useState();
   const search = async () =>
     await searchAction(dispatch)(answsize, input_formula, limitmin, allEntries);
@@ -93,8 +93,7 @@ export default function ResultList(): JSX.Element | null {
           Showing {curlength} of <b>{total}</b> formulas
         </span>{' '}
         <div>
-          The daemon used {(took / 10e9).toFixed(4)} seconds for the last
-          query
+          The daemon used {(took / 10e9).toFixed(4)} seconds for the last query
         </div>
         <div className={styles.ResultListTopLine}>
           <button className={styles.item} onClick={exp}>
