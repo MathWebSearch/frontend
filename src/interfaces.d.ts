@@ -15,27 +15,60 @@ export interface IState {
   progress: number;
 }
 
-export interface IAction {
-  type:
-    | 'UPDATE_INPUT_TEXT'
-    | 'CONVERT'
-    | 'SEARCH'
-    | 'TRIGGER_SEARCH'
-    | 'UPDATE_PROGRESS'
-    | 'SHOW_MORE'
-    | 'DEFAULT'
-    | 'RESET';
+interface IUpadateinputtextaction {
+  type: 'UPDATE_INPUT_TEXT';
+  payload: {input_text: string; input_formula: string | null};
+}
+interface IConvertAction {
+  type: 'CONVERT';
+  payload: {input_formula: string | null};
+}
+
+interface ISearchAction {
+  type: 'SEARCH';
   payload: {
-    limitmin?: number;
-    input_formula?: string | null;
-    input_text?: string;
-    total?: number;
-    took?: number;
-    allEntries?: Array<IFormulaHit>;
-    triggerSearch?: bool;
-    progress?: number;
+    limitmin: number;
+    total: number;
+    allEntries: Array<IFormulaHit>;
+    took?: number | undefined;
+    triggerSearch: boolean;
+    progress: number;
   };
 }
+interface ITriggersearchaction {
+  type: 'TRIGGER_SEARCH';
+  payload: {
+    triggerSearch: boolean;
+    allEntries?: Array<IFormulaHit>;
+    progress: number;
+    limitmin: number;
+  };
+}
+interface IUpdateprogressaction {
+  type: 'UPDATE_PROGRESS';
+  payload: {progress: number};
+}
+interface IShowmoreaction {
+  type: 'SHOW_MORE';
+  payload: {triggerSearch: boolean; progress: number};
+}
+interface IDefaultaction {
+  type: 'DEFAULT';
+  payload: {};
+}
+interface IResetaction {
+  type: 'RESET';
+  payload: {};
+}
+export type IAction =
+  | IUpadateinputtextaction
+  | IConvertAction
+  | ISearchAction
+  | ITriggersearchaction
+  | IUpdateprogressaction
+  | IDefaultaction
+  | IResetaction
+  | IShowmoreaction;
 
 export interface IStore {
   state: IState;
