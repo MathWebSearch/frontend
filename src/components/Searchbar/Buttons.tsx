@@ -2,6 +2,8 @@ import * as React from 'react';
 import DropDownButton from './DropDownButton';
 import {examples} from '../../config';
 import {symbols} from '../../config';
+import {Store} from '../../store/Store';
+import {updateansizeAction} from '../../store/Actions';
 
 /*
  * Function that returns the ExampleButton that updates onhover the text
@@ -53,6 +55,25 @@ export function SymbolButton(
       reducer={(element: string) => {
         return {text: element, clickarg: element};
       }}
+    />
+  );
+}
+
+export function SizeButton(): JSX.Element {
+  const {state, dispatch} = React.useContext(Store);
+  const list = Array.from(Array(11).keys()).map(e => {
+    return `${e * 10 || 1}`;
+  });
+  return (
+    <DropDownButton
+      name={`Result size: ${state.answsize}`}
+      clickHandler={(element: string) => {
+        dispatch(updateansizeAction(Number(element)));
+      }}
+      reducer={(e: string) => {
+        return {text: e, clickarg: e};
+      }}
+      list={list}
     />
   );
 }

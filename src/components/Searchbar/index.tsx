@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ExampleButton, SymbolButton} from './Buttons';
+import {ExampleButton, SymbolButton, SizeButton} from './Buttons';
 import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
@@ -79,6 +79,7 @@ export function SearchBar() {
       </button>
       {ExampleButton(submitHandler, updateandFocus)}
       {SymbolButton(insertAtCursorPosition)}
+      {SizeButton()}
     </div>
   );
 }

@@ -52,7 +52,7 @@ interface IUpdateprogressaction {
 }
 interface IShowmoreaction {
   type: 'SHOW_MORE';
-  payload: {triggerSearch: boolean; progress: number, input_formula: string};
+  payload: {triggerSearch: boolean; progress: number; input_formula: string};
 }
 interface IDefaultaction {
   type: 'DEFAULT';
@@ -62,6 +62,12 @@ interface IResetaction {
   type: 'RESET';
   payload: {};
 }
+
+interface IUpdateanswsizeaction {
+  type: 'UPDATE_ANSSWIZE';
+  payload: {answsize: number};
+}
+
 export type IAction =
   | IUpadateinputtextaction
   | IConvertAction
@@ -70,7 +76,8 @@ export type IAction =
   | IUpdateprogressaction
   | IDefaultaction
   | IResetaction
-  | IShowmoreaction;
+  | IShowmoreaction
+  | IUpdateanswsizeaction;
 
 export interface IStore {
   state: IState;

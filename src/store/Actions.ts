@@ -108,3 +108,8 @@ export const showMoreAction = (current_formula: string): IAction => {
 export const updateProgressAction = (new_progress: number): IAction => {
   return {type: 'UPDATE_PROGRESS', payload: {progress: new_progress}};
 };
+
+export const updateansizeAction = ( newanswsize : number ) : IAction =>{
+  return {type: 'UPDATE_ANSSWIZE', payload: {answsize: newanswsize}}
+
+}
