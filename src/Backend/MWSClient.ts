@@ -4,6 +4,7 @@ import {
   IMWSClientResult,
   IMWSAPIResponse,
   IMWSResponse,
+  IHit,
 } from './client';
 import {IFormulaHit, Iqvar} from '../interfaces.d';
 import {extractTitle, extractUrl} from '../util/extractFunctions';
@@ -85,7 +86,7 @@ export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
     const min = json.from || 0;
     let ret: Array<IFormulaHit> = [];
     const hits = json.hits || [];
-    hits.forEach((hit: any, index: number) => {
+    hits.forEach((hit: IHit, index: number) => {
       ret.push({
         id: min + index,
         local_id: hit.math_ids[0].url,

@@ -59,6 +59,8 @@ export function PreviewWindow(): JSX.Element | null {
   const {state, dispatch} = React.useContext(Store);
   const {input_text, input_formula: mathstring} = state;
   React.useEffect(() => {
+      // this triggers the convercall also when there es input_text in the
+      // intial state
     if (input_text !== '' && mathstring === null) {
       convertAction(dispatch)(input_text);
     }
