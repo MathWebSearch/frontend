@@ -61,7 +61,7 @@ export function SymbolButton(
 
 export function SizeButton(): JSX.Element {
   const {state, dispatch} = React.useContext(Store);
-  const list = Array.from(Array(11).keys()).map(e => {
+  const list = Array.from(Array(5).keys()).map(e => {
     return `${e * 10 || 1}`;
   });
   return (
