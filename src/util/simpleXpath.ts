@@ -1,6 +1,6 @@
 import {errorLog} from '../config';
 
-export function getElementBySimpleXpath(xpath:string , element: any) {
+export function getElementBySimpleXpath(xpath: string, element: any) {
   try {
     let elem = element;
     let xpatharr = convertXpath(xpath);
@@ -10,6 +10,7 @@ export function getElementBySimpleXpath(xpath:string , element: any) {
       if (n < elem.children.length) {
         elem = elem.children[n];
       } else {
+        // in case that there are not engouh children go one down?
         if (!elem.firstElementChild) {
           elem = elem.nextElementSibling;
         } else {
@@ -33,7 +34,7 @@ export function getElementBySimpleXpath(xpath:string , element: any) {
  * @return {array} index
  * */
 
-export function convertXpath(xpath: string) :Array<number> {
+export function convertXpath(xpath: string): Array<number> {
   let xpatharr = xpath
     .split('/')
     .join('')
@@ -56,7 +57,11 @@ export function convertXpath(xpath: string) :Array<number> {
  * @retrun node
  *
  * */
-export function find_attribute_value(doc: HTMLDocument, attribute:string, value:string) : HTMLElement {
+export function find_attribute_value(
+  doc: HTMLDocument,
+  attribute: string,
+  value: string,
+): HTMLElement {
   const node = Array.prototype.find.call(doc.getElementsByTagName('*'), e => {
     return e.getAttribute(attribute) === value;
   });

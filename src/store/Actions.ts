@@ -40,14 +40,14 @@ export const convertAction = (dispatch: any) => async (input_text: string) => {
 /*
  * Action to search for a fromula
  **/
-export const searchAction = (dispatch: any) => async (
+export const searchAction = async (
   answsize: number,
   input_formula: string,
   limitmin: number = 0,
   currentList: Array<IFormulaHit> = [],
-) => {
+)  => {
   if (!input_formula) {
-    return dispatch({type: 'DEFAULT', payload: {}});
+    return {type: 'DEFAULT', payload: {}};
   }
   let payload;
   try {
@@ -69,11 +69,11 @@ export const searchAction = (dispatch: any) => async (
     /* In case of an error  */
     errorLog('searchAction failed', e);
     alert('Sorry, but this search failed for some reason');
-    return dispatch({type: 'RESET', payload: {}});
+    return {type: 'RESET', payload: {}};
   }
   let ret: IAction = {type: 'SEARCH', payload};
 
-  return dispatch(ret);
+  return ret;
 };
 
 /*

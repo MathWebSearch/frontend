@@ -11,23 +11,24 @@ import {StoreProvider} from './store/Store';
 
 import {BRANDING_TITLE, BRANDING_URL} from './config/';
 
+/**
+ * sceletion of the app
+ * */
 function App() {
   return (
-    <>
-      <div className="App">
-        <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
-        <br />
-        <StoreProvider>
-          <ProgressBar />
-          <PreviewWindow />
-          <SearchBar />
-          <br style={{clear: 'both'}} />
-          <ResultList />
-        </StoreProvider>
-        <br />
-        <Footer />
-      </div>
-    </>
+    <div className="App">
+      <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
+      <br />
+      <StoreProvider>
+        <ProgressBar />
+        <PreviewWindow />
+        <SearchBar />
+        <br style={{clear: 'both'}} />
+        <ResultList />
+      </StoreProvider>
+      <br />
+      <Footer />
+    </div>
   );
 }
 

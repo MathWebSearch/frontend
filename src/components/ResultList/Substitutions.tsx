@@ -10,7 +10,7 @@ import styles from './ResultListEntry.module.css';
 interface SubsitutionsProps {
   subst: any;
 }
-export default function Subsitutions(props: SubsitutionsProps) {
+export default function Subsitutions(props: SubsitutionsProps) : JSX.Element | null{
   const {subst} = props;
   if (!subst) {
     return null;

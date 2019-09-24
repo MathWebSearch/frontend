@@ -16,7 +16,7 @@ const initialState: IState = {
   current_formula: null,
   total: 0,
   limitmin: 0,
-  answsize: 20,
+  answsize: 10,
   triggerSearch: false,
   progress: 0,
 };

@@ -55,14 +55,14 @@ export default function ResultList(): JSX.Element | null {
 
   const [aggregation, setAggregation] = React.useState<Taggregation>('None');
   const [expandAll, setExpandAll] = React.useState();
-  const search = async (formula: string) =>
-    await searchAction(dispatch)(answsize, formula, limitmin, allEntries);
 
   React.useEffect(() => {
-    if (triggerSearch) {
-      search(input_formula);
-    }
-  });
+    /* trigger the api request if needed */
+    const search = async (formula: string) =>
+      dispatch(await searchAction(answsize, formula, limitmin, allEntries));
+    triggerSearch && search(input_formula);
+  }, [triggerSearch, answsize, limitmin, allEntries, dispatch, input_formula]);
+
   if (!allEntries) {
     /* show loading indictor only when searching */
     return triggerSearch ? <Spinner /> : null;
