@@ -17,13 +17,13 @@ interface ResultListEntryProps {
 export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   const {title, formulahits} = props;
   const [active, setValue] = React.useState<boolean>(false);
-  const hook = React.useContext(expandContext);
+  const expandAll = React.useContext(expandContext);
   const toggleExpansion = () => {
     setValue(!active);
   };
   /* check if openall/closeall button was clicked */
-  if (active !== hook && hook !== undefined) {
-    setValue(hook);
+  if (active !== expandAll && expandAll !== undefined) {
+    setValue(expandAll);
   }
 
   let inner: React.ReactNode;
