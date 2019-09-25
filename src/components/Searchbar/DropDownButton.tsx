@@ -18,7 +18,6 @@ interface IDropDownButtonProps<T> {
   name: string;
   /* what happens when you click on an element*/
   clickHandler: (element: string, event: React.SyntheticEvent) => void;
-
   /* what happens when you hover over  an element*/
   hoverHandler?: (element: string) => void;
   /* list of the contents that should be presented*/

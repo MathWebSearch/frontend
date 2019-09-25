@@ -59,6 +59,10 @@ export function SymbolButton(
   );
 }
 
+/*
+ * returns a button to modify the answer size
+ * */
+
 export function SizeButton(): JSX.Element {
   const {state, dispatch} = React.useContext(Store);
   const list = Array.from(Array(5).keys()).map(e => {

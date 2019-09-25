@@ -57,10 +57,10 @@ export class Header extends React.Component<Props, HeaderState> {
         </div>
         <br style={{clear: 'both'}} />
         <p style={{marginTop: '20px'}}>
-          Enter a comma-separated list of key phrases into the top search bar
-          and a set of formulae schemata (written in LaTeX with ?a, ?b, ... for
-          query variables; they are marked in different colors in the formula
-          preview). To add a numeric range insert{' '}
+          Enter a key phrases with a set of formulae schemata into the search
+          bar (written in LaTeX with ?a, ?b, ... for query variables; they are
+          marked in different colors in the formula preview). To add a numeric
+          range insert{' '}
           <b>
             \range{'{lower}'}
             {'{high}'}
