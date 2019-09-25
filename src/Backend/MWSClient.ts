@@ -64,7 +64,7 @@ export class MWSClient extends SearchClient<IMWSResponse> {
       });
     });
 
-    return {total: json.total, entries: ret, took: json.time * 1000};
+    return {total: json.total, entries: ret, took: json.time/1e6};
   }
 }
 
@@ -102,7 +102,7 @@ export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
       });
     });
 
-    return {total: json.total, entries: ret, took: json.took};
+    return {total: json.total, entries: ret, took: json.took/1e9};
   }
 
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {

@@ -41,7 +41,7 @@ export function SearchBar() {
   };
   const submitHandler = (event: React.SyntheticEvent) => {
     // searchAction(dispatch)(answsize, input_formula);
-    dispatch(triggerSearchAction());
+    input_formula !== null && dispatch(triggerSearchAction());
     event.preventDefault();
   };
 
