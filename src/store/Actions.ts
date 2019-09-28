@@ -12,29 +12,25 @@ export function updateInputTextAction(new_text: string): IAction {
 }
 
 /**
- * Action to send the input_text to the Latexml-daemon it is debounced with that timer
- * to reduce the amount of queries to the server while input
+ * Creates the action to update the previewed formula
  **/
-let timeout: NodeJS.Timeout;
-export const convertAction = (dispatch: any) => async (input_text: string) => {
-  clearTimeout(timeout);
-  timeout = setTimeout(async () => {
-    /* trim the whitespaces at the end of input */
-    const clean_text = input_text.replace(/\s*$/g, '');
-    let input_formula: string | null = null;
-    if ('' !== clean_text) {
-      try {
-        input_formula = await ltxclient.fetchContent(clean_text);
-      } catch (e) {
-        /* empty string indicates error for preview */
-        input_formula = '';
-      }
-    } else {
-      /* null indicates nothing to preview*/
-      input_formula = null;
+export const convertAction = async (input_text: string) => {
+  /* trim the whitespaces at the end of input */
+  const clean_text = input_text.replace(/\s*$/g, '');
+  let input_formula: string | null = null;
+  if ('' !== clean_text) {
+    try {
+      input_formula = await ltxclient.fetchContent(clean_text);
+    } catch (e) {
+      /* empty string indicates error for preview */
+      input_formula = '';
     }
-    return dispatch({type: 'CONVERT', payload: {input_formula}});
-  }, 1000);
+  } else {
+    /* null indicates nothing to preview*/
+    input_formula = null;
+  }
+  // return dispatch({type: 'CONVERT', payload: {input_formula}});
+  return {type: 'CONVERT', payload: {input_formula}};
 };
 
 /*
@@ -45,7 +41,7 @@ export const searchAction = async (
   input_formula: string,
   limitmin: number = 0,
   currentList: Array<IFormulaHit> = [],
-)  => {
+) => {
   if (!input_formula) {
     return {type: 'DEFAULT', payload: {}};
   }
@@ -98,7 +94,11 @@ export const triggerSearchAction = (): IAction => {
 export const showMoreAction = (current_formula: string): IAction => {
   return {
     type: 'SHOW_MORE',
-    payload: {triggerSearch: true, progress: 20, input_formula: current_formula},
+    payload: {
+      triggerSearch: true,
+      progress: 20,
+      input_formula: current_formula,
+    },
   };
 };
 
@@ -109,7 +109,6 @@ export const updateProgressAction = (new_progress: number): IAction => {
   return {type: 'UPDATE_PROGRESS', payload: {progress: new_progress}};
 };
 
-export const updateansizeAction = ( newanswsize : number ) : IAction =>{
-  return {type: 'UPDATE_ANSSWIZE', payload: {answsize: newanswsize}}
-
-}
+export const updateansizeAction = (newanswsize: number): IAction => {
+  return {type: 'UPDATE_ANSSWIZE', payload: {answsize: newanswsize}};
+};

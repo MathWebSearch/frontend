@@ -1,14 +1,14 @@
-/**
-* debounce function takes a function and delays the calls 
-* */
-type F = (...args: any[]) => any;
-export const debounce = (func: F, wait: number): F => {
-  let timeout: NodeJS.Timeout;
-  return function(this: any, ...args: any[]) {
-    const context: any = this;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, wait);
-  };
-};
+import React from 'react';
+/*
+ * Custom Hook for debounceing a funciton call
+ * @param callback function that should be debounced
+ * @param wait time that should be minimum between calls of callback
+ * */
+export function useDebounce(func: Function, wait: number) {
+  const timeoutRef = React.useRef<NodeJS.Timeout>();
+  if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+  const timeout = setTimeout(() => func(), wait);
+  timeoutRef.current = timeout;
+}

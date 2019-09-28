@@ -4,6 +4,7 @@ import MathML from '.././MathML';
 import {colors} from '../../config/Colors';
 import {Store} from '../../store/Store';
 import {convertAction} from '../../store/Actions';
+import {useDebounce} from '../../util/Debounce';
 /**
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color
@@ -50,7 +51,6 @@ function colorVar(mathstring: string): string {
 }
 
 /**
- *
  * Function component that shows mathml equations
  * @param mathstring the string that should be showed null indcates nothing to show
  * empty string indicates error
@@ -58,13 +58,13 @@ function colorVar(mathstring: string): string {
 export function PreviewWindow(): JSX.Element | null {
   const {state, dispatch} = React.useContext(Store);
   const {input_text, input_formula: mathstring} = state;
-  React.useEffect(() => {
-      // this triggers the convercall also when there es input_text in the
-      // intial state
+  useDebounce(async () => {
+    // this triggers the convercall also when there es input_text in the
+    // intial state
     if (input_text !== '' && mathstring === null) {
-      convertAction(dispatch)(input_text);
+      dispatch(await convertAction(input_text));
     }
-  }, [input_text, dispatch, mathstring]);
+  }, 1000);
   if (null === mathstring) {
     return null;
   }
