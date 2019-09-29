@@ -1,5 +1,9 @@
 import {errorLog} from '../config';
 
+/**
+ * @param string of xpath
+ * @param element starting element
+ * */
 export function getElementBySimpleXpath(xpath: string, element: any) {
   try {
     let elem = element;
@@ -15,8 +19,8 @@ export function getElementBySimpleXpath(xpath: string, element: any) {
           elem = elem.nextElementSibling;
         } else {
           elem = elem.firstElementChild;
+          xpatharr.unshift(n - 1);
         }
-        xpatharr.unshift(n - 1);
       }
     }
     return elem;
@@ -27,8 +31,8 @@ export function getElementBySimpleXpath(xpath: string, element: any) {
   }
 }
 
-/*
- * function that takes a xpath expression as string and converts it to a array
+/**
+ * Function that takes a xpath expression as string and converts it to a array
  * of index to children
  * @param {string} xpath
  * @return {array} index

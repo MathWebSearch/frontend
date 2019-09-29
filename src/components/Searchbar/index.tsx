@@ -40,7 +40,6 @@ export function SearchBar() {
     updateandFocus(newvalue);
   };
   const submitHandler = (event: React.SyntheticEvent) => {
-    // searchAction(dispatch)(answsize, input_formula);
     input_formula !== null && dispatch(triggerSearchAction());
     event.preventDefault();
   };
