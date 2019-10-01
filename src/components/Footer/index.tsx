@@ -9,6 +9,15 @@ export function Footer(): JSX.Element {
   return (
     <div className={styles.Footer}>
       <div>
+        <a
+          href="https://github.com/MathWebSearch/frontend/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.footlink}>
+          <span>Report Error/Give Feedback</span>
+        </a>
+      </div>
+      <div>
         Powered by <a href="http://search.mathweb.org/">MathWebSearch</a>
       </div>
       <div className={styles.footer}>
