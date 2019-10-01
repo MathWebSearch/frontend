@@ -17,6 +17,7 @@ import {BRANDING_TITLE, BRANDING_URL} from './config/';
 function App() {
   return (
     <div className="App">
+      {GitHubBadage()}
       <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
       <br />
       <StoreProvider>
@@ -32,4 +33,16 @@ function App() {
   );
 }
 
+function GitHubBadage() {
+  return (
+    <span id="forkongithub">
+      <a
+        href="https://github.com/MathWebSearch/frontend/issues"
+        target="_blank"
+        rel="noopener noreferrer">
+        Report Error on GitHub
+      </a>
+    </span>
+  );
+}
 export default App;
