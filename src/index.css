@@ -41,7 +41,7 @@ button:disabled:hover {
   box-shadow: none;
   cursor: auto;
 }
-
+/* stolen from here https://codepo8.github.io/css-fork-on-github-ribbon/ */
 #forkongithub a {
   background: #4caf50;
   color: #fff;
@@ -50,8 +50,8 @@ button:disabled:hover {
   text-align: center;
   font-weight: bold;
   padding: 5px 40px;
-  font-size: 1rem;
-  line-height: 2rem;
+  font-size: 0.7rem;
+  line-height: 1.3rem;
   position: relative;
   transition: 0.5s;
 }
@@ -88,8 +88,8 @@ button:disabled:hover {
   #forkongithub a {
     width: 200px;
     position: absolute;
-    top: 60px;
-    left: -60px;
+    top: 40px;
+    left: -80px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
