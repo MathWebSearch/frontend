@@ -5,29 +5,9 @@ import {searchAction, showMoreAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
 import {BRANDING_TITLE} from '../../config';
 import {Taggregation} from '../../interfaces';
+import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
-
-/**
- *  function to detect if there is need for scrolling and that hopfully works in every browser
- * */
-const scrollMaxY = (): number => {
-  return (
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight
-  );
-};
-/*
- * function to return a button to go Up or down if possible
- * */
-const goDownButton = (): React.ReactNode =>
-  typeof window.scrollTo === 'function' ? (
-    <button onClick={() => window.scrollTo(0, scrollMaxY())}>Go down</button>
-  ) : null;
-const goUpButton = (): React.ReactNode =>
-  typeof window.scrollTo === 'function' ? (
-    <button onClick={() => window.scrollTo(0, 0)}>Go up</button>
-  ) : null;
 
 /**
  * Context to propagate if expandall/closeall was clicked
@@ -114,7 +94,7 @@ export default function ResultList(): JSX.Element | null {
         <button className={styles.item} onClick={close}>
           Close All
         </button>
-        {goDownButton()}
+        <GoDownButton className={styles.item} />
         <div className={styles.item}>
           <label className={styles.container}>
             {`group formulas by ${BRANDING_TITLE} Document`}
@@ -143,7 +123,7 @@ export default function ResultList(): JSX.Element | null {
             Show More
           </button>
         ) : null}
-        {goUpButton()}
+        <GoUpButton />
       </div>
     </div>
   );
