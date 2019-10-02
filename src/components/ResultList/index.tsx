@@ -3,9 +3,8 @@ import styles from './ResultList.module.css';
 import {Store} from '../../store/Store';
 import {searchAction, showMoreAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
-import {BRANDING_TITLE} from '../../config';
-import {Taggregation} from '../../interfaces';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
+import {useAggregation, ToggleAggregationButton} from '../Buttons/AggregationButton';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -32,19 +31,6 @@ function useExpand() {
     setTimeout(() => setExpandAll(undefined), 10);
   };
   return {expandAll, exp, close};
-}
-
-/*
- * custom hook that manges the state for the aggregation
- * */
-function useAggregation() {
-  const [aggregation, setAggregation] = React.useState<Taggregation>('None');
-
-  const toggleAggregation = () => {
-    /* first close every thing */
-    aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
-  };
-  return {aggregation, toggleAggregation};
 }
 
 /*
@@ -95,20 +81,13 @@ export default function ResultList(): JSX.Element | null {
           Close All
         </button>
         <GoDownButton className={styles.item} />
-        <div className={styles.item}>
-          <label className={styles.container}>
-            {`group formulas by ${BRANDING_TITLE} Document`}
-            <input
-              type="checkbox"
-              checked={aggregation === 'Title'}
-              onChange={() => {
-                close();
-                toggleAggregation();
-              }}
-            />
-            <span className={styles.checkmark} />
-          </label>
-        </div>
+        <ToggleAggregationButton
+          aggregation={aggregation}
+          onChange={() => {
+            close();
+            toggleAggregation();
+          }}
+        />
       </div>
       <expandContext.Provider value={expandAll}>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
