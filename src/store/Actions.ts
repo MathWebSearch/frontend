@@ -29,7 +29,6 @@ export const convertAction = async (input_text: string) => {
     /* null indicates nothing to preview*/
     input_formula = null;
   }
-  // return dispatch({type: 'CONVERT', payload: {input_formula}});
   return {type: 'CONVERT', payload: {input_formula}};
 };
 
@@ -114,5 +113,9 @@ export const updateansizeAction = (newanswsize: number): IAction => {
 };
 
 export const changeAggregationAction = (aggr: Taggregation): IAction => {
-  return {type:'CHANGE_AGGREGATION', payload: {aggregation: aggr}};
-}
+  return {type: 'CHANGE_AGGREGATION', payload: {aggregation: aggr}};
+};
+
+export const changeExpandAllAction = (newexapndAll?: boolean): IAction => {
+  return {type: 'EXPAND_ALL', payload: {expandAll: newexapndAll}};
+};

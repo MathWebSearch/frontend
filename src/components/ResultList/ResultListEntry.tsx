@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styles from './ResultListEntry.module.css';
-import {expandContext} from '../ResultList';
 import {IFormulaHit} from '../../interfaces';
 import FormulaHit from './FormulaHit';
+import {Store} from '../../store/Store';
 
 interface ResultListEntryProps {
   title: string;
@@ -12,12 +12,13 @@ interface ResultListEntryProps {
  * A single Entry in the result list can include multiple fromulahits
  * the state indicates if this is closed (just showing the title)
  * or expandend (also showing the formulahit(x))
- * the expandContext indicates if the expand all/close all botton was clicked
  * */
 export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   const {title, formulahits} = props;
   const [active, setValue] = React.useState<boolean>(false);
-  const expandAll = React.useContext(expandContext);
+  const {
+    state: {expandAll},
+  } = React.useContext(Store);
   const toggleExpansion = () => {
     setValue(!active);
   };

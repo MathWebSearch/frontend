@@ -15,6 +15,7 @@ export interface IState {
   triggerSearch: bool;
   progress: number;
   aggregation: Taggregation;
+  expandAll?: boolean;
 }
 
 interface IUpadateinputtextaction {
@@ -72,6 +73,10 @@ interface IChangeAggregation {
   type: 'CHANGE_AGGREGATION';
   payload: {aggregation: Taggregation};
 }
+interface IToggleExpandAllAction {
+  type: 'EXPAND_ALL';
+  payload: {expandAll?: boolean};
+}
 
 export type IAction =
   | IUpadateinputtextaction
@@ -83,7 +88,8 @@ export type IAction =
   | IResetaction
   | IShowmoreaction
   | IUpdateanswsizeaction
-  | IChangeAggregation;
+  | IChangeAggregation
+  | IToggleExpandAllAction;
 
 export interface IStore {
   state: IState;

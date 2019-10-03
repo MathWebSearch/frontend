@@ -36,6 +36,7 @@ function reducer(state: IState, action: IAction): IState {
     case 'UPDATE_ANSSWIZE': /* Fall through */
     case 'UPDATE_PROGRESS': /* Fall through */
     case 'CHANGE_AGGREGATION': /* Fall through */
+    case 'EXPAND_ALL': /* Fall through */
         return {...state, ...action.payload};
     case 'RESET':
       return initialState;

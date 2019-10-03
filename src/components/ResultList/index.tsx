@@ -6,33 +6,9 @@ import {Spinner} from '.././Progress';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
 import {ChangeAggregationButton} from '../Buttons/AggregationButton';
 import {ShowMoreButton} from '../Buttons/ShowMoreButton';
+import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
-
-/**
- * Context to propagate if expandall/closeall was clicked
- * boolean context is set to true if expandAll was clicked and false if closeall was clicked
- * undefined is initial State
- */
-export const expandContext = React.createContext(undefined);
-
-/*
- * custom hook that manges the state if open all /close all was clicked
- * */
-function useExpand() {
-  const [expandAll, setExpandAll] = React.useState();
-  /* callback to expand all*/
-  const exp = () => {
-    setExpandAll(true);
-    setTimeout(() => setExpandAll(undefined), 10);
-  };
-  /* callback to close all*/
-  const close = () => {
-    setExpandAll(false);
-    setTimeout(() => setExpandAll(undefined), 10);
-  };
-  return {expandAll, exp, close};
-}
 
 /**
  * Function component the displays the results as List
@@ -50,8 +26,6 @@ export default function ResultList(): JSX.Element | null {
     took,
     aggregation,
   } = state;
-
-  const {expandAll, exp, close} = useExpand();
 
   React.useEffect(() => {
     /* trigger the api request if needed */
@@ -74,18 +48,12 @@ export default function ResultList(): JSX.Element | null {
       </span>{' '}
       <div>The daemon used {took.toFixed(4)} seconds for the last query</div>
       <div className={styles.ResultListTopLine}>
-        <button className={styles.item} onClick={exp}>
-          Open All
-        </button>
-        <button className={styles.item} onClick={close}>
-          Close All
-        </button>
+        <OpenAllButton className={styles.item} />
+        <CloseAllButton className={styles.item} />
         <GoDownButton className={styles.item} />
         <ChangeAggregationButton className={styles.item} />
       </div>
-      <expandContext.Provider value={expandAll}>
-        <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
-      </expandContext.Provider>
+      <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
       <div className={styles.ButtonList}>
         <ShowMoreButton />
         <GoUpButton />
