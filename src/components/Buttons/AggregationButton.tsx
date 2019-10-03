@@ -1,36 +1,29 @@
 import React from 'react';
 import {Taggregation} from '../../interfaces';
-import styles from '../ResultList/ResultList.module.css';
+import styles from './AggregationButton.module.css';
 import {BRANDING_TITLE} from '../../config';
+import {Store} from '../../store/Store';
+import {changeAggregationAction} from '../../store/Actions';
 
-/*
- * custom hook that manges the state for the aggregation
- * */
-export function useAggregation() {
-  const [aggregation, setAggregation] = React.useState<Taggregation>('None');
-
+export function ChangeAggregationButton(props: {
+  className: string;
+}): JSX.Element {
+  const {
+    state: {aggregation},
+    dispatch,
+  } = React.useContext(Store);
   const toggleAggregation = () => {
-    /* first close every thing */
-    aggregation === 'None' ? setAggregation('Title') : setAggregation('None');
+    const newaggr: Taggregation = aggregation === 'None' ? 'Title' : 'None';
+    dispatch(changeAggregationAction(newaggr));
   };
-  return {aggregation, toggleAggregation};
-}
-
-interface ITAprops {
-  aggregation: Taggregation;
-  onChange: () => void;
-}
-
-export function ToggleAggregationButton(props: ITAprops): JSX.Element {
-  const {aggregation, onChange} = props;
   return (
-    <div className={styles.item}>
+    <div className={props.className}>
       <label className={styles.container}>
         {`group formulas by ${BRANDING_TITLE} Document`}
         <input
           type="checkbox"
           checked={aggregation === 'Title'}
-          onChange={onChange}
+          onChange={toggleAggregation}
         />
         <span className={styles.checkmark} />
       </label>

@@ -14,6 +14,7 @@ export interface IState {
   last_took?: number;
   triggerSearch: bool;
   progress: number;
+  aggregation: Taggregation;
 }
 
 interface IUpadateinputtextaction {
@@ -67,6 +68,10 @@ interface IUpdateanswsizeaction {
   type: 'UPDATE_ANSSWIZE';
   payload: {answsize: number};
 }
+interface IChangeAggregation {
+  type: 'CHANGE_AGGREGATION';
+  payload: {aggregation: Taggregation};
+}
 
 export type IAction =
   | IUpadateinputtextaction
@@ -77,7 +82,8 @@ export type IAction =
   | IDefaultaction
   | IResetaction
   | IShowmoreaction
-  | IUpdateanswsizeaction;
+  | IUpdateanswsizeaction
+  | IChangeAggregation;
 
 export interface IStore {
   state: IState;

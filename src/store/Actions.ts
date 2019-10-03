@@ -1,5 +1,5 @@
 import {mwsclient, ltxclient} from '../Backend';
-import {IFormulaHit} from '../interfaces';
+import {IFormulaHit, Taggregation} from '../interfaces';
 import {IAction} from '../interfaces';
 import {errorLog} from '../config';
 
@@ -112,3 +112,7 @@ export const updateProgressAction = (new_progress: number): IAction => {
 export const updateansizeAction = (newanswsize: number): IAction => {
   return {type: 'UPDATE_ANSSWIZE', payload: {answsize: newanswsize}};
 };
+
+export const changeAggregationAction = (aggr: Taggregation): IAction => {
+  return {type:'CHANGE_AGGREGATION', payload: {aggregation: aggr}};
+}

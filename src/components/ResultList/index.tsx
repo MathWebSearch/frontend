@@ -4,7 +4,9 @@ import {Store} from '../../store/Store';
 import {searchAction, showMoreAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
-import {useAggregation, ToggleAggregationButton} from '../Buttons/AggregationButton';
+import {
+  ChangeAggregationButton
+} from '../Buttons/AggregationButton';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -33,7 +35,7 @@ function useExpand() {
   return {expandAll, exp, close};
 }
 
-/*
+/**
  * Function component the displays the results as List
  * has as state the aggregation and if the expandAll/closeall was clicked
  * */
@@ -48,10 +50,10 @@ export default function ResultList(): JSX.Element | null {
     answsize,
     triggerSearch,
     took,
+    aggregation,
   } = state;
 
   const {expandAll, exp, close} = useExpand();
-  const {aggregation, toggleAggregation} = useAggregation();
 
   React.useEffect(() => {
     /* trigger the api request if needed */
@@ -81,13 +83,7 @@ export default function ResultList(): JSX.Element | null {
           Close All
         </button>
         <GoDownButton className={styles.item} />
-        <ToggleAggregationButton
-          aggregation={aggregation}
-          onChange={() => {
-            close();
-            toggleAggregation();
-          }}
-        />
+        <ChangeAggregationButton className={styles.item}/>
       </div>
       <expandContext.Provider value={expandAll}>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />

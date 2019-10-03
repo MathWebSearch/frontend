@@ -19,6 +19,7 @@ const initialState: IState = {
   answsize: 10,
   triggerSearch: false,
   progress: 0,
+  aggregation: 'None',
 };
 
 /*
@@ -27,26 +28,18 @@ const initialState: IState = {
  * */
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
-    case 'UPDATE_INPUT_TEXT':
-      return {...state, ...action.payload};
-    case 'CONVERT':
-      return {...state, ...action.payload};
-    case 'SEARCH':
-      return {...state, ...action.payload};
-    case 'TRIGGER_SEARCH':
-      return {...state, ...action.payload};
-    case 'SHOW_MORE':
-      return {...state, ...action.payload};
-    case 'UPDATE_ANSSWIZE':
-      return {...state, ...action.payload};
-    case 'UPDATE_PROGRESS':
-      if (state.progress !== action.payload.progress) {
+      case 'UPDATE_INPUT_TEXT': /* Fall through */
+    case 'CONVERT': /* Fall through */
+    case 'SEARCH': /* Fall through */
+    case 'TRIGGER_SEARCH': /* Fall through */
+    case 'SHOW_MORE': /* Fall through */
+    case 'UPDATE_ANSSWIZE': /* Fall through */
+    case 'UPDATE_PROGRESS': /* Fall through */
+    case 'CHANGE_AGGREGATION': /* Fall through */
         return {...state, ...action.payload};
-      }
-      return state;
     case 'RESET':
       return initialState;
-    case 'DEFAULT':
+    case 'DEFAULT': /* Fall through */
     default:
       return state;
   }
