@@ -1,12 +1,11 @@
 import * as React from 'react';
 import styles from './ResultList.module.css';
 import {Store} from '../../store/Store';
-import {searchAction, showMoreAction} from '../../store/Actions';
+import {searchAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
-import {
-  ChangeAggregationButton
-} from '../Buttons/AggregationButton';
+import {ChangeAggregationButton} from '../Buttons/AggregationButton';
+import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -45,7 +44,6 @@ export default function ResultList(): JSX.Element | null {
     total,
     allEntries,
     input_formula,
-    current_formula,
     limitmin,
     answsize,
     triggerSearch,
@@ -83,21 +81,13 @@ export default function ResultList(): JSX.Element | null {
           Close All
         </button>
         <GoDownButton className={styles.item} />
-        <ChangeAggregationButton className={styles.item}/>
+        <ChangeAggregationButton className={styles.item} />
       </div>
       <expandContext.Provider value={expandAll}>
         <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
       </expandContext.Provider>
       <div className={styles.ButtonList}>
-        {triggerSearch ? (
-          <Spinner />
-        ) : curlength < total ? (
-          <button
-            onClick={() => dispatch(showMoreAction(current_formula))}
-            disabled={curlength >= total}>
-            Show More
-          </button>
-        ) : null}
+        <ShowMoreButton />
         <GoUpButton />
       </div>
     </div>
