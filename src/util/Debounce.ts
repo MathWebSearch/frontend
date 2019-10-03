@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 /*
  * Custom Hook for debounceing a funciton call
  * @param callback function that should be debounced

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 /**
  *  function to detect if there is need for scrolling and that hopfully works in every browser
