@@ -59,6 +59,9 @@ export function SearchBar() {
           value={input_text}
           onChange={inputHandler}
           ref={textInput}
+          placeholder={
+            'Insert Key Phrase (written in LaTeX with ?a, ?b, ... for query variables)'
+          }
           className={styles.textInput}
         />
         <button
@@ -73,7 +76,9 @@ export function SearchBar() {
       <button
         type="submit"
         form="form1"
-        disabled={!input_formula || input_formula === current_formula || triggerSearch}>
+        disabled={
+          !input_formula || input_formula === current_formula || triggerSearch
+        }>
         Search
       </button>
       {ExampleButton(submitHandler, updateandFocus)}

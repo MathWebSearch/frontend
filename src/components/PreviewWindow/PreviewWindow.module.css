@@ -1,7 +1,7 @@
 .PreviewWindow {
   text-align: center;
   position: fixed;
-  top: 5%;
+  top: 0%;
   right: 0%;
   padding: 1px;
   margin: 1%;
@@ -13,4 +13,5 @@
   min-height: 15%;
   box-shadow: 0px 1px 1px 0px;
   overflow: auto;
+  z-index: 9999;
 }

@@ -1,39 +1,47 @@
 .header {
-  margin-top: 1%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #efefef;
+  border: 1px solid;
 }
 
 .header .corpus {
+  padding: 0.5em;
   background-color: #226622;
   box-shadow: 0px 1px 1px 0px #337733;
   z-index: 1;
   font-size: 2.5em;
   color: #fff;
-  padding: 0.75em;
   float: left;
   margin-right: 10px;
+  margin-left: 7.5%;
   text-decoration: none;
   max-width: 20%;
   max-height: 200px;
 }
 
-.header .TitleContainer {
-  background-color: #efefef;
-  margin-left: 10px;
+.header .MWSTitle {
+  padding: 0.25em;
+  font-size: 2em;
+  margin-left: 5px;
+  float: left;
   text-align: center;
 }
 
-.header .MWSTitle {
-  font-size: 2.5em;
-  margin-left: 10px;
-  padding: 0.75em;
-  float: left;
+.navbar {
+  background: #4caf50;
+  margin-top: 2px;
+  font-size: 0.5em;
+  padding: 1%;
 }
 
-.header .MWSText {
-  padding: 0.93em;
-  box-shadow: 1px 1px 1px 1px;
-  z-index: 1;
-  max-width: 70%;
-  float: left;
-  text-align: justify;
+.navlink {
+  color: white;
+  padding: 1px;
+  margin: 2px;
+  text-decoration: none;
+}
+.navlink:hover {
+  background: #226622;
 }

@@ -1,36 +1,41 @@
 import * as React from 'react';
+
+import {Router, RouteComponentProps} from '@reach/router';
+
 import {Header} from './components/Header';
 import {Footer} from './components/Footer';
 
-import {SearchBar} from './components/Searchbar';
-import {PreviewWindow} from './components/PreviewWindow';
-import ResultList from './components/ResultList';
-import {ProgressBar} from './components/Progress';
-import {ReportError} from './components/ReportError';
-
 import {StoreProvider} from './store/Store';
+import {SearchInterface} from './pages/Search';
+import {About} from './pages/About';
+
+import {ReportError} from './components/ReportError';
 
 import {BRANDING_TITLE, BRANDING_URL} from './config/';
 
+const RouterPage = (
+  props: {pageComponent: JSX.Element} & RouteComponentProps,
+) => props.pageComponent;
 /**
- * sceletion of the app
+ * Sceleton of the app
  * */
 function App() {
   return (
-    <div className="App">
+    <>
       <ReportError />
       <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
       <br />
-      <StoreProvider>
-        <ProgressBar />
-        <PreviewWindow />
-        <SearchBar />
-        <br style={{clear: 'both'}} />
-        <ResultList />
-      </StoreProvider>
+      <div className="App">
+        <StoreProvider>
+          <Router>
+            <RouterPage pageComponent={<SearchInterface />} path="/" default />
+            <RouterPage pageComponent={<About />} path="/about" />
+          </Router>
+        </StoreProvider>
+      </div>
       <br />
       <Footer />
-    </div>
+    </>
   );
 }
 export default App;
