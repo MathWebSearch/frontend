@@ -1,3 +1,7 @@
+:import('../../config/colors.css') {
+  primary-color: primary-color;
+  secondary-color: secondary-color;
+}
 /* stolen from w3schools :) */
 /* Customize the label (the container) */
 .container {
@@ -7,7 +11,7 @@
   padding-left: 42px;
   cursor: pointer;
   font-size: 12.5px;
-  background-color: #4caf50;
+  background-color: primary-color;
   color: white;
 }
 
@@ -40,11 +44,11 @@
 
 /* When the checkbox is checked, add a green background */
 .container input:checked ~ .checkmark {
-  background-color: #4caf50;
+  background-color: primary-color;
 }
 
 .container:hover {
-  background-color: #226622;
+  background-color: secondary-color;
   box-shadow: 2px 5px 5px 2px gray;
 }
 

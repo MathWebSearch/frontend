@@ -1,6 +1,10 @@
+:import('../../config/colors.css') {
+  primary-color: primary-color;
+  secondary-color: secondary-color;
+}
 /* stolen from here https://codepo8.github.io/css-fork-on-github-ribbon/ */
 #forkongithub a {
-  background: #4caf50;
+  background: primary-color;
   color: #fff;
   text-decoration: none;
   font-family: arial, sans-serif;
@@ -13,7 +17,7 @@
   transition: 0.5s;
 }
 #forkongithub a:hover {
-  background: #226622;
+  background: secondary-color;
   color: #fff;
 }
 #forkongithub a::before,

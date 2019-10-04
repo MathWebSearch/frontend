@@ -1,3 +1,8 @@
+:import('../../config/colors.css') {
+  primary-color: primary-color;
+  secondary-color: secondary-color;
+}
+
 .ResultListEntry {
   background-color: #eee;
   text-align: center;
@@ -13,7 +18,7 @@
   background: #eee;
 }
 .ResultListEntry:hover .title {
-  background-color: #226622;
+  background-color: secondary-color;
   cursor: pointer;
 }
 .ResultListEntry:hover > div > b {
