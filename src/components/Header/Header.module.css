@@ -8,19 +8,22 @@
   top: 0;
   z-index: 1;
   background: #efefef;
-  border: 1px solid;
+  border-bottom: 2px solid secondary-color;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.corpus {
+.brandinglogo {
   background: secondary-color;
   color: white;
   padding: 0.5em;
   box-shadow: 0px 1px 1px 0px #337733;
   z-index: 1;
   font-size: 2.5em;
-  float: left;
   margin-right: 10px;
-  margin-left: 7.5%;
+  /* margin-left: 7.5%; */
   text-decoration: none;
   max-width: 20%;
   max-height: 200px;
@@ -30,7 +33,6 @@
   padding: 0.25em;
   font-size: 2em;
   margin-left: 5px;
-  float: left;
   text-align: center;
 }
 
@@ -51,4 +53,14 @@
 }
 .navlink:hover {
   background: secondary-color;
+}
+
+.buttonbox {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
 }

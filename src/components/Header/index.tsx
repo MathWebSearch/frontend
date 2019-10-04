@@ -16,7 +16,7 @@ export function Header(props: Props) {
   return (
     <div className={styles.header}>
       <a
-        className={styles.corpus}
+        className={styles.brandinglogo}
         href={props.brandingLink}
         target="_blank"
         rel="noopener noreferrer">
@@ -34,8 +34,7 @@ export function Header(props: Props) {
           </Link>
         </nav>
       </div>
-      <Stats />
-      <div>
+      <div className={styles.buttonbox}>
         <GoUpButton />
         <GoDownButton />
         <OpenAllButton />
@@ -43,6 +42,7 @@ export function Header(props: Props) {
         <SizeButton />
         <ChangeAggregationButton />
       </div>
+      <Stats />
       <br style={{clear: 'both'}} />
     </div>
   );
