@@ -1,6 +1,11 @@
 import * as React from 'react';
 import styles from './Header.module.css';
 import {Link} from '@reach/router';
+import {Stats} from '../Stats';
+import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
+import {ChangeAggregationButton} from '../Buttons/AggregationButton';
+import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
+import {SizeButton} from '../Searchbar/Buttons';
 
 export interface Props {
   brandingTitle: string;
@@ -28,6 +33,15 @@ export function Header(props: Props) {
             More Information
           </Link>
         </nav>
+      </div>
+      <Stats />
+      <div>
+        <GoUpButton />
+        <GoDownButton />
+        <OpenAllButton />
+        <CloseAllButton />
+        <SizeButton />
+        <ChangeAggregationButton />
       </div>
       <br style={{clear: 'both'}} />
     </div>

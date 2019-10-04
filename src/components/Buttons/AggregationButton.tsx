@@ -7,7 +7,7 @@ import {changeAggregationAction} from '../../store/Actions';
 import {useExpand} from './ExpandButtons';
 
 export function ChangeAggregationButton(props: {
-  className: string;
+  className?: string;
 }): JSX.Element {
   const {
     state: {aggregation},

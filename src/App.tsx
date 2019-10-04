@@ -21,21 +21,19 @@ const RouterPage = (
  * */
 function App() {
   return (
-    <>
+    <StoreProvider>
       <ReportError />
       <Header brandingTitle={BRANDING_TITLE} brandingLink={BRANDING_URL} />
       <br />
       <div className="App">
-        <StoreProvider>
-          <Router>
-            <RouterPage pageComponent={<SearchInterface />} path="/" default />
-            <RouterPage pageComponent={<About />} path="/about" />
-          </Router>
-        </StoreProvider>
+        <Router>
+          <RouterPage pageComponent={<SearchInterface />} path="/" default />
+          <RouterPage pageComponent={<About />} path="/about" />
+        </Router>
       </div>
       <br />
       <Footer />
-    </>
+    </StoreProvider>
   );
 }
 export default App;

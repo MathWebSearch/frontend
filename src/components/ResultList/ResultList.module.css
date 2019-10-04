@@ -1,8 +1,7 @@
 .ResultList {
   text-align: center;
   margin: 1% 5% 1% 5%;
-  border: 2px solid;
-  width: 90%;
+  width: 95%;
   box-shadow: 0px 5px 5px 0px #eee;
   /* border-radius: 15px; */
 }
