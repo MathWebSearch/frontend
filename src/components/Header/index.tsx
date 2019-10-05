@@ -5,6 +5,7 @@ import {Stats} from '../Stats';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
 import {ChangeAggregationButton} from '../Buttons/AggregationButton';
 import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
+import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 import {SizeButton} from '../Searchbar/Buttons';
 
 export interface Props {
@@ -34,12 +35,19 @@ export function Header(props: Props) {
           </Link>
         </nav>
       </div>
-      <div className={styles.buttonbox}>
+      <div className={styles.buttonpairs}>
         <GoUpButton />
         <GoDownButton />
+      </div>
+      <div className={styles.buttonpairs}>
         <OpenAllButton />
         <CloseAllButton />
+      </div>
+      <div className={styles.buttonpairs}>
         <SizeButton />
+        <ShowMoreButton />
+      </div>
+      <div className={styles.buttonbox}>
         <ChangeAggregationButton />
       </div>
       <Stats />

@@ -3,9 +3,7 @@ import styles from './ResultList.module.css';
 import {Store} from '../../store/Store';
 import {searchAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
-import {GoUpButton} from '../Buttons/NavigationButtons';
 
-import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
@@ -39,10 +37,6 @@ export default function ResultList(): JSX.Element | null {
   return (
     <div className={styles.ResultList}>
       <AggregatedResultListEntry allEntries={allEntries} kind={aggregation} />
-      <div className={styles.ButtonList}>
-        <ShowMoreButton />
-        <GoUpButton />
-      </div>
     </div>
   );
 }

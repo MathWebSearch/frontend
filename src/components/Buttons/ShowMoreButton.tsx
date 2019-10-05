@@ -8,10 +8,13 @@ export function ShowMoreButton(): JSX.Element | null {
     state: {triggerSearch, allEntries, total, current_formula},
     dispatch,
   } = React.useContext(Store);
-  const curlength = allEntries.length;
   if (triggerSearch) {
     return <Spinner />;
   }
+  if (!allEntries) {
+    return null;
+  }
+  const curlength = allEntries.length;
   if (curlength < total) {
     return (
       <button
