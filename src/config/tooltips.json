@@ -1,0 +1,9 @@
+{
+  "aggregationbotton": "Groups all Formulas by the Document they belong to",
+  "openall": "opens all",
+  "closeall": "closeall",
+  "goup": "Scroll to top of the page",
+  "godown": "Scroll to bottom of the page",
+  "size": "sets the answer size",
+  "showmore": "shows more"
+}

@@ -7,6 +7,7 @@ import {ChangeAggregationButton} from '../Buttons/AggregationButton';
 import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
 import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 import {SizeButton} from '../Searchbar/Buttons';
+import {ToolTip} from '../ToolTip';
 
 export interface Props {
   brandingTitle: string;
@@ -36,19 +37,33 @@ export function Header(props: Props) {
         </nav>
       </div>
       <div className={styles.buttonpairs}>
-        <GoUpButton />
-        <GoDownButton />
+        <ToolTip text="goup">
+          <GoUpButton />
+        </ToolTip>
+        <ToolTip text="godown">
+          <GoDownButton />
+        </ToolTip>
       </div>
       <div className={styles.buttonpairs}>
-        <OpenAllButton />
-        <CloseAllButton />
+        <ToolTip text="openall">
+          <OpenAllButton />
+        </ToolTip>
+        <ToolTip text="closeall">
+          <CloseAllButton />
+        </ToolTip>
       </div>
       <div className={styles.buttonpairs}>
-        <SizeButton />
-        <ShowMoreButton />
+        <ToolTip text="size">
+          <SizeButton />
+        </ToolTip>
+        <ToolTip text="showmore">
+          <ShowMoreButton />
+        </ToolTip>
       </div>
       <div className={styles.buttonbox}>
-        <ChangeAggregationButton />
+        <ToolTip text="aggregationbotton">
+          <ChangeAggregationButton />
+        </ToolTip>
       </div>
       <Stats />
       <br style={{clear: 'both'}} />
