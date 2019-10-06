@@ -16,6 +16,7 @@ export interface IState {
   progress: number;
   aggregation: Taggregation;
   expandAll?: boolean;
+  tooltips: boolean;
 }
 
 interface IUpadateinputtextaction {
@@ -77,6 +78,10 @@ interface IToggleExpandAllAction {
   type: 'EXPAND_ALL';
   payload: {expandAll?: boolean};
 }
+interface IToogleTooltipsAction {
+  type: 'TOGGLE_TOOLTIP';
+  payload: {tooltips: boolean};
+}
 
 export type IAction =
   | IUpadateinputtextaction
@@ -89,7 +94,8 @@ export type IAction =
   | IShowmoreaction
   | IUpdateanswsizeaction
   | IChangeAggregation
-  | IToggleExpandAllAction;
+  | IToggleExpandAllAction
+  | IToogleTooltipsAction;
 
 export interface IStore {
   state: IState;

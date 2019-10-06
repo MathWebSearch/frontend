@@ -7,7 +7,7 @@ import {ChangeAggregationButton} from '../Buttons/AggregationButton';
 import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
 import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 import {SizeButton} from '../Searchbar/Buttons';
-import {ToolTip} from '../ToolTip';
+import {ToolTip, ToolTipToogle} from '../ToolTip';
 
 export interface Props {
   brandingTitle: string;
@@ -64,6 +64,7 @@ export function Header(props: Props) {
         <ToolTip text="aggregationbotton">
           <ChangeAggregationButton />
         </ToolTip>
+        <ToolTipToogle />
       </div>
       <Stats />
       <br style={{clear: 'both'}} />

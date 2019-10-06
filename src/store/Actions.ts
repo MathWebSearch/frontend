@@ -119,3 +119,7 @@ export const changeAggregationAction = (aggr: Taggregation): IAction => {
 export const changeExpandAllAction = (newexapndAll?: boolean): IAction => {
   return {type: 'EXPAND_ALL', payload: {expandAll: newexapndAll}};
 };
+
+export const changeTooltipsAction = (newtooltip: boolean): IAction => {
+  return {type: 'TOGGLE_TOOLTIP', payload: {tooltips: newtooltip}};
+};
