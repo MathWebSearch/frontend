@@ -3,6 +3,7 @@ import styles from './ToolTip.module.css';
 import tooltips from '../../config/tooltips.json';
 import {Store} from '../../store/Store';
 import {changeTooltipsAction} from '../../store/Actions';
+import {CheckBox} from '../CheckBox';
 
 const gettooltiptext = (key: string) => {
   switch (key) {
@@ -50,13 +51,10 @@ export function ToolTipToogle(): JSX.Element {
     dispatch,
   } = React.useContext(Store);
   return (
-    <label>
-      Enable Tooltips
-      <input
-        type="checkbox"
-        checked={tooltips}
-        onChange={() => dispatch(changeTooltipsAction(!tooltips))}
-      />
-    </label>
+    <CheckBox
+      text="Enable tooltips"
+      checked={tooltips}
+      onChange={() => dispatch(changeTooltipsAction(!tooltips))}
+    />
   );
 }

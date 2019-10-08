@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {Taggregation} from '../../interfaces';
-import styles from './AggregationButton.module.css';
 import {BRANDING_TITLE} from '../../config';
 import {Store} from '../../store/Store';
 import {changeAggregationAction} from '../../store/Actions';
 import {useExpand} from './ExpandButtons';
+import {CheckBox} from '../CheckBox';
 
 export function ChangeAggregationButton(props: {
   className?: string;
@@ -20,16 +20,11 @@ export function ChangeAggregationButton(props: {
     dispatch(changeAggregationAction(newaggr));
   };
   return (
-    <div className={props.className}>
-      <label className={styles.container}>
-        {`group formulas by ${BRANDING_TITLE} Document`}
-        <input
-          type="checkbox"
-          checked={aggregation === 'Title'}
-          onChange={toggleAggregation}
-        />
-        <span className={styles.checkmark} />
-      </label>
-    </div>
+    <CheckBox
+      className={props.className}
+      text={`group formulas by ${BRANDING_TITLE} Document`}
+      checked={aggregation === 'Title'}
+      onChange={toggleAggregation}
+    />
   );
 }

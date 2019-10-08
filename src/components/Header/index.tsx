@@ -13,7 +13,9 @@ export interface Props {
   brandingTitle: string;
   brandingLink: string;
 }
-
+/**
+ * The Headbar with buttons and navigation
+ **/
 export function Header(props: Props) {
   return (
     <div className={styles.header}>
@@ -67,7 +69,6 @@ export function Header(props: Props) {
         <ToolTipToogle />
       </div>
       <Stats />
-      <br style={{clear: 'both'}} />
     </div>
   );
 }
