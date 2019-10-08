@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ExampleButton, SymbolButton} from './Buttons';
+import {ExampleButton, SymbolButton} from '../Buttons/Buttons';
 import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
@@ -73,16 +73,18 @@ export function SearchBar() {
         </button>
         <br />
       </form>
-      <button
-        type="submit"
-        form="form1"
-        disabled={
-          !input_formula || input_formula === current_formula || triggerSearch
-        }>
-        Search
-      </button>
-      {ExampleButton(submitHandler, updateandFocus)}
-      {SymbolButton(insertAtCursorPosition)}
+      <div className={styles.buttonbar}>
+        <button
+          type="submit"
+          form="form1"
+          disabled={
+            !input_formula || input_formula === current_formula || triggerSearch
+          }>
+          Search
+        </button>
+        {ExampleButton(submitHandler, updateandFocus)}
+        {SymbolButton(insertAtCursorPosition)}
+      </div>
     </div>
   );
 }

@@ -5,5 +5,7 @@
   "goup": "Scroll to top of the page",
   "godown": "Scroll to bottom of the page",
   "size": "sets the answer size",
-  "showmore": "shows more"
+  "showmore": "shows more",
+  "examples": "shows expamples",
+  "symbols": "shows symbols"
 }

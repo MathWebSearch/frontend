@@ -21,6 +21,10 @@ const gettooltiptext = (key: string) => {
       return tooltips.size;
     case 'showmore':
       return tooltips.showmore;
+    case 'examples':
+      return tooltips.examples;
+    case 'symbols':
+      return tooltips.symbols;
     default:
       return '';
   }

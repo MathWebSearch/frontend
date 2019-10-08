@@ -4,6 +4,7 @@ import {examples} from '../../config';
 import {symbols} from '../../config';
 import {Store} from '../../store/Store';
 import {updateansizeAction} from '../../store/Actions';
+import {ToolTip} from '../ToolTip';
 
 /*
  * Function that returns the ExampleButton that updates onhover the text
@@ -17,21 +18,23 @@ export function ExampleButton(
     return null;
   }
   return (
-    <DropDownButton
-      name="Examples"
-      clickHandler={(_: string, event: React.SyntheticEvent) =>
-        submitHandler(event)
-      }
-      list={examples}
-      hoverHandler={(element: string) => updateandFocus(element)}
-      reducer={(element: Array<string>) => {
-        return {
-          text: element[0],
-          clickarg: element[2],
-          hoverarg: element[2],
-        };
-      }}
-    />
+    <ToolTip text="examples">
+      <DropDownButton
+        name="Examples"
+        clickHandler={(_: string, event: React.SyntheticEvent) =>
+          submitHandler(event)
+        }
+        list={examples}
+        hoverHandler={(element: string) => updateandFocus(element)}
+        reducer={(element: Array<string>) => {
+          return {
+            text: element[0],
+            clickarg: element[2],
+            hoverarg: element[2],
+          };
+        }}
+      />
+    </ToolTip>
   );
 }
 
@@ -46,16 +49,18 @@ export function SymbolButton(
     return null;
   }
   return (
-    <DropDownButton
-      name="Symbols"
-      clickHandler={(element: string, _: React.SyntheticEvent) =>
-        insertAtCursorPosition(element)
-      }
-      list={symbols}
-      reducer={(element: string) => {
-        return {text: element, clickarg: element};
-      }}
-    />
+    <ToolTip text="examples">
+      <DropDownButton
+        name="Symbols"
+        clickHandler={(element: string, _: React.SyntheticEvent) =>
+          insertAtCursorPosition(element)
+        }
+        list={symbols}
+        reducer={(element: string) => {
+          return {text: element, clickarg: element};
+        }}
+      />
+    </ToolTip>
   );
 }
 

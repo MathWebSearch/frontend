@@ -6,7 +6,7 @@ import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
 import {ChangeAggregationButton} from '../Buttons/AggregationButton';
 import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
 import {ShowMoreButton} from '../Buttons/ShowMoreButton';
-import {SizeButton} from '../Searchbar/Buttons';
+import {SizeButton} from '../Buttons/Buttons';
 import {ToolTip, ToolTipToogle} from '../ToolTip';
 
 export interface Props {
