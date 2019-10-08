@@ -13,7 +13,14 @@ export function ProgressBar(): JSX.Element {
     state.progress === 66 &&
       setTimeout(() => dispatch(updateProgressAction(100)), 300);
   });
-  return <Progress percent={state.progress} height={4} color={'#4caf50'} />;
+  return (
+    <Progress
+      style={{zIndex: 15}}
+      percent={state.progress}
+      height={4}
+      color={'#4caf50'}
+    />
+  );
 }
 
 /*
