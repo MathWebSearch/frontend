@@ -66,9 +66,11 @@ export function Header(props: Props) {
         <ToolTip text="aggregationbotton">
           <ChangeAggregationButton />
         </ToolTip>
+      </div>
+      <div className={styles.rightcorner}>
+        <Stats />
         <ToolTipToogle />
       </div>
-      <Stats />
     </div>
   );
 }
