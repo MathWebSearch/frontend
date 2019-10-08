@@ -34,13 +34,16 @@ export function ToolTip(props: {
   const {
     state: {tooltips},
   } = React.useContext(Store);
-  if (!tooltips) {
-    return <>{props.children}</>;
-  }
+  const [active, setActive] = React.useState(false);
   return (
-    <div className={styles.tooltip}>
+    <div
+      className={styles.tooltip}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}>
+      {active && tooltips ? (
+        <span className={styles.tooltiptext}>{tooltiptext}</span>
+      ) : null}
       {props.children}
-      <span className={styles.tooltiptext}>{tooltiptext}</span>
     </div>
   );
 }

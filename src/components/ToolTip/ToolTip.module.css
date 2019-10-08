@@ -2,12 +2,13 @@
 /* Tooltip container */
 .tooltip {
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
 }
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-  visibility: hidden;
+  /* visibility: hidden; */
   width: 200px;
   background-color: black;
   color: #fff;
@@ -22,12 +23,6 @@
   left: 105%;
 
   /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
