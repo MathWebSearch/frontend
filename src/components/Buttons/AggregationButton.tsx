@@ -6,6 +6,9 @@ import {changeAggregationAction} from '../../store/Actions';
 import {useExpand} from './ExpandButtons';
 import {CheckBox} from '../CheckBox';
 
+/**
+ * checkbox to toogle the if the elements are grouped by document or not
+ * */
 export function ChangeAggregationButton(props: {
   className?: string;
 }): JSX.Element {

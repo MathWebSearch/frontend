@@ -5,6 +5,51 @@ import {Store} from '../../store/Store';
 import {changeTooltipsAction} from '../../store/Actions';
 import {CheckBox} from '../CheckBox';
 
+/**
+ * Wrapper to get tooltips
+ * */
+export function ToolTip(props: {
+  children: React.ReactChild;
+  text: string;
+}): JSX.Element {
+  const tooltiptext = gettooltiptext(props.text);
+  const {
+    state: {tooltips},
+  } = React.useContext(Store);
+  const [active, setActive] = React.useState(false);
+  return (
+    <div
+      className={styles.tooltip}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}>
+      {active && tooltips ? (
+        <span className={styles.tooltiptext}>{tooltiptext}</span>
+      ) : null}
+      {props.children}
+    </div>
+  );
+}
+
+/**
+ * CheckBox to enable/disable the tooltips
+* */
+export function ToolTipToogle(): JSX.Element {
+  const {
+    state: {tooltips},
+    dispatch,
+  } = React.useContext(Store);
+  return (
+    <CheckBox
+      text="Enable tooltips"
+      checked={tooltips}
+      onChange={() => dispatch(changeTooltipsAction(!tooltips))}
+    />
+  );
+}
+
+/**
+ * Function to get the text out of the tooltip json
+ **/
 const gettooltiptext = (key: string) => {
   switch (key) {
     case 'aggregationbotton':
@@ -29,39 +74,3 @@ const gettooltiptext = (key: string) => {
       return '';
   }
 };
-
-export function ToolTip(props: {
-  children: React.ReactChild;
-  text: string;
-}): JSX.Element {
-  const tooltiptext = gettooltiptext(props.text);
-  const {
-    state: {tooltips},
-  } = React.useContext(Store);
-  const [active, setActive] = React.useState(false);
-  return (
-    <div
-      className={styles.tooltip}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}>
-      {active && tooltips ? (
-        <span className={styles.tooltiptext}>{tooltiptext}</span>
-      ) : null}
-      {props.children}
-    </div>
-  );
-}
-
-export function ToolTipToogle(): JSX.Element {
-  const {
-    state: {tooltips},
-    dispatch,
-  } = React.useContext(Store);
-  return (
-    <CheckBox
-      text="Enable tooltips"
-      checked={tooltips}
-      onChange={() => dispatch(changeTooltipsAction(!tooltips))}
-    />
-  );
-}

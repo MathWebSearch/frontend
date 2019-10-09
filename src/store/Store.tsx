@@ -20,7 +20,7 @@ const initialState: IState = {
   triggerSearch: false,
   progress: 0,
   aggregation: 'None',
-  tooltips: false,
+  tooltips: true,
 };
 
 /*

@@ -8,7 +8,6 @@
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-  /* visibility: hidden; */
   width: 200px;
   background-color: black;
   color: #fff;
@@ -22,7 +21,6 @@
   top: 5px;
   left: 105%;
 
-  /* Fade in tooltip */
   visibility: visible;
   opacity: 1;
 }
