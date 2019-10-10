@@ -4,7 +4,12 @@ import styles from './Checkbox.module.css';
 /**
  * Custom CheckBox
  * */
-export function CheckBox(props: any): JSX.Element {
+export function CheckBox(props: {
+  className?: string;
+  text: string;
+  checked: boolean;
+  onChange: any;
+}): JSX.Element {
   const {className, text, checked, onChange} = props;
   return (
     <div className={className}>

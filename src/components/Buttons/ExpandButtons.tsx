@@ -1,4 +1,4 @@
-import * as React  from 'react';
+import * as React from 'react';
 import {Store} from '../../store/Store';
 import {changeExpandAllAction} from '../../store/Actions';
 /**
@@ -23,7 +23,7 @@ export function useExpand() {
   return {exp, close};
 }
 
-export function OpenAllButton(props: any): JSX.Element {
+export function OpenAllButton(props?: {className?: string}): JSX.Element {
   const {exp} = useExpand();
   return (
     <button {...props} onClick={exp}>
@@ -32,7 +32,7 @@ export function OpenAllButton(props: any): JSX.Element {
   );
 }
 
-export function CloseAllButton(props: any): JSX.Element {
+export function CloseAllButton(props?: {className?: string}): JSX.Element {
   const {close} = useExpand();
   return (
     <button {...props} onClick={close}>
