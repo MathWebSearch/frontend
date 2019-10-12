@@ -14,9 +14,8 @@ const scrollMaxY = (): number => {
  * function to return a button to go Up or down if possible
  * */
 export function GoDownButton(props?: {className?: string}): JSX.Element | null {
-  const maxy = scrollMaxY();
   return typeof window.scrollTo === 'function' ? (
-    <button {...props} onClick={() => window.scrollTo(0, maxy)}>
+    <button {...props} onClick={() => window.scrollTo(0, scrollMaxY())}>
       Go down
     </button>
   ) : null;
