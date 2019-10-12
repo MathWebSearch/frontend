@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Store} from '../../store/Store';
 import {changeExpandAllAction} from '../../store/Actions';
+import {Button} from '../Button';
 /**
  * custom hook that manges the state if open all /close all was clicked
  * */
@@ -25,18 +26,10 @@ export function useExpand() {
 
 export function OpenAllButton(props?: {className?: string}): JSX.Element {
   const {exp} = useExpand();
-  return (
-    <button {...props} onClick={exp}>
-      Open All
-    </button>
-  );
+  return <Button {...props} onClick={exp} text="Open All" />;
 }
 
 export function CloseAllButton(props?: {className?: string}): JSX.Element {
   const {close} = useExpand();
-  return (
-    <button {...props} onClick={close}>
-      Close All
-    </button>
-  );
+  return <Button {...props} onClick={close} text="Close All" />;
 }

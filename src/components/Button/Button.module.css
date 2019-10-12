@@ -1,0 +1,22 @@
+.mybutton {
+  display: inline-block;
+  width: 100%;
+  background-color: primary-color;
+  color: white;
+  padding: 10px;
+  border: none;
+  margin: 1px;
+  font-size: 14px;
+}
+.mybutton:hover {
+  background-color: secondary-color;
+  box-shadow: 2px 5px 5px 2px gray;
+  cursor: pointer;
+}
+.mybutton:disabled {
+  background-color: gray;
+}
+.mybutton:disabled:hover {
+  box-shadow: none;
+  cursor: auto;
+}
