@@ -5,15 +5,15 @@
 /* stolen from w3schools :) */
 /* Customize the label (the container) */
 .container {
-  margin: 1%;
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  padding-left: 42px;
+  padding: 2px;
+  margin: 2px;
   cursor: pointer;
-  font-size: 12.5px;
+  display: flex;
+  font-size: 90%;
   background-color: primary-color;
   color: white;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* Hide the browser's default checkbox */
@@ -25,21 +25,24 @@
   width: 0;
 }
 
+.text {
+    padding: 1px;
+}
+
 /* Create a custom checkbox */
 .checkmark {
-  position: absolute;
   text-align: center;
-  top: 1px;
-  left: 1px;
   height: 35px;
   width: 35px;
-  font-size: 25px;
+  padding: 1px;
   background-color: white;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
+  text-align: center;
   content: '\2714';
+  font-size: 25px;
   display: none;
 }
 
@@ -55,5 +58,5 @@
 
 /* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
-  display: inline;
+  display: block;
 }

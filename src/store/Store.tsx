@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {IState, IAction} from '../interfaces';
+import {updateInputTextAction} from './Actions';
 
 const getURL = (): string => {
   const location = window.location.toString().split('?query-math=');
@@ -11,7 +12,7 @@ const getURL = (): string => {
 };
 
 const initialState: IState = {
-  input_text: getURL(),
+  input_text: '',
   input_formula: null,
   current_formula: null,
   total: 0,
@@ -53,6 +54,9 @@ export const Store = React.createContext<IState | any>({state: initialState});
 
 export function StoreProvider(props: any): JSX.Element {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+  React.useEffect(() => {
+    dispatch(updateInputTextAction(getURL()));
+  }, []);
   return (
     <Store.Provider value={{state, dispatch}}>{props.children} </Store.Provider>
   );
