@@ -8,6 +8,7 @@ import {OpenAllButton, CloseAllButton} from '../Buttons/ExpandButtons';
 import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 import {SizeButton} from '../Buttons/Buttons';
 import {ToolTip, ToolTipToogle} from '../ToolTip';
+import {Store} from '../../store/Store';
 
 export interface Props {
   brandingTitle: string;
@@ -17,6 +18,8 @@ export interface Props {
  * The Headbar with buttons and navigation
  **/
 export function Header(props: Props) {
+  const {dispatch} = React.useContext(Store);
+  const reset = () => dispatch({type: 'RESET'});
   return (
     <div className={styles.header}>
       <a
@@ -29,11 +32,16 @@ export function Header(props: Props) {
       <div className={styles.MWSTitle}>
         <b> MathWebSearch</b>
         <nav className={styles.navbar}>
-          <Link to="/" className={styles.navlink}>
+          <Link
+            to="/"
+            className={styles.navlink}
+            onClick={reset}>
             Home
           </Link>
-          <Link to="/about" className={styles.navlink}>
-            {' '}
+          <Link
+            to="/about"
+            className={styles.navlink}
+            onClick={reset}>
             More Information
           </Link>
         </nav>
