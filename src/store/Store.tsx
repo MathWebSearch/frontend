@@ -21,6 +21,7 @@ const initialState: IState = {
   progress: 0,
   aggregation: 'None',
   tooltips: true,
+  textInputRef: React.createRef(),
 };
 
 /*
@@ -29,7 +30,7 @@ const initialState: IState = {
  * */
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
-      case 'UPDATE_INPUT_TEXT': /* Fall through */
+    case 'UPDATE_INPUT_TEXT': /* Fall through */
     case 'CONVERT': /* Fall through */
     case 'SEARCH': /* Fall through */
     case 'TRIGGER_SEARCH': /* Fall through */
@@ -38,8 +39,8 @@ function reducer(state: IState, action: IAction): IState {
     case 'UPDATE_PROGRESS': /* Fall through */
     case 'CHANGE_AGGREGATION': /* Fall through */
     case 'EXPAND_ALL': /* Fall through */
-    case 'TOGGLE_TOOLTIP': /* Fall through */
-        return {...state, ...action.payload};
+    case 'TOGGLE_TOOLTIP' /* Fall through */:
+      return {...state, ...action.payload};
     case 'RESET':
       return initialState;
     case 'DEFAULT': /* Fall through */

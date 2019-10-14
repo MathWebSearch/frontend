@@ -4,38 +4,36 @@ import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
 
-/*
- * The searchbar with the buttons
+/**
+ * custom hook that offers manipulation of the ref thats in the state and is
+ * for the searchbar
  * */
-export function SearchBar() {
+
+export function useSearchBar() {
   const {state, dispatch} = React.useContext(Store);
-  const textInput: React.RefObject<HTMLInputElement> = React.createRef();
-  const {
-    input_text,
-    input_formula,
-    current_formula,
-    limitmin,
-    answsize,
-    triggerSearch,
-  } = state;
+  const {input_formula, textInputRef} = state;
 
   const updateandFocus = (text: string) => {
     dispatch(updateInputTextAction(text));
-    textInput && textInput.current && textInput.current.focus();
+    textInputRef && textInputRef.current && textInputRef.current.focus();
   };
 
-  const inputHandler = async (event: React.SyntheticEvent) => {
+  React.useEffect(() => {
+    textInputRef.current && textInputRef.current.focus();
+  });
+
+  const inputHandler = (event: React.SyntheticEvent) => {
     const target: HTMLInputElement = event.target as HTMLInputElement;
     updateandFocus(target.value);
     event.preventDefault();
   };
 
   const insertAtCursorPosition = (text: string) => {
-    if (!textInput || !textInput.current) {
+    if (!textInputRef || !textInputRef.current) {
       return;
     }
-    const oldvalue = textInput.current.value || '';
-    const pos = textInput.current.selectionStart || 0;
+    const oldvalue = textInputRef.current.value || '';
+    const pos = textInputRef.current.selectionStart || 0;
     const newvalue = `${oldvalue.slice(0, pos)} ${text} ${oldvalue.slice(pos)}`;
     updateandFocus(newvalue);
   };
@@ -43,6 +41,28 @@ export function SearchBar() {
     input_formula !== null && dispatch(triggerSearchAction());
     event.preventDefault();
   };
+
+  return {updateandFocus, inputHandler, insertAtCursorPosition, submitHandler};
+}
+
+/*
+ * The searchbar with the buttons
+ * */
+export function SearchBar() {
+  const {state} = React.useContext(Store);
+  const {
+    input_text,
+    input_formula,
+    current_formula,
+    limitmin,
+    answsize,
+    triggerSearch,
+    textInputRef,
+  } = state;
+  const {updateandFocus, inputHandler, submitHandler} = useSearchBar();
+  React.useEffect(() => {
+    textInputRef.current.focus();
+  });
 
   return (
     <div
@@ -58,7 +78,7 @@ export function SearchBar() {
           type="text"
           value={input_text}
           onChange={inputHandler}
-          ref={textInput}
+          ref={textInputRef}
           placeholder={
             'Insert Key Phrase (written in LaTeX with ?a, ?b, ... for query variables)'
           }
@@ -82,8 +102,8 @@ export function SearchBar() {
           }>
           Search
         </button>
-        {ExampleButton(submitHandler, updateandFocus)}
-        {SymbolButton(insertAtCursorPosition)}
+        <ExampleButton />
+        <SymbolButton />
       </div>
     </div>
   );

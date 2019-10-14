@@ -17,6 +17,7 @@ export interface IState {
   aggregation: Taggregation;
   expandAll?: boolean;
   tooltips: boolean;
+  textInputRef: React.RefObject<any>;
 }
 
 interface IUpadateinputtextaction {
