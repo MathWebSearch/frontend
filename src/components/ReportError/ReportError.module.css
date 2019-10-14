@@ -39,7 +39,7 @@
   #forkongithub {
     position: fixed;
     display: block;
-    top: 0;
+    bottom: 0;
     right: 0;
     width: 200px;
     overflow: hidden;
@@ -49,13 +49,13 @@
   #forkongithub a {
     width: 200px;
     position: absolute;
-    top: 40px;
-    right: -80px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
+    bottom: 60px;
+    right: -60px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
   }
 }
