@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './DropDownButton.module.css';
+import {Button} from '../Button';
 
 /*
  * A DropDown Button that shows on click the contents
@@ -41,9 +42,7 @@ export default function DropDownButton<T>(
     <div
       className={expanded ? styles.DropDownactive : styles.DropDown}
       onMouseLeave={close}>
-      <button className={styles.DropDownbtn} onClick={toggle}>
-        {name}
-      </button>
+      <Button onClick={toggle} text={name} />
       <div className={styles.DropDownContent}>
         {list.map((entry: T, index: number) => {
           const {text, clickarg, hoverarg} = reducer(entry);

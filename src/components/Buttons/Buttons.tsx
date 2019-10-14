@@ -4,16 +4,16 @@ import {examples} from '../../config';
 import {symbols} from '../../config';
 import {Store} from '../../store/Store';
 import {updateansizeAction} from '../../store/Actions';
+import {useSearchBar} from '../Searchbar';
 import {ToolTip} from '../ToolTip';
 
 /*
  * Function that returns the ExampleButton that updates onhover the text
  * in the searchbar and triggers the search on click
  */
-export function ExampleButton(
-  submitHandler: (event: React.SyntheticEvent) => void,
-  updateandFocus: (text: string) => void,
-): JSX.Element | null {
+export function ExampleButton(): JSX.Element | null {
+  const {updateandFocus, submitHandler} = useSearchBar();
+
   if (!examples) {
     return null;
   }
@@ -42,9 +42,9 @@ export function ExampleButton(
  * Function that returns the SymbolButton that inserts the command for an
  * symbol onClick
  **/
-export function SymbolButton(
-  insertAtCursorPosition: (element: string) => void,
-): JSX.Element | null {
+export function SymbolButton(): JSX.Element | null {
+  const {insertAtCursorPosition} = useSearchBar();
+
   if (!symbols) {
     return null;
   }
