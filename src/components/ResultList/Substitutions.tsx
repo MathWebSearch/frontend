@@ -1,16 +1,17 @@
 import * as React from 'react';
 import {colors} from '../../config/Colors';
 import MathML from '../MathML';
-import PropTypes from 'prop-types';
 import styles from './ResultListEntry.module.css';
 
 /**
  * creates an jsx element containg for every query variable the substition
  * */
 interface SubsitutionsProps {
-  subst: any;
+  subst: {[key: string]: string};
 }
-export default function Subsitutions(props: SubsitutionsProps) : JSX.Element | null{
+export default function Subsitutions(
+  props: SubsitutionsProps,
+): JSX.Element | null {
   const {subst} = props;
   if (!subst) {
     return null;
@@ -18,7 +19,7 @@ export default function Subsitutions(props: SubsitutionsProps) : JSX.Element | n
   return (
     <div className={styles.FlexContainer}>
       <b> Subsitutions: </b>
-      {Object.keys(subst).map((qvar, index) => {
+      {Object.keys(subst).map((qvar: string, index: number) => {
         return (
           <div key={qvar}>
             <span
@@ -33,7 +34,3 @@ export default function Subsitutions(props: SubsitutionsProps) : JSX.Element | n
     </div>
   );
 }
-
-Subsitutions.propTypes = {
-  subst: PropTypes.object,
-};

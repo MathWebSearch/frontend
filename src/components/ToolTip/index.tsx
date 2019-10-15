@@ -32,7 +32,7 @@ export function ToolTip(props: {
 
 /**
  * CheckBox to enable/disable the tooltips
-* */
+ * */
 export function ToolTipToogle(): JSX.Element {
   const {
     state: {tooltips},

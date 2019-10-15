@@ -4,7 +4,6 @@ import {Store} from '../../store/Store';
 import {searchAction} from '../../store/Actions';
 import {Spinner} from '.././Progress';
 
-
 import AggregatedResultListEntry from './AggregatedResultListEntry';
 
 /**

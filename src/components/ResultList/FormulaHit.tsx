@@ -47,7 +47,7 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
           onClick={ev => {
             ev.stopPropagation();
           }}>
-         view in {BRANDING_TITLE}
+          view in {BRANDING_TITLE}
         </a>
       ) : null}
     </div>

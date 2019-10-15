@@ -1,11 +1,11 @@
 {
   "aggregationbotton": "Groups all Formulas by the Document they belong to",
-  "openall": "opens all",
-  "closeall": "closeall",
+  "openall": "Opens all search results",
+  "closeall": "Closes all search results",
   "goup": "Scroll to top of the page",
   "godown": "Scroll to bottom of the page",
-  "size": "sets the answer size",
-  "showmore": "shows more",
-  "examples": "shows expamples",
-  "symbols": "shows symbols"
+  "size": "Changes the number of formulas that are fetched",
+  "showmore": "Fetch the next batch of results",
+  "examples": "Shows expamples",
+  "symbols": "Shows symbols"
 }

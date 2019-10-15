@@ -15,7 +15,7 @@ interface ResultListEntryProps {
  * */
 export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   const {title, formulahits} = props;
-  const [active, setValue ] = React.useState<boolean>(false);
+  const [active, setValue] = React.useState<boolean>(false);
   const {
     state: {expandAll, aggregation},
   } = React.useContext(Store);
@@ -24,7 +24,7 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
   };
   /* Close if the aggregation changes*/
   React.useEffect(() => {
-      setValue(false)
+    setValue(false);
   }, [aggregation]);
   /* check if openall/closeall button was clicked */
   if (active !== expandAll && expandAll !== undefined) {
