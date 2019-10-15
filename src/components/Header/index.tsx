@@ -32,16 +32,10 @@ export function Header(props: Props) {
       <div className={styles.MWSTitle}>
         <b> MathWebSearch</b>
         <nav className={styles.navbar}>
-          <Link
-            to="/"
-            className={styles.navlink}
-            onClick={reset}>
+          <Link to="/" className={styles.navlink} onClick={reset}>
             Home
           </Link>
-          <Link
-            to="/about"
-            className={styles.navlink}
-            onClick={reset}>
+          <Link to="/about" className={styles.navlink} onClick={reset}>
             More Information
           </Link>
         </nav>
@@ -75,10 +69,8 @@ export function Header(props: Props) {
           <ChangeAggregationButton />
         </ToolTip>
       </div>
-      <div className={styles.rightcorner}>
-        <Stats />
-        <ToolTipToogle />
-      </div>
+      <Stats />
+      <ToolTipToogle />
     </div>
   );
 }

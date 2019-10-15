@@ -3,6 +3,7 @@ import {ExampleButton, SymbolButton} from '../Buttons/Buttons';
 import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
+import {Button} from '../Button';
 
 /**
  * custom hook that offers manipulation of the ref thats in the state and is
@@ -84,24 +85,25 @@ export function SearchBar() {
           }
           className={styles.textInput}
         />
-        <button
+        <Button
           className={styles.clearButton}
           type="button"
           onClick={() => updateandFocus('')}
-          disabled={input_text === ''}>
-          &times;
-        </button>
+          disabled={input_text === ''}
+          text="&times;"
+        />
         <br />
       </form>
       <div className={styles.buttonbar}>
-        <button
+        <Button
+          className={styles.searchButton}
           type="submit"
           form="form1"
           disabled={
             !input_formula || input_formula === current_formula || triggerSearch
-          }>
-          Search
-        </button>
+          }
+          text="Search"
+        />
         <ExampleButton />
         <SymbolButton />
       </div>

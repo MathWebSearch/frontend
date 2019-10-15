@@ -23,8 +23,14 @@
 }
 .SearchBar .clearButton {
   font-size: 20px;
+  width: auto;
 }
-.buttonbar{
-    display: flex;
-    justify-content: center;
+
+.SearchBar .searchButton {
+  width: auto;
+}
+
+.buttonbar {
+  display: flex;
+  justify-content: center;
 }

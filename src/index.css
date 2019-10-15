@@ -25,24 +25,3 @@ code {
   background: rgba(255, 255, 255, 0.5);
   width: 60%;
 }
-button {
-  display: inline;
-  background-color: primary-color;
-  color: white;
-  padding: 10px;
-  border: none;
-  margin: 1px;
-  font-size: 14px;
-}
-button:hover {
-  background-color: secondary-color;
-  box-shadow: 2px 5px 5px 2px gray;
-  cursor: pointer;
-}
-button:disabled {
-  background-color: gray;
-}
-button:disabled:hover {
-  box-shadow: none;
-  cursor: auto;
-}
