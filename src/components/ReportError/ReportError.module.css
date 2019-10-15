@@ -1,11 +1,14 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
 }
+
 /* stolen from here https://codepo8.github.io/css-fork-on-github-ribbon/ */
 #forkongithub a {
   background: primary-color;
-  color: #fff;
+  color: first-font-color;
   text-decoration: none;
   font-family: arial, sans-serif;
   text-align: center;

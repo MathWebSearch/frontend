@@ -1,6 +1,8 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
 }
 /* stolen from w3schools :) */
 /* Customize the label (the container) */
@@ -11,7 +13,7 @@
   display: flex;
   font-size: 90%;
   background-color: primary-color;
-  color: white;
+  color: first-font-color;
   justify-content: flex-start;
   align-items: center;
 }
@@ -26,7 +28,7 @@
 }
 
 .text {
-    padding: 1px;
+  padding: 1px;
 }
 
 /* Create a custom checkbox */

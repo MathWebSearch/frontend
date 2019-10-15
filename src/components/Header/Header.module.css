@@ -1,23 +1,26 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
+  first-bg-color: first-bg-color;
 }
-
 .header {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #efefef;
+  background: first-bg-color;
   border-bottom: 2px solid secondary-color;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
+  color: second-font-color;
 }
 
 .brandinglogo {
   background: secondary-color;
-  color: white;
+  color: first-font-color;
   padding: 0.5em;
   box-shadow: 0px 1px 1px 0px #337733;
   z-index: 1;
@@ -38,7 +41,7 @@
 
 .navbar {
   background: primary-color;
-  color: white;
+  color: first-font-color;
   margin-top: 2px;
   font-size: 0.5em;
   padding: 1%;
@@ -46,7 +49,7 @@
 
 .navlink {
   background: primary-color;
-  color: white;
+  color: first-font-color;
   padding: 1px;
   margin: 2px;
   text-decoration: none;

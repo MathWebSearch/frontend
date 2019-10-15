@@ -1,8 +1,15 @@
+:import('../../config/colors.css') {
+  primary-color: primary-color;
+  secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
+}
+
 .mybutton {
   display: inline-block;
   width: 100%;
   background-color: primary-color;
-  color: white;
+  color: first-font-color;
   padding: 10px;
   border: none;
   margin: 1px;

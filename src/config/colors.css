@@ -1,4 +1,11 @@
+/*
+ * This are the theme colors
+ * */
 :export {
   primary-color: #4caf50;
   secondary-color: #226622;
+  first-font-color: white;
+  second-font-color: black;
+  first-bg-color: #efefef;
+  second-bg-color: #333;
 }

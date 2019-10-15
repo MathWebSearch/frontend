@@ -1,6 +1,8 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
 }
 
 .DropDown {
@@ -21,7 +23,7 @@
 
 .DropDownbtn {
   background-color: primary-color;
-  color: white;
+  color: first-font-color;
   padding: 10px;
   border: none;
 }
@@ -38,7 +40,7 @@
 }
 
 .DropDownContent div {
-  color: black;
+  color: second-font-color;
   padding: 5px 10px;
   text-decoration: none;
   display: block;

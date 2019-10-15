@@ -1,21 +1,21 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-bg-color: first-bg-color;
+  second-bg-color: second-bg-color;
 }
 
 .ResultListEntry {
-  background-color: #eee;
+  background-color: first-bg-color;
   text-align: center;
   margin: 8px 3% 8px 3%;
   border: 1px solid;
-  /* border-radius: 5px; */
-  /* max-width: 90%; */
   width: auto;
   box-shadow: 0px 2px 2px 0px;
 }
 
 .title {
-  background: #eee;
+  background: first-bg-color;
 }
 .ResultListEntry:hover .title {
   background-color: secondary-color;
@@ -25,8 +25,7 @@
   font-size: 1.2em;
 }
 .ResultListEntry .Content {
-  /* border-radius: 5px; */
-  background-color: #fff;
+  background-color: white;
   border: 1px solid;
   width: auto;
   height: auto;

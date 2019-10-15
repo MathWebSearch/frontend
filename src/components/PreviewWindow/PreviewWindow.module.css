@@ -1,3 +1,11 @@
+:import('../../config/colors.css') {
+  primary-color: primary-color;
+  secondary-color: secondary-color;
+  first-font-color: first-font-color;
+  second-font-color: second-font-color;
+  first-bg-color: first-bg-color;
+  second-bg-color: second-bg-color;
+}
 .PreviewWindow {
   text-align: center;
   position: fixed;
@@ -6,7 +14,7 @@
   padding: 1px;
   margin: 1%;
   font-size: 200%;
-  background-color: #eee;
+  background-color: first-bg-color;
   border: 1px solid black;
   min-width: 15%;
   max-width: 50%;

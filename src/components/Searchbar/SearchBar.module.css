@@ -1,12 +1,14 @@
 :import('../../config/colors.css') {
   primary-color: primary-color;
   secondary-color: secondary-color;
+  first-front-color: first-font-color;
 }
 
 .SearchBar {
   text-align: center;
   margin: 1% 5% 1% 5%;
   width: 90%;
+  color: first-font-color;
 }
 
 .textInput {
