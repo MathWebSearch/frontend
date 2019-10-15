@@ -4,11 +4,19 @@ import {Button} from '../Button';
 /**
  *  function to detect if there is need for scrolling and that hopfully works in every browser
  * */
-const scrollMaxY = (): number => {
+export const maxY = (): number => {
   return (
     document.documentElement.scrollHeight -
     document.documentElement.clientHeight
   );
+};
+
+export const scrollUp = () => {
+  window.scrollTo(0, 0);
+};
+
+export const scrollDown = () => {
+  window.scrollTo(0, maxY());
 };
 
 /*
@@ -16,16 +24,12 @@ const scrollMaxY = (): number => {
  * */
 export function GoDownButton(props?: {className?: string}): JSX.Element | null {
   return typeof window.scrollTo === 'function' ? (
-    <Button
-      {...props}
-      onClick={() => window.scrollTo(0, scrollMaxY())}
-      text="Go down"
-    />
+    <Button {...props} onClick={scrollDown} text="Go down" />
   ) : null;
 }
 
 export function GoUpButton(props?: {className?: string}): JSX.Element | null {
   return typeof window.scrollTo === 'function' ? (
-    <Button {...props} onClick={() => window.scrollTo(0, 0)} text="Go up" />
+    <Button {...props} onClick={scrollUp} text="Go up" />
   ) : null;
 }
