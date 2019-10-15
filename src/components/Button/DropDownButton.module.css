@@ -8,13 +8,13 @@
 .DropDown {
   position: relative;
   display: inline-block;
-  margin-left: 1px;
   margin-right: 1px;
 }
 
 .DropDownactive {
   position: relative;
   display: inline-block;
+  margin-right: 1px;
 }
 
 .DropDownactive .DropDownContent {

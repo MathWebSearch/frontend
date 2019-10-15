@@ -12,8 +12,8 @@
   color: first-font-color;
   padding: 10px;
   border: none;
-  margin: 1px;
   font-size: 14px;
+  margin: 1px;
 }
 .mybutton:hover {
   background-color: secondary-color;
