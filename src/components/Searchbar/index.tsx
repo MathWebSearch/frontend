@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {ExampleButton, SymbolButton} from '../Buttons/Buttons';
+import {ExampleButton} from '../Buttons/ExampleButton';
+import {SymbolButton} from '../Buttons/SymbolButton';
 import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
