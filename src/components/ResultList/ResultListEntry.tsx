@@ -45,6 +45,7 @@ export function ResultListEntry(props: ResultListEntryProps): JSX.Element {
     <div className={styles.ResultListEntry}>
       <div onClick={toggleExpansion} className={styles.title}>
         <b>{title}</b>
+        {aggregation === 'Title' ? <b>{` (${formulahits.length})`}</b> : null}
       </div>
       {inner}
     </div>
