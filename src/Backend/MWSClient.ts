@@ -64,7 +64,7 @@ export class MWSClient extends SearchClient<IMWSResponse> {
       });
     });
 
-    return {total: json.total, entries: ret, took: json.time/1e6};
+    return {total: json.total, entries: ret, took: json.time/1e3};
   }
 }
 
