@@ -6,7 +6,7 @@ COPY . ./
 ARG SYMBOLS_PATH=""
 ARG EXAMPLE_PATH=""
 
-# copy the example/ symbols json if it is provided 
+# copy the example/ symbols json if it is provided
 RUN ["$SYMBOLS_PATH" == ""] || COPY $SYMBOLS_PATH ./src/config/symbols.json
 RUN ["$EXAMPLE_PATH" == ""] || COPY $SYMBOLS_PATH ./src/config/examples.json
 
