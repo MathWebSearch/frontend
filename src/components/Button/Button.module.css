@@ -1,22 +1,15 @@
-:import('../../config/colors.css') {
-  primary-color: primary-color;
-  secondary-color: secondary-color;
-  first-font-color: first-font-color;
-  second-font-color: second-font-color;
-}
-
 .mybutton {
   display: inline-block;
   width: 100%;
-  background-color: primary-color;
-  color: first-font-color;
+  background-color: var(--primary-color);
+  color: var(--first-font-color);
   padding: 10px;
   border: none;
   font-size: 14px;
   margin: 1px;
 }
 .mybutton:hover {
-  background-color: secondary-color;
+  background-color: var(--secondary-color);
   box-shadow: 2px 5px 5px 2px gray;
   cursor: pointer;
 }

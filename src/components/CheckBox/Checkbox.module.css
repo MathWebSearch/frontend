@@ -1,9 +1,3 @@
-:import('../../config/colors.css') {
-  primary-color: primary-color;
-  secondary-color: secondary-color;
-  first-font-color: first-font-color;
-  second-font-color: second-font-color;
-}
 /* stolen from w3schools :) */
 /* Customize the label (the container) */
 .container {
@@ -12,8 +6,8 @@
   cursor: pointer;
   display: flex;
   font-size: 80%;
-  background-color: primary-color;
-  color: first-font-color;
+  background-color: var(--primary-color);
+  color: var(--first-font-color);
   justify-content: flex-start;
   align-items: center;
 }
@@ -37,7 +31,7 @@
   height: 30px;
   width: 30px;
   padding: 1px;
-  background-color: white;
+  background-color: var(--first-bg-color);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -50,11 +44,11 @@
 
 /* When the checkbox is checked, add a green background */
 .container input:checked ~ .checkmark {
-  background-color: primary-color;
+  background-color: var(--primary-color);
 }
 
 .container:hover {
-  background-color: secondary-color;
+  background-color: var(--secondary-color);
   box-shadow: 2px 5px 5px 2px gray;
 }
 
