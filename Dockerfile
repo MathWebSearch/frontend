@@ -17,6 +17,7 @@ ARG REACT_APP_MWS_MODE=API
 ENV REACT_APP_LATEXML_URL=http://localhost:8080
 ENV REACT_APP_MWSAPI_URL=http://localhost:3001
 ENV REACT_APP_MWS_URL=http://localhost:9090
+ENV REACT_APP_THEME_NR=1
 RUN yarn && yarn build
 
 FROM node:12.6.0-alpine
