@@ -28,4 +28,6 @@ export const MWS_MODE =
   process.env.REACT_APP_MWS_MODE === 'API' ? 'API' : 'MWS';
 
 export const errorLog =
-  process.env.NODE_ENV !== 'production' ? (...args) => console.error(...args) : () => {};
+  process.env.NODE_ENV !== 'production'
+    ? (...args) => console.error(...args)
+    : () => {};

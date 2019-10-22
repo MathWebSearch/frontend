@@ -18,7 +18,7 @@
   /* Position the tooltip text */
   position: absolute;
   z-index: 150;
-  right : 103%;
+  top: 103%;
 
   opacity: 0.9;
   transition: opacity 1s;
