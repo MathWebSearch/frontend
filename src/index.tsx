@@ -7,6 +7,11 @@ const THEME_NR = process.env.REACT_APP_THEME_NR
   ? process.env.REACT_APP_THEME_NR
   : '1';
 
-require(`./Themes/theme${THEME_NR}.css`);
-
-ReactDOM.render(<App />, document.getElementById('root'));
+import(`./Themes/theme${THEME_NR}.css`)
+  .then(() => ReactDOM.render(<App />, document.getElementById('root')))
+  .catch(() =>
+    ReactDOM.render(
+      <div> couldn't load theme</div>,
+      document.getElementById('root'),
+    ),
+  );
