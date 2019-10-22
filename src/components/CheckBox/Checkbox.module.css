@@ -11,7 +11,7 @@
   margin: 2px;
   cursor: pointer;
   display: flex;
-  font-size: 90%;
+  font-size: 80%;
   background-color: primary-color;
   color: first-font-color;
   justify-content: flex-start;
@@ -34,8 +34,8 @@
 /* Create a custom checkbox */
 .checkmark {
   text-align: center;
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   padding: 1px;
   background-color: white;
 }

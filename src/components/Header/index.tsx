@@ -64,13 +64,15 @@ export function Header(props: Props) {
           <ShowMoreButton />
         </ToolTip>
       </div>
-      <div className={styles.buttonbox}>
+      <div className={styles.statsbox}>
+        <Stats />
+      </div>
+      <div className={styles.rightcorner}>
+        <ToolTipToogle />
         <ToolTip text="aggregationbotton">
           <ChangeAggregationButton />
         </ToolTip>
       </div>
-      <Stats />
-      <ToolTipToogle />
     </div>
   );
 }

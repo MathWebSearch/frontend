@@ -58,18 +58,9 @@
   background: secondary-color;
 }
 
-.buttonbox {
+.buttonpairs {
   align-self: center;
 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-grow: 1;
-}
-
-.buttonpairs {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -77,10 +68,22 @@
   justify-content: flex-end;
 }
 
+.statsbox {
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
 .rightcorner {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
   align-self: center;
 }
