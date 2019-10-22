@@ -64,7 +64,6 @@ interface IDefaultaction {
 }
 interface IResetaction {
   type: 'RESET';
-  payload: {};
 }
 
 interface IUpdateanswsizeaction {
