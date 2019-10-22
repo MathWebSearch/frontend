@@ -54,6 +54,7 @@ export const Store = React.createContext<IState | any>({state: initialState});
 
 export function StoreProvider(props: any): JSX.Element {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+  /* checks if there is some state in the url*/
   React.useEffect(() => {
     dispatch(updateInputTextAction(getURL()));
   }, []);

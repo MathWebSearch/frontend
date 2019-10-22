@@ -1,7 +1,7 @@
 import {errorLog} from '../config';
 
 /**
- * @param string of xpath
+ * @param xpath string that represent xpath
  * @param element starting element
  * */
 export function getElementBySimpleXpath(xpath: string, element: any) {
