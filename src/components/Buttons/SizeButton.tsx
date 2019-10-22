@@ -8,7 +8,7 @@ import {updateansizeAction} from '../../store/Actions';
 
 export function SizeButton(): JSX.Element {
   const {state, dispatch} = React.useContext(Store);
-  const list = Array.from(Array(20).keys()).map(e => {
+  const list = Array.from(Array(21).keys()).map(e => {
     return `${e * 5 || 1}`;
   });
   return (
