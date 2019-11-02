@@ -9,6 +9,7 @@ import {ShowMoreButton} from '../Buttons/ShowMoreButton';
 import {SizeButton} from '../Buttons/SizeButton';
 import {ToolTip, ToolTipToogle} from '../ToolTip';
 import {Store} from '../../store/Store';
+import {getButtonText} from '../../util/buttonText';
 
 export interface Props {
   brandingTitle: string;
@@ -33,10 +34,10 @@ export function Header(props: Props) {
         <b> MathWebSearch</b>
         <nav className={styles.navbar}>
           <Link to="/" className={styles.navlink} onClick={reset}>
-            Home
+            {getButtonText('home')}
           </Link>
           <Link to="/about" className={styles.navlink} onClick={reset}>
-            More Information
+            {getButtonText('about')}
           </Link>
         </nav>
       </div>

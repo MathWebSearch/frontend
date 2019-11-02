@@ -6,5 +6,13 @@
   "closeall": "Close all",
   "examples": "Examples",
   "symbols": "Symbols",
-  "showmore": "Show more"
+  "showmore": "Show more",
+  "size": "Results",
+  "aggr": "group fromulas by BRANDING_TITLE document",
+  "tooltips": "Enable tooltips",
+  "home": "Home",
+  "about": "More Information",
+  "statsentries": "Showing LENGTH of TOTAL fromulas",
+  "statstime": "Daemon used TIME seconds",
+  "linktosource": "view in BRANDING_TITLE"
 }

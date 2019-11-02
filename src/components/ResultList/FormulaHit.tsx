@@ -6,6 +6,7 @@ import {extractSurroundingWords} from '../../util/extractFunctions';
 import styles from './ResultListEntry.module.css';
 import {IFormulaHit} from '../../interfaces';
 import {BRANDING_TITLE} from '../../config';
+import {getButtonText} from '../../util/buttonText';
 
 /**
  * This function assambles an entry for a single search hit
@@ -47,7 +48,10 @@ export default function FormulaHit(props: IFormulaHit): JSX.Element {
           onClick={ev => {
             ev.stopPropagation();
           }}>
-          view in {BRANDING_TITLE}
+          {getButtonText('linktosource').replace(
+            'BRANDING_TITLE',
+            BRANDING_TITLE,
+          )}
         </a>
       ) : null}
     </div>
