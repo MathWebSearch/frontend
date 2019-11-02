@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './Button.module.css';
+import {getButtonText} from '../../util/buttonText';
 
 /**
  * Wrapper around button to bring css
@@ -12,6 +13,7 @@ export function Button(props: {
   type?: 'button' | 'submit';
   form?: string;
 }): JSX.Element {
+  const text = getButtonText(props.text);
   return (
     <button
       className={`${styles.mybutton}${
@@ -21,7 +23,7 @@ export function Button(props: {
       disabled={props.disabled}
       type={props.type}
       form={props.form}>
-      {props.text}
+      {text}
     </button>
   );
 }
