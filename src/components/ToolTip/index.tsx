@@ -70,6 +70,8 @@ const gettooltiptext = (key: string) => {
       return tooltips.examples;
     case 'symbols':
       return tooltips.symbols;
+    case 'clear':
+      return tooltips.clear;
     default:
       return '';
   }

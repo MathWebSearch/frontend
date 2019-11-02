@@ -1,11 +1,12 @@
 {
   "aggregationbotton": "Groups all Formulas by the Document they belong to",
-  "openall": "Opens all search results",
-  "closeall": "Closes all search results",
+  "openall": "Opens all the containers with search results",
+  "closeall": "Closes all the containers with search results",
   "goup": "Scroll to top of the page",
   "godown": "Scroll to bottom of the page",
-  "size": "Changes the number of formulas that are fetched",
+  "size": "Changes the number of formulas that are fetched in single request. (pay attention big numbers here may take really long)",
   "showmore": "Fetch the next batch of results",
-  "examples": "Shows expamples",
-  "symbols": "Shows symbols"
+  "examples": "Shows a list of examples queries",
+  "symbols": "Shows a list of possible symbols that can be used in a query",
+  "clear": "Clears the searchbar"
 }

@@ -14,7 +14,7 @@ export function SymbolButton(): JSX.Element | null {
     return null;
   }
   return (
-    <ToolTip text="examples">
+    <ToolTip text="symbols">
       <DropDownButton
         name="Symbols"
         clickHandler={(element: string, _: React.SyntheticEvent) =>
