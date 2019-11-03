@@ -15,6 +15,7 @@ The configuring is done with various environment variables:
   - REACT_APP_MWS_BRANDING_URL sets the url when clicked on this title
   - REACT_APP_DISABLE_EXAMPLES when set to **'true'** disables the example button (by default not set)
   - REACT_APP_DISABLE_SYMBOLS when set to **'true'** disables the symbols button (by default not set)
+  - REACT_APP_THEME_NR set to {1, 2, 3} for choosing the {green, blue, red} theme (green default)
 
 ## Usage:
   -
@@ -25,7 +26,7 @@ The configuring is done with various environment variables:
       starts an development server on http://localhost:3000
 
    -
-      ```  
+      ```
       $ npm install
       $ npm run production
       ```
