@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Store} from '../../store/Store';
 import styles from './Stats.module.css';
+import {getButtonText} from '../../util/buttonText';
 
 export function Stats(): JSX.Element | null {
   const {
@@ -14,9 +15,11 @@ export function Stats(): JSX.Element | null {
   return (
     <div className={styles.Stats}>
       <span>
-        Showing {allEntries.length} of <b>{total}</b> formulas
+        {getButtonText('statsentries')
+          .replace('LENGTH', allEntries.length)
+          .replace('TOTAL', total)}
       </span>{' '}
-      <div>The daemon used {took.toFixed(4)} seconds for the last query</div>
+      <div>{getButtonText('statstime').replace('TIME', took.toFixed(2))}</div>
     </div>
   );
 }

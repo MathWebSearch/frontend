@@ -10,7 +10,7 @@ export function getElementBySimpleXpath(xpath: string, element: any) {
     let xpatharr = convertXpath(xpath);
     while (xpatharr.length > 0) {
       let n = xpatharr.shift() || 0;
-      // TODO: not sure why this happens but sometimes it take s a wrong way
+      // not sure why this happens but sometimes it take s a wrong way
       if (n < elem.children.length) {
         elem = elem.children[n];
       } else {
@@ -19,8 +19,9 @@ export function getElementBySimpleXpath(xpath: string, element: any) {
           elem = elem.nextElementSibling;
         } else {
           elem = elem.firstElementChild;
-          xpatharr.unshift(n - 1);
         }
+        // look in the next layer for a n - 1th child
+        xpatharr.unshift(n - 1);
       }
     }
     return elem;

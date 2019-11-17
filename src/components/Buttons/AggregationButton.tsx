@@ -4,6 +4,7 @@ import {BRANDING_TITLE} from '../../config';
 import {Store} from '../../store/Store';
 import {changeAggregationAction} from '../../store/Actions';
 import {CheckBox} from '../CheckBox';
+import {getButtonText} from '../../util/buttonText';
 
 /**
  * checkbox to toogle the if the elements are grouped by document or not
@@ -19,10 +20,11 @@ export function ChangeAggregationButton(props: {
     const newaggr: Taggregation = aggregation === 'None' ? 'Title' : 'None';
     dispatch(changeAggregationAction(newaggr));
   };
+  const text = getButtonText('aggr').replace(/BRANDING_TITLE/, BRANDING_TITLE);
   return (
     <CheckBox
       className={props.className}
-      text={`group formulas by ${BRANDING_TITLE} Document`}
+      text={text}
       checked={aggregation === 'Title'}
       onChange={toggleAggregation}
     />

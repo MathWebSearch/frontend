@@ -5,6 +5,7 @@ import {Store} from '../../store/Store';
 import {triggerSearchAction, updateInputTextAction} from '../../store/Actions';
 import styles from './SearchBar.module.css';
 import {Button} from '../Button';
+import {ToolTip} from '../ToolTip';
 
 /**
  * custom hook that offers manipulation of the ref thats in the state and is
@@ -86,13 +87,15 @@ export function SearchBar() {
           }
           className={styles.textInput}
         />
-        <Button
-          className={styles.clearButton}
-          type="button"
-          onClick={() => updateandFocus('')}
-          disabled={input_text === ''}
-          text="&times;"
-        />
+        <ToolTip text="clear">
+          <Button
+            className={styles.clearButton}
+            type="button"
+            onClick={() => updateandFocus('')}
+            disabled={input_text === ''}
+            text="&times;"
+          />
+        </ToolTip>
         <br />
       </form>
       <div className={styles.buttonbar}>

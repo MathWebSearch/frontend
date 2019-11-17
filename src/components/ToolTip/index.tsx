@@ -4,6 +4,7 @@ import tooltips from '../../config/tooltips.json';
 import {Store} from '../../store/Store';
 import {changeTooltipsAction} from '../../store/Actions';
 import {CheckBox} from '../CheckBox';
+import {getButtonText} from '../../util/buttonText';
 
 /**
  * Wrapper to get tooltips
@@ -40,7 +41,7 @@ export function ToolTipToogle(): JSX.Element {
   } = React.useContext(Store);
   return (
     <CheckBox
-      text="Enable tooltips"
+      text={getButtonText('tooltips')}
       checked={tooltips}
       onChange={() => dispatch(changeTooltipsAction(!tooltips))}
     />
@@ -70,6 +71,8 @@ const gettooltiptext = (key: string) => {
       return tooltips.examples;
     case 'symbols':
       return tooltips.symbols;
+    case 'clear':
+      return tooltips.clear;
     default:
       return '';
   }
