@@ -56,10 +56,14 @@ export function StoreProvider(props: any): JSX.Element {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   /* checks if there is some state in the url*/
   React.useEffect(() => {
-    const popurl = () => dispatch(updateInputTextAction(getURL()));
+    const popurl = () => {
+      /* in this case it is needed to avoid pushing to the history stack for
+       * that the false is for*/
+      dispatch(updateInputTextAction(getURL(), false));
+    };
     popurl();
     window.addEventListener('popstate', popurl);
-    return () => window.removeEventListener('popstate', popurl)
+    return () => window.removeEventListener('popstate', popurl);
   }, []);
   return (
     <Store.Provider value={{state, dispatch}}>{props.children} </Store.Provider>

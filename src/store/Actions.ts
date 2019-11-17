@@ -3,8 +3,20 @@ import {IFormulaHit, Taggregation} from '../interfaces';
 import {IAction} from '../interfaces';
 import {errorLog} from '../config';
 
-export function updateInputTextAction(new_text: string): IAction {
-  window.history.pushState(null, '', `?query-math=${encodeURI(new_text)}`);
+/**
+ *  Updates the input text and pushes that also to the url location,
+ *  this can be avoided for example in the popstate event handler
+ *  @param new_text the new text
+ *  @param pushToHistory
+ *  @return Action to update the input text
+ * */
+export function updateInputTextAction(
+  new_text: string,
+  pushToHistory = true,
+): IAction {
+  if (pushToHistory) {
+    window.history.pushState(null, '', `?query-math=${encodeURI(new_text)}`);
+  }
   return {
     type: 'UPDATE_INPUT_TEXT',
     payload: {input_text: new_text, input_formula: null},
