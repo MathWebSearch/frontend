@@ -1,4 +1,4 @@
-import {Client} from './Client';
+import {Client} from './client';
 import {ILTXResponse} from './client.d';
 import {errorLog} from '../config';
 
