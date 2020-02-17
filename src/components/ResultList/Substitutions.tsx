@@ -18,7 +18,7 @@ export default function Subsitutions(
   }
   return (
     <div className={styles.FlexContainer}>
-      <b> Subsitutions: </b>
+      <b> Substitutions: </b>
       {Object.keys(subst).map((qvar: string, index: number) => {
         return (
           <div key={qvar}>
