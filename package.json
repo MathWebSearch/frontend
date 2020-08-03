@@ -21,6 +21,9 @@
     "react-spinners": "^0.6.1",
     "typescript": "^3.7.5"
   },
+  "resolutions": {
+    "react-scripts/webpack-dev-server": "^3.10.3"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
