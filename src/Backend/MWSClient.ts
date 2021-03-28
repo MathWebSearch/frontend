@@ -45,6 +45,10 @@ export class MWSClient extends SearchClient<IMWSResponse> {
         return;
       }
       const math_node = find_attribute_value(xhtmldoc, 'local_id', local_id);
+      if (!math_node) {
+        console.log("Missing <math> element for: " + local_id);
+        return;
+      }
       /** for the case that the actual math node is a string or not*/
       const source = math_node.textContent || math_node.innerHTML;
       if (!source) {
