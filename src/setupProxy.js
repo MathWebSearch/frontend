@@ -1,4 +1,6 @@
-const proxy = require('http-proxy-middleware');
+let proxy = require('http-proxy-middleware');
+if (typeof proxy !== 'function') proxy = proxy.createProxyMiddleware;
+
 const LATEXML_URL =
   !process.env.REACT_APP_LATEXML_URL
     ? 'http://localhost:8080'
