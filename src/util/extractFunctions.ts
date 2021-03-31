@@ -4,15 +4,13 @@ const parser = new DOMParser();
 /**
  * looks in the mathelement for an real url
  * */
-function extractUrl(source: string): string {
+function extractUrl(source: string): string | null {
   const htmlDoc = parser.parseFromString(source, 'text/html');
-  let math = htmlDoc.getElementsByTagName('math');
-  if (0 === math.length) {
-    math = htmlDoc.getElementsByTagName('m:math');
+  let [ math ] = Array.from(htmlDoc.getElementsByTagName("math"));
+  if (!math) {
+    [ math ] = Array.from(htmlDoc.getElementsByTagName("m:math"));
   }
-  htmlDoc.getElementsByTagName('m:math');
-  const url = math[0].getAttribute('url');
-  return url || '';
+  return math ? math?.getAttribute('url') : null;
 }
 
 /**

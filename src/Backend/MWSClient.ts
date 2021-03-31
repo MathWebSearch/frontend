@@ -30,45 +30,62 @@ export class MWSClient extends SearchClient<IMWSResponse> {
     };
   }
 
+  /** parse response json into actual result data */
   unpackJson(json: IMWSResponse): IMWSClientResult {
-    const qvars: Iqvar[] = json.qvars || [];
+    const queryvariablesxpath: Iqvar[] = json.qvars || [];
+
+    const total = json.total;
     const from = json.from || 0;
-    let ret: Array<IFormulaHit> = [];
     const hits = json.hits || [];
     const parser = new DOMParser();
-    hits.forEach((hit: any, index: number) => {
-      const local_id = hit.math_ids[0].url;
-      const xhtmldoc = parser.parseFromString(hit.xhtml, 'text/html');
-      const ids = xhtmldoc.getElementsByTagName('id');
-      if (!ids[0].textContent) {
-        /*lets assume if there is the id missing then it's useless to go on*/
-        return;
+    
+    const entries = hits.map((hit: any, index: number): IFormulaHit | undefined => {
+      if(hit.math_ids.length === 0) {
+        console.log("No 'math_ids' returned from API");
+        return undefined; // no math ids?
       }
+
+      const local_id = hit.math_ids[0].url;
+      const xpath = hit.math_ids[0].xpath;
+  
+      const xhtmldoc = parser.parseFromString(hit.xhtml, 'text/html');
+      const title = xhtmldoc.title || '';
+
+      const segment = Array.from(xhtmldoc.getElementsByTagName('id'))[0]?.textContent;
+      if (!segment) {
+        console.log("Missing <id> in harvest xml for: " + local_id);
+        return undefined;
+      }
+
       const math_node = find_attribute_value(xhtmldoc, 'local_id', local_id);
       if (!math_node) {
         console.log("Missing <math> element for: " + local_id);
-        return;
+        return undefined;
       }
       /** for the case that the actual math node is a string or not*/
-      const source = math_node.textContent || math_node.innerHTML;
+      const source = math_node.innerHTML || math_node.textContent;
       if (!source) {
-        /* if no source then it is useless to go on*/
-        return;
+        console.log("Unable to extract source for: " + local_id);
+        return undefined;
       }
-      ret.push({
+      const url = extractUrl(source) || undefined;
+
+      const text = xhtmldoc.getElementsByTagName('text')[0].textContent || '';
+
+      return {
         id: index + from,
         local_id,
-        segment: ids[0].textContent,
-        title: xhtmldoc.title || '',
-        url: extractUrl(source) || undefined,
+        segment,
+        title,
+        url,
         source,
-        xpath: hit.math_ids[0].xpath,
-        queryvariablesxpath: qvars,
-        text: xhtmldoc.getElementsByTagName('text')[0].textContent || '',
-      });
-    });
+        xpath,
+        queryvariablesxpath,
+        text,
+      };
+    }).filter(x => x !== undefined) as IFormulaHit[];
 
-    return {total: json.total, entries: ret, took: json.time/1e3};
+    return {total, entries, took: json.time/1e3};
   }
 }
 
@@ -88,25 +105,24 @@ export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
   unpackJson(json: IMWSAPIResponse): IMWSClientResult {
     const qvars: Iqvar[] = json.qvars || [];
     const min = json.from || 0;
-    let ret: Array<IFormulaHit> = [];
     const hits = json.hits || [];
-    hits.forEach((hit: IHit, index: number) => {
-      ret.push({
+    const entries = hits.map((hit: IHit, index: number): IFormulaHit => {
+      return {
         id: min + index,
         local_id: hit.math_ids[0].url,
         segment: hit.source.segment.replace(/\s+/, ' ').trim(),
         title: extractTitle(hit.source.metadata) || undefined,
-        url: extractUrl(hit.math_ids[0].source),
+        url: extractUrl(hit.math_ids[0].source) || "",
         source: hit.math_ids[0].source,
         subterm: hit.math_ids[0].subterm,
         xpath: hit.math_ids[0].xpath,
         substituitons: hit.math_ids[0].subst,
         queryvariablesxpath: qvars,
         text: hit.source.text,
-      });
+      };
     });
 
-    return {total: json.total, entries: ret, took: json.took/1e9};
+    return {total: json.total, entries, took: json.took/1e9};
   }
 
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {
