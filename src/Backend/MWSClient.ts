@@ -9,12 +9,13 @@ import {
 import {IFormulaHit, Iqvar} from '../interfaces.d';
 import {extractTitle, extractUrl} from '../util/extractFunctions';
 import {find_attribute_value} from '../util/simpleXpath';
+import DOMParser from "../util/DOMParser";
 
 /*
  * class for directly communicating with an mws instance
  * */
 export class MWSClient extends SearchClient<IMWSResponse> {
-  constructor(url: string = '/mws') {
+  constructor(url: string = '/api/mws') {
     super(url);
   }
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {
@@ -94,7 +95,7 @@ export class MWSClient extends SearchClient<IMWSResponse> {
  * */
 export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
   private header: Headers;
-  constructor(url: string = '/mws/') {
+  constructor(url: string = '/api/mws/') {
     super(url);
     this.header = new Headers({
       Accept: 'application/json',

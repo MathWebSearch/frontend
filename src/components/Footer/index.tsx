@@ -1,18 +1,16 @@
+import Link from "next/link";
+
 import * as React from 'react';
 import styles from './Footer.module.css';
-import kwarc from '../../img/kwarc_logo.png';
-import fau from '../../img/fau_logo.png';
-import odk from '../../img/odk_logo.png';
-import eu from '../../img/eu.svg';
 
-function PictureLink(props: {url: string; pic: any; alt: string}): JSX.Element {
+function PictureLink(props: {href: string; src: any; alt: string, width: number, height: number}): JSX.Element {
   return (
     <a
-      href={props.url}
+      href={props.href}
       target="_blank"
       rel="noopener noreferrer"
       className={styles.footlink}>
-      <img src={props.pic} alt={props.alt} />
+      <img src={props.src} alt={props.alt} width={props.width} height={props.height} />
     </a>
   );
 }
@@ -24,10 +22,18 @@ export function Footer(): JSX.Element {
         Powered by <a href="http://search.mathweb.org/">MathWebSearch</a>
       </div>
       <div className={styles.footer}>
-        <PictureLink url="https://kwarc.info/" pic={kwarc} alt="KWARC research group" />
-        <PictureLink url="https://fau.de/" pic={fau} alt="FAU Erlangen-Nürnberg" />
-        <PictureLink url="https://opendreamkit.org/" pic={odk} alt="OpenDreamKit" />
-        <PictureLink url="https://europa.eu/" pic={eu} alt="EU" />
+        <PictureLink href="https://kwarc.info/" src={"/logos/kwarc_logo.png"} alt="KWARC research group" width={80} height={80} />
+        <PictureLink href="https://fau.de/" src={"/logos/fau_logo.png"} alt="FAU Erlangen-Nürnberg" width={270} height={52} />
+        <PictureLink href="https://opendreamkit.org/" src={"/logos/odk_logo.png"} alt="OpenDreamKit" width={45} height={69} />
+        <PictureLink href="https://europa.eu/" src={"/logos/eu.svg"} alt="EU" width={120} height={80} />
+        <br />
+        <Link href="/imprint">
+          <a>
+            Imprint
+          </a>
+        </Link>
+        &nbsp;
+        <a href={"/disclaimer.txt"}>Legal Disclaimer</a>
       </div>
     </div>
   );

@@ -1,49 +1,29 @@
 {
   "name": "mws-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@reach/router": "^1.3.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.27",
-    "@types/reach__router": "^1.3.0",
-    "@types/react": "^16.9.19",
-    "@types/react-dom": "^16.9.5",
-    "express": "^4.17.1",
-    "http-proxy-middleware": "^0.19.1",
-    "isomorphic-fetch": "^3.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "http-proxy-middleware": "^1.1.0",
+    "next": "^10.1.3",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2",
     "react-html-parser": "^2.0.2",
-    "react-mathjax-preview": "^0.1.16",
+    "react-mathjax-preview": "^2.1.3",
     "react-progress": "0.0.12",
-    "react-scripts": "^4.0.0",
-    "react-spinners": "^0.6.1",
-    "typescript": "^3.7.5"
+    "react-spinners": "^0.10.6",
+    "typescript": "^4.2.3",
+    "xmldom": "^0.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "production": "npm run build && node express.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "mklegal": "yarn --ignore-platform licenses generate-disclaimer > public/disclaimer.txt"
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^2.3.0"
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/xmldom": "^0.1.30"
   }
 }

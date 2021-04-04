@@ -1,26 +1,35 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+## Please think carefully before adding a new item to Gitignore
+## and make sure that is does not belong into a Global Gitignore instead
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Distribution files
+dist/
+out/
 
-# testing
-/coverage
+public/disclaimer.txt
 
-# production
-/build
+# Dependencies -- Yarn && NPM
+node_modules/
+.yarn-integrity
+.npm
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Build Cache
+.next
 
+# Lots of log files
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-*.swp
-package-lock.json
+# Runtime Data Files
+pids
+*.pid
+*.seed
+*.pid.lock
+.eslintcache
+.awcache
+
+# And in case somewant wants to debug by hand
+.node_repl_history
+run

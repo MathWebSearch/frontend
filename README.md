@@ -2,7 +2,7 @@
 # MathWebSearch frontend
 [![Build Status](https://travis-ci.org/MathWebSearch/frontend.svg?branch=master)](https://travis-ci.org/MathWebSearch/frontend)
 
-A frontend for the MWS search engine using create-react-app and Typescript
+A frontend for the MWS search engine using NextJS and TypeScript
 
 ## Configuring
 The configuring is done with various environment variables:
@@ -20,20 +20,20 @@ The configuring is done with various environment variables:
 ## Usage:
   -
       ```
-      $ npm install
-      $ npm start
+      $ yarn install
+      $ yarn dev
       ```
       starts an development server on http://localhost:3000
 
    -
       ```
-      $ npm install
-      $ npm run production
+      $ yarn install
+      $ yarn build
+      $ yarn start
       ```
-      starts a provisional production build that uses [express.js](https://expressjs.com/) to serve the static files and proxy the backend calls
+      starts a provisional production build  to serve the static files and proxy the backend calls
 
    - for convenience there is also a dockerfile to create an docker image
-
 
 ## License
 

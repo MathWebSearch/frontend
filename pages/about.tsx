@@ -4,7 +4,7 @@ import * as React from 'react';
  * About page with some more information
  * */
 
-export function About(): JSX.Element {
+export default function About(): JSX.Element {
   return (
     <>
       <div>

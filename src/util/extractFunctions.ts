@@ -1,3 +1,5 @@
+import DOMParser from "./DOMParser";
+
 // the one parser to parse them all?
 const parser = new DOMParser();
 

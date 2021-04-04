@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './Header.module.css';
-import {Link} from '@reach/router';
+import Link from 'next/link';
 import {Stats} from '../Stats';
 import {GoUpButton, GoDownButton} from '../Buttons/NavigationButtons';
 import {ChangeAggregationButton} from '../Buttons/AggregationButton';
@@ -33,11 +33,15 @@ export function Header(props: Props) {
       <div className={styles.MWSTitle}>
         <b> MathWebSearch</b>
         <nav className={styles.navbar}>
-          <Link to="/" className={styles.navlink} onClick={reset}>
-            {getButtonText('home')}
+          <Link href="/">
+            <a className={styles.navlink} onClick={reset}>
+              {getButtonText('home')}
+            </a>
           </Link>
-          <Link to="/about" className={styles.navlink} onClick={reset}>
-            {getButtonText('about')}
+          <Link href="/about">
+            <a className={styles.navlink} onClick={reset}>
+              {getButtonText('about')}
+            </a>
           </Link>
         </nav>
       </div>

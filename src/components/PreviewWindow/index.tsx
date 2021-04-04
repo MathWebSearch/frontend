@@ -5,6 +5,7 @@ import {colors} from '../../config/Colors';
 import {Store} from '../../store/Store';
 import {convertAction} from '../../store/Actions';
 import {useDebounce} from '../../util/Debounce';
+import DOMParser from "../../util/DOMParser";
 /**
  * function that looks through a string of a mahtml formula that and replaces
  * the mathcolor of all queryvariables with a different color

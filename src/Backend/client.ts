@@ -1,7 +1,7 @@
-import 'isomorphic-fetch';
 import {Ipayload, IMWSClientResult, IResponseType} from './client.d';
 import {find_attribute_value} from '../util/simpleXpath';
 import {errorLog} from '../config';
+import DOMParser from "../util/DOMParser";
 
 /**
  * this should be the base class for all the backend queries
