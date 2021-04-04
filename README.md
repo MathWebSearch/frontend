@@ -1,6 +1,8 @@
 
 # MathWebSearch frontend
-[![Build Status](https://travis-ci.org/MathWebSearch/frontend.svg?branch=master)](https://travis-ci.org/MathWebSearch/frontend)
+
+![Build Status](https://github.com/MathWebSearch/frontend/workflows/CI/badge.svg)
+[![DockerHub Status](https://img.shields.io/docker/automated/mathwebsearch/frontend.svg)](https://hub.docker.com/r/mathwebsearch/frontend/)
 
 A frontend for the MWS search engine using NextJS and TypeScript
 

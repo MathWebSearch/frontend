@@ -18,7 +18,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "mklegal": "yarn --ignore-platform licenses generate-disclaimer > public/disclaimer.txt"
+    "mklegal": "yarn --ignore-platform licenses generate-disclaimer > public/disclaimer.txt",
+    "dist": "yarn mklegal && yarn build"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",

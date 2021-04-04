@@ -1,0 +1,42 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    lint:
+        name: 'Lint'
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: "15"
+        - run: yarn install
+
+        - name: Lint the Code
+          run: yarn lint
+
+    build:
+        name: 'Build'
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: "15"
+        - run: yarn install
+
+        - name: Build the Code
+          run: yarn dist
+    
+    dockerbuild:
+      name: 'Docker Build'
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the Docker Image
+        run: docker build -t mathwebsearch/frontend .
