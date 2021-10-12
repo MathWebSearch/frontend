@@ -73,11 +73,14 @@ export abstract class SearchClient<
 }
 
 export class ResponseError implements Error {
-  constructor(readonly response: Response) {}
+  constructor(readonly response: Response) {
+    this.message = `Request to ${this.response.url} failed. `;
+    this.isNotFound = this.response.status === 404;
+  }
 
   readonly name = 'ResponseError';
-  readonly message = `Request to ${this.response.url} failed. `;
-
+  readonly message: string;
   /** indicates if the response returned the not found status */
-  readonly isNotFound = this.response.status === 404;
+  readonly isNotFound: boolean;
+
 }
