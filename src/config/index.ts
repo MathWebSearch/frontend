@@ -23,6 +23,7 @@ export const symbols =
     : null;
 
 export const BRANDING_TITLE = config.REACT_APP_MWS_BRANDING_TITLE || 'nLab';
+export const FOOTER_TEXT = config.REACT_APP_MWS_FOOTER_TEXT || 'ar5search is an experimental formula search engine for the last 6 months of arxiv.org content provided by KWARC.info. If you want the rest of arxiv to be added to the search engine, help us find/finance a server with 4 TB RAM.'
 export const BRANDING_URL = config.REACT_APP_MWS_BRANDING_URL || 'https://ncatlab.org/nlab/show/HomePage';
 
 export const MWS_MODE = config.REACT_APP_MWS_MODE === 'API' ? 'API' : 'MWS';

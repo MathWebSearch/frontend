@@ -24,6 +24,32 @@ export abstract class Client {
 }
 
 /*
+ * Class for logging queries
+ */
+export class LogClient extends Client {
+  constructor(url: string) {
+    super(url, 'POST');
+  }
+
+  async logQuery(input_text: string, status: string) {
+    console.log(this.url);
+    if (!this.url) return;
+    try {
+      await this.sendJson({
+        body: JSON.stringify(
+        {
+          query: input_text,
+          status: status
+        })
+      });
+    } catch (e) {
+      errorLog(`fetchContent in ${this.constructor.name} failed`, e);
+      throw e;
+    }
+  }
+}
+
+/*
  *  abstract class for searchquerys
  * */
 export abstract class SearchClient<

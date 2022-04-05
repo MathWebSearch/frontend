@@ -13,7 +13,9 @@ export default class MyDocument extends Document {
                 <body>
                     <Main />
                     <NextScript />
-                    <script src="https://privacy.kwarc.info/policy.js"></script>
+                    <div style={{margin: '0 auto', width:'fit-content', fontSize:'small'}}>
+                        <script src="https://privacy.kwarc.info/legal.js"></script>
+                    </div>
                 </body>
             </Html>
         )

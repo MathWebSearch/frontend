@@ -15,6 +15,15 @@ function extractUrl(source: string): string | null {
   return math ? math?.getAttribute('url') : null;
 }
 
+function extractMathId(source: string): string | null {
+  const htmlDoc = parser.parseFromString(source, 'text/html');
+  let [ math ] = Array.from(htmlDoc.getElementsByTagName("math"));
+  if (!math) {
+    [ math ] = Array.from(htmlDoc.getElementsByTagName("m:math"));
+  }
+  return math ? math?.getAttribute('id') : source;
+}
+
 /**
  * function to get the title out of the metadata
  * */
@@ -47,6 +56,7 @@ function extractSurroundingWords(
   let before: string[] = [];
   let after: string[] = [];
   if (-1 === index) {
+    console.log('extractSurrounding Words: nothing found');
     return {before, after};
   }
   for (let i = 1; i < 10; i++) {
@@ -96,4 +106,4 @@ function extractXMLID(subterm: string): string {
   }
 }
 
-export {extractUrl, extractTitle, extractSurroundingWords, extractXMLID};
+export {extractUrl, extractTitle, extractMathId, extractSurroundingWords, extractXMLID};

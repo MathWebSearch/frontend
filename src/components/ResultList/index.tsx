@@ -14,6 +14,7 @@ export default function ResultList(): JSX.Element | null {
   const {state, dispatch} = React.useContext(Store);
   const {
     allEntries,
+    input_text,
     input_formula,
     limitmin,
     answsize,
@@ -23,9 +24,9 @@ export default function ResultList(): JSX.Element | null {
 
   React.useEffect(() => {
     /* trigger the api request if needed */
-    const search = async (formula: string) =>
-      dispatch(await searchAction(answsize, formula, limitmin, allEntries));
-    triggerSearch && search(input_formula);
+    const search = async (input_text: string, formula: string) =>
+      dispatch(await searchAction(answsize, input_text, formula, limitmin, allEntries));
+    triggerSearch && search(input_text, input_formula);
   }, [triggerSearch, answsize, limitmin, allEntries, dispatch, input_formula]);
 
   if (!allEntries) {
