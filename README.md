@@ -21,6 +21,14 @@ The configuring is done with various environment variables:
   - REACT_APP_MWS_FOOTER_TEXT sets the text for the information box at the bottom of the page (empty by default) 
   - REACT_APP_THEME_NR set to {1, 2, 3} for choosing the {green, blue, red} theme (green default)
 
+<br/>
+
+The environment variables for arXiv search (ar5Search) can be set using:
+
+```
+source ./set_ar5search_env.sh
+```
+
 ## Usage:
   -
       ```

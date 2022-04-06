@@ -7,43 +7,10 @@ import {
   IHit,
 } from './client.d';
 import { IFormulaHit, Iqvar } from '../interfaces.d';
-import { extractTitle, extractUrl, extractMathId } from '../util/extractFunctions';
+import { extractTitle, extractUrl, extractTitleFromText } from '../util/extractFunctions';
 import { find_attribute_value } from '../util/simpleXpath';
 import DOMParser from "../util/DOMParser";
 
-function htmlDecode(input: string) {
-  var doc = new DOMParser().parseFromString(input, "text/html");
-  return doc?.documentElement?.textContent || input;
-}
-
-function getAr5Link(segment: string) {
-  if (!segment)  return null;
-  const arxivPattern = /\/([0-9]+\.[0-9]+)\.html$/
-  const result = arxivPattern.exec(segment)
-  if (!result?.[1]) return null;
-  return "https://ar5iv.org/abs/" + result[1]
-}
-
-function titleFromText(text: string) {
-  const firstSection = text.substring(0, 300)
-  const words = firstSection.split(' ');
-  let numTitleWords = -1
-  for (const [idx, word] of words.entries()) {
-    if (idx > 0 && word == words[0]) {
-      numTitleWords = idx;
-      break
-    }
-  }
-  return (numTitleWords == -1) ? firstSection : words.slice(0, numTitleWords).join(' ');
-}
-
-function extractUrlFromSegment(source: string, segment: string) {
-  const documentlink = getAr5Link(segment);
-  if (!documentlink) return;
-  const math_id = extractMathId(source) || '';
-
-  return documentlink + '#' + math_id;
-}
 /*
  * class for directly communicating with an mws instance
  * */
@@ -101,12 +68,12 @@ export class MWSClient extends SearchClient<IMWSResponse> {
         console.log("Unable to extract source for: " + local_id);
         return undefined;
       }
-      const source = htmlDecode(source_raw);
-      const url = extractUrl(source) || extractUrlFromSegment(source, segment) || undefined;
+      const source = new DOMParser().parseFromString(source_raw, "text/html")?.documentElement?.textContent || source_raw;
+      const url = extractUrl(source, segment) || undefined;
 
       const text = xhtmldoc.getElementsByTagName('text')[0].textContent || '';
 
-      const title = xhtmldoc.title || titleFromText(text) || '';
+      const title = xhtmldoc.title || extractTitleFromText(text) || '';
 
       return {
         id: index + from,
