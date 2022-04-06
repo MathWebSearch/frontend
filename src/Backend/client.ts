@@ -32,7 +32,9 @@ export class LogClient extends Client {
   }
 
   async logQuery(input_text: string, status: string) {
-    console.log(this.url);
+    // Simple way for developers to disable logging from their browsers.
+    if (localStorage.getItem("disable_logging")) return;
+
     if (!this.url) return;
     try {
       await this.sendJson({

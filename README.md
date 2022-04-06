@@ -12,11 +12,13 @@ The configuring is done with various environment variables:
   - REACT_APP_MWSAPI_URL set the url of the [MWSAPI daemon](https://github.com/MathWebSearch/mwsapi) (default: localhost:3001)
   - REACT_APP_MWS_URL sets the url of the [MWS daemon](https://github.com/MathWebSearch/mws) (default: localhost:9090)
   - REACT_APP_LATEXML_URL url for the [LaTeXML daemon](https://github.com/MathWebSearch/latexml-mws-docker) (default: localhost:8080)
+  - REACT_APP_LOG_FILEPATH if set, search queries are logged in this csv file (by default not set)
 
   - REACT_APP_MWS_BRANDING_TITLE sets the title in the header
   - REACT_APP_MWS_BRANDING_URL sets the url when clicked on this title
   - REACT_APP_DISABLE_EXAMPLES when set to **'true'** disables the example button (by default not set)
   - REACT_APP_DISABLE_SYMBOLS when set to **'true'** disables the symbols button (by default not set)
+  - REACT_APP_MWS_FOOTER_TEXT sets the text for the information box at the bottom of the page (empty by default) 
   - REACT_APP_THEME_NR set to {1, 2, 3} for choosing the {green, blue, red} theme (green default)
 
 ## Usage:

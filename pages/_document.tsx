@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
                 <body>
                     <Main />
                     <NextScript />
-                    <div style={{margin: '0 auto', width:'fit-content', fontSize:'small'}}>
+                    <div style={{margin: '0 auto', width:'fit-content'}}>
                         <script src="https://privacy.kwarc.info/legal.js"></script>
                     </div>
                 </body>
