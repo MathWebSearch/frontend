@@ -5,10 +5,10 @@ import DOMParser from "./DOMParser";
 const parser = new DOMParser();
 
 /**
- * looks in the mathelement for an real url.
- * If not found, tries to get ar5iv link fro segment
+ * looks in the mathelement for a real url.
+ * If not found, tries to get ar5iv link from segment.
  * */
-function extractUrl(source: string, segment: string | null): string | null {
+function extractUrl(source: string, segment: string | null = null): string | null {
   const htmlDoc = parser.parseFromString(source, 'text/html');
   let [ math ] = Array.from(htmlDoc.getElementsByTagName("math"));
   if (!math) {
