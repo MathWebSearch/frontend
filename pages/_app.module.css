@@ -47,12 +47,6 @@
 	width: 60%;
 }
 
-#privacybox {
-	margin: 0 auto;
-	width: fit-content;
-	font-size: small;
-}
-
 @media screen and (max-width: 1200px) {
 	.App {
 		width: 100%;
