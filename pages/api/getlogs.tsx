@@ -13,7 +13,7 @@ export default async function handler(req: any, res: any) {
   }
   const provided = req.body?.passcode;
   if (!LOG_PASSCODE || LOG_PASSCODE !== provided) {
-    res.status(401).send(`Invalid passcode:[${provided}])`)
+    res.status(401).send(`Invalid passcode.`)
     return;
   }
   if (!LOG_PATH) {
