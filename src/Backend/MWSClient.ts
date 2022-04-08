@@ -1,4 +1,4 @@
-import {SearchClient} from './client';
+import { SearchClient } from './client';
 import {
   Ipayload,
   IMWSClientResult,
@@ -6,9 +6,9 @@ import {
   IMWSResponse,
   IHit,
 } from './client.d';
-import {IFormulaHit, Iqvar} from '../interfaces.d';
-import {extractTitle, extractUrl} from '../util/extractFunctions';
-import {find_attribute_value} from '../util/simpleXpath';
+import { IFormulaHit, Iqvar } from '../interfaces.d';
+import { extractTitle, extractUrl, extractTitleFromText } from '../util/extractFunctions';
+import { find_attribute_value } from '../util/simpleXpath';
 import DOMParser from "../util/DOMParser";
 
 /*
@@ -39,18 +39,17 @@ export class MWSClient extends SearchClient<IMWSResponse> {
     const from = json.from || 0;
     const hits = json.hits || [];
     const parser = new DOMParser();
-    
+
     const entries = hits.map((hit: any, index: number): IFormulaHit | undefined => {
-      if(hit.math_ids.length === 0) {
+      if (hit.math_ids.length === 0) {
         console.log("No 'math_ids' returned from API");
         return undefined; // no math ids?
       }
 
       const local_id = hit.math_ids[0].url;
       const xpath = hit.math_ids[0].xpath;
-  
+
       const xhtmldoc = parser.parseFromString(hit.xhtml, 'text/html');
-      const title = xhtmldoc.title || '';
 
       const segment = Array.from(xhtmldoc.getElementsByTagName('id'))[0]?.textContent;
       if (!segment) {
@@ -64,14 +63,17 @@ export class MWSClient extends SearchClient<IMWSResponse> {
         return undefined;
       }
       /** for the case that the actual math node is a string or not*/
-      const source = math_node.innerHTML || math_node.textContent;
-      if (!source) {
+      const source_raw = math_node.innerHTML || math_node.textContent;
+      if (!source_raw) {
         console.log("Unable to extract source for: " + local_id);
         return undefined;
       }
-      const url = extractUrl(source) || undefined;
+      const source = new DOMParser().parseFromString(source_raw, "text/html")?.documentElement?.textContent || source_raw;
+      const url = extractUrl(source, segment) || undefined;
 
       const text = xhtmldoc.getElementsByTagName('text')[0].textContent || '';
+
+      const title = xhtmldoc.title || extractTitleFromText(text) || '';
 
       return {
         id: index + from,
@@ -86,7 +88,7 @@ export class MWSClient extends SearchClient<IMWSResponse> {
       };
     }).filter(x => x !== undefined) as IFormulaHit[];
 
-    return {total, entries, took: json.time/1e3};
+    return { total, entries, took: json.time / 1e3 };
   }
 }
 
@@ -123,7 +125,7 @@ export class MWSAPIClient extends SearchClient<IMWSAPIResponse> {
       };
     });
 
-    return {total: json.total, entries, took: json.took/1e9};
+    return { total: json.total, entries, took: json.took / 1e9 };
   }
 
   createPayload(content: string, answsize: number, limitmin: number): Ipayload {

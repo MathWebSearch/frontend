@@ -7,6 +7,9 @@ out/
 
 public/disclaimer.txt
 
+# Logs
+log.csv
+
 # Dependencies -- Yarn && NPM
 node_modules/
 .yarn-integrity

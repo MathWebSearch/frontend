@@ -1,4 +1,4 @@
-import {mwsclient, ltxclient} from '../Backend';
+import {mwsclient, ltxclient, logClient} from '../Backend';
 import {IFormulaHit, Taggregation} from '../interfaces';
 import {IAction} from '../interfaces';
 import {errorLog} from '../config';
@@ -49,6 +49,7 @@ export const convertAction = async (input_text: string) => {
  **/
 export const searchAction = async (
   answsize: number,
+  input_text: string,
   input_formula: string,
   limitmin: number = 0,
   currentList: Array<IFormulaHit> = [],
@@ -57,6 +58,7 @@ export const searchAction = async (
     return {type: 'DEFAULT', payload: {}};
   }
   let payload;
+  logClient.logQuery(input_text, 'sent')
   try {
     const result = await mwsclient.fetchContent(
       input_formula,
@@ -76,6 +78,7 @@ export const searchAction = async (
     /* In case of an error  */
     errorLog('searchAction failed', e);
     alert('Sorry, but this search failed for some reason');
+    logClient.logQuery(input_text, 'failed');
     return {type: 'RESET', payload: {}};
   }
   let ret: IAction = {type: 'SEARCH', payload};

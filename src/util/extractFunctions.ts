@@ -1,19 +1,69 @@
+import { BRANDING_TITLE } from "src/config";
 import DOMParser from "./DOMParser";
 
 // the one parser to parse them all?
 const parser = new DOMParser();
 
 /**
- * looks in the mathelement for an real url
+ * looks in the mathelement for a real url.
+ * If not found, tries to get ar5iv link from segment.
  * */
-function extractUrl(source: string): string | null {
+function extractUrl(source: string, segment: string | null = null): string | null {
   const htmlDoc = parser.parseFromString(source, 'text/html');
   let [ math ] = Array.from(htmlDoc.getElementsByTagName("math"));
   if (!math) {
     [ math ] = Array.from(htmlDoc.getElementsByTagName("m:math"));
   }
-  return math ? math?.getAttribute('url') : null;
+  return math?.getAttribute('url') ?? createAr5Url(source, segment);
 }
+
+function getAr5Link(segment: string | null) {
+  if (!segment) return null;
+  const arxivPattern = /\/([0-9]+\.[0-9]+)\.html$/
+  const result = arxivPattern.exec(segment)
+  if (!result?.[1]) return null;
+  return "https://ar5iv.org/abs/" + result[1]
+}
+
+function extractMathId(source: string): string | null {
+  const htmlDoc = parser.parseFromString(source, 'text/html');
+  let [ math ] = Array.from(htmlDoc.getElementsByTagName("math"));
+  if (!math) {
+    [ math ] = Array.from(htmlDoc.getElementsByTagName("m:math"));
+  }
+  return math ? math?.getAttribute('id') : source;
+}
+
+function createAr5Url(source: string, segment: string | null) {
+  if (BRANDING_TITLE !== "arXiv") return null;
+  const documentlink = getAr5Link(segment);
+  if (!documentlink) return null;
+  const math_id = extractMathId(source) || '';
+
+  return documentlink + '#' + math_id;
+}
+
+/**
+ * In arXiv dataset, the title is at the beginning of the text and repeated twice. 
+ * 
+ * For example, if the title is "Slices of co-operations for KGL", the text would be:
+ * "Slices of co-operations for KGL Slices of co-operations for KGL <rest of the document>
+ */
+function extractTitleFromText(text: string) {
+  if (BRANDING_TITLE !== "arXiv") return null;
+  const firstSection = text.substring(0, 300);
+  const words = firstSection.split(' ');
+  let numTitleWords = -1;
+  for (const [idx, word] of words.entries()) {
+    if (idx > 0 && word == words[0]) {
+      numTitleWords = idx;
+      break;
+    }
+  }
+  return (numTitleWords == -1) ? firstSection : words.slice(0, numTitleWords).join(' ');
+}
+
+
 
 /**
  * function to get the title out of the metadata
@@ -47,7 +97,8 @@ function extractSurroundingWords(
   let before: string[] = [];
   let after: string[] = [];
   if (-1 === index) {
-    return {before, after};
+    console.log('extractSurrounding Words: nothing found');
+    return { before, after };
   }
   for (let i = 1; i < 10; i++) {
     if (index + i >= textsplit.length) {
@@ -71,7 +122,7 @@ function extractSurroundingWords(
     before.push(word);
     before.push(' ');
   }
-  return {before: before.reverse(), after: after};
+  return { before: before.reverse(), after: after };
 }
 
 /**
@@ -96,4 +147,4 @@ function extractXMLID(subterm: string): string {
   }
 }
 
-export {extractUrl, extractTitle, extractSurroundingWords, extractXMLID};
+export { extractUrl, extractTitle, createAr5Url as extractAr5UrlFromSegment, extractSurroundingWords, extractXMLID, extractTitleFromText };
