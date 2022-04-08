@@ -1,4 +1,4 @@
-import { DOMParser as DOMParserPolyfill } from "xmldom";
+import { DOMParser as DOMParserPolyfill } from "@xmldom/xmldom";
 
 let DOMParser: typeof window.DOMParser;
 
