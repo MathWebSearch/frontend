@@ -14,7 +14,7 @@ function extractUrl(source: string, segment: string | null = null): string | nul
   if (!math) {
     [ math ] = Array.from(htmlDoc.getElementsByTagName("m:math"));
   }
-  return math?.getAttribute('url') || createAr5Url(source, segment);
+  return math?.getAttribute('url') ?? createAr5Url(source, segment);
 }
 
 function getAr5Link(segment: string | null) {

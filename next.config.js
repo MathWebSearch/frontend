@@ -4,6 +4,7 @@ module.exports = {
         REACT_APP_MWS_URL: process.env.REACT_APP_MWS_URL,
         REACT_APP_LATEXML_URL: process.env.REACT_APP_LATEXML_URL,
         REACT_APP_LOG_FILEPATH: process.env.REACT_APP_LOG_FILEPATH,
+        REACT_APP_LOG_PASSCODE: process.env.REACT_APP_LOG_PASSCODE
     },
     publicRuntimeConfig: {
         REACT_APP_MWS_MODE: process.env.REACT_APP_MWS_MODE,
