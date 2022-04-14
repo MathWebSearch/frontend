@@ -13,11 +13,6 @@ The configuring is done with various environment variables:
   - REACT_APP_MWS_URL sets the url of the [MWS daemon](https://github.com/MathWebSearch/mws) (default: localhost:9090)
   - REACT_APP_LATEXML_URL url for the [LaTeXML daemon](https://github.com/MathWebSearch/latexml-mws-docker) (default: localhost:8080)
   - REACT_APP_LOG_FILEPATH if set, search queries are logged in this csv file (by default not set)
-  - REACT_APP_LOG_PASSCODE if set, logged queries can be retrived from the server with the following request:
-```
-   curl -d 'passcode=<REACT_APP_LOG_PASSCODE>' -X POST <server_url>/api/getlogs
-```
-
 
   - REACT_APP_MWS_BRANDING_TITLE sets the title in the header
   - REACT_APP_MWS_BRANDING_URL sets the url when clicked on this title
@@ -51,6 +46,10 @@ source ./set_ar5search_env.sh
       starts a provisional production build  to serve the static files and proxy the backend calls
 
    - for convenience there is also a dockerfile to create an docker image
+
+
+## Accessing Logs:
+The server maintains the search logs as a csv file. These logs can be accessed at `<server_url>/api/getlogs`.
 
 ## License
 
