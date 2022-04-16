@@ -28,7 +28,7 @@ export default function SampleQueries(): JSX.Element | null {
       const response = await fetch('/api/getqueries');
       const responseText = await response.text();
 
-      setSampleQueries(getRecentSample(responseText, 100, 5));
+      setSampleQueries(getRecentSample(responseText, 5, 100));
     }
     getSampleQueries();
   }, [])
