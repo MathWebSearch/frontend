@@ -49,7 +49,7 @@ source ./set_ar5search_env.sh
 
 
 ## Accessing Logs:
-The server maintains the search logs as a csv file. These logs can be accessed at `<server_url>/api/getlogs`.
+The server maintains the search queries as a csv file. These queries can be accessed at `<server_url>/api/getqueries`.
 
 ## License
 

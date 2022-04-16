@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { FOOTER_TEXT } from "src/config";
+import { Button } from '../Button';
+import { logClient } from 'src/Backend';
 import styles from './Footer.module.css';
+import SampleQueries from '../SampleQueries';
 
 function PictureLink(props: { href: string; src: any; alt: string, width: number, height: number }): JSX.Element {
   return (
@@ -15,8 +18,22 @@ function PictureLink(props: { href: string; src: any; alt: string, width: number
 }
 
 export function Footer(): JSX.Element {
+  const [isLogging, setIsLogging] = React.useState(true);
+
+  React.useEffect(() => {
+    setIsLogging(logClient.isLoggingEnabled());
+  }, [])
+
   return (
     <div className={styles.Footer}>
+      <SampleQueries />
+      <Button className={styles.loggingbutton} onClick={() => {
+        if (isLogging) logClient.disableLogging();
+        else logClient.enableLogging();
+        setIsLogging(logClient.isLoggingEnabled());
+      }}
+        text={(isLogging ? "Don't log queries " : "Allow logging of queries ") + "from this browser"}
+      />
       <div className={styles.footerinfotext}>
         {FOOTER_TEXT}
       </div>

@@ -9,6 +9,11 @@
   color:#555;
 }
 
+.loggingbutton {
+  margin-top: 8px;
+  width: auto;
+}
+
 .footer {
   border-radius: inherit;
   border-top: 1px solid #999;

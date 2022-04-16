@@ -31,9 +31,12 @@ export class LogClient extends Client {
     super(url, 'POST');
   }
 
+  isLoggingEnabled = () => !localStorage.getItem("disable_logging");
+  disableLogging = () => localStorage.setItem("disable_logging", "true");
+  enableLogging = () => localStorage.removeItem("disable_logging");
+
   async logQuery(input_text: string, status: string) {
-    // Simple way for developers to disable logging from their browsers.
-    if (localStorage.getItem("disable_logging")) return;
+    if (!this.isLoggingEnabled()) return;
 
     if (!this.url) return;
     try {
