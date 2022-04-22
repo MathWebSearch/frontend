@@ -30,20 +30,22 @@ export class LogClient extends Client {
   constructor(url: string) {
     super(url, 'POST');
   }
+  public static readonly REDACTED_TAG = '*redacted*';
+  static readonly DISABLE_LOGGING_ITEM = 'disable_logging';
 
-  isLoggingEnabled = () => !localStorage.getItem("disable_logging");
-  disableLogging = () => localStorage.setItem("disable_logging", "true");
-  enableLogging = () => localStorage.removeItem("disable_logging");
+  isLoggingEnabled = () => !localStorage.getItem(LogClient.DISABLE_LOGGING_ITEM);
+  disableLogging = () => localStorage.setItem(LogClient.DISABLE_LOGGING_ITEM, "true");
+  enableLogging = () => localStorage.removeItem(LogClient.DISABLE_LOGGING_ITEM);
 
-  async logQuery(input_text: string, status: string) {
-    if (!this.isLoggingEnabled()) return;
+  async logQuery(inputText: string, status: string) {
+    const loggedQuery = this.isLoggingEnabled()? inputText : LogClient.REDACTED_TAG;
 
     if (!this.url) return;
     try {
       await this.sendJson({
         body: JSON.stringify(
         {
-          query: input_text,
+          query: loggedQuery,
           status: status
         })
       });

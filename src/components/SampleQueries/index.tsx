@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { LogClient } from 'src/Backend/client';
 import { Store } from '../../store/Store';
 import styles from './SampleQueries.module.css';
 
@@ -7,11 +8,11 @@ import styles from './SampleQueries.module.css';
 const getRecentSample = (responseText: string, numSamples: number, numRecent: number) => {
   const allQueries = responseText?.trim().split('\n');
   if (!allQueries || !allQueries.length) return [];
-  const uniqueQueries = [...new Set(allQueries)];
+  const uniqueQueries = [...new Set(allQueries)].filter(query => query !== LogClient.REDACTED_TAG);
   const recentQueries = uniqueQueries.length > numRecent ? uniqueQueries.slice(-numRecent) : uniqueQueries;
 
   const shuffled = recentQueries.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, Math.min(numSamples, shuffled.length));
+  return shuffled.length > numSamples ? shuffled : shuffled.slice(0, numSamples);
 };
 
 /**
