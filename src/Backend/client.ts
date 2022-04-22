@@ -38,6 +38,7 @@ export class LogClient extends Client {
   enableLogging = () => localStorage.removeItem(LogClient.DISABLE_LOGGING_ITEM);
 
   async logQuery(inputText: string, status: string) {
+    if (localStorage.getItem('dev_mode')) return;
     const loggedQuery = this.isLoggingEnabled()? inputText : LogClient.REDACTED_TAG;
 
     if (!this.url) return;

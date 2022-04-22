@@ -12,7 +12,7 @@ const getRecentSample = (responseText: string, numSamples: number, numRecent: nu
   const recentQueries = uniqueQueries.length > numRecent ? uniqueQueries.slice(-numRecent) : uniqueQueries;
 
   const shuffled = recentQueries.sort(() => 0.5 - Math.random());
-  return shuffled.length > numSamples ? shuffled : shuffled.slice(0, numSamples);
+  return shuffled.length > numSamples ? shuffled.slice(0, numSamples): shuffled;
 };
 
 /**
