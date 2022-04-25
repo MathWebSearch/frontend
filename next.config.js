@@ -13,6 +13,7 @@ module.exports = {
         REACT_APP_DISABLE_SYMBOLS: process.env.REACT_APP_DISABLE_SYMBOLS,
         REACT_APP_MWS_FOOTER_TEXT: process.env.REACT_APP_MWS_FOOTER_TEXT,
         REACT_APP_THEME_NR: process.env.REACT_APP_THEME_NR,
+        REACT_APP_REPORT_ISSUE_LINK: process.env.REACT_APP_REPORT_ISSUE_LINK,
     },
     webpack5: true,
 }

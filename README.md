@@ -20,6 +20,7 @@ The configuring is done with various environment variables:
   - REACT_APP_DISABLE_SYMBOLS when set to **'true'** disables the symbols button (by default not set)
   - REACT_APP_MWS_FOOTER_TEXT sets the text for the information box at the bottom of the page (empty by default) 
   - REACT_APP_THEME_NR set to {1, 2, 3} for choosing the {green, blue, red} theme (green default)
+  - REACT_APP_REPORT_ISSUE_LINK sets the url when the "Report Error on Github" banderole
 
 <br/>
 

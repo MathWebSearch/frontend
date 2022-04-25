@@ -25,7 +25,7 @@ export const symbols =
 export const BRANDING_TITLE = config.REACT_APP_MWS_BRANDING_TITLE || 'nLab';
 export const FOOTER_TEXT = config.REACT_APP_MWS_FOOTER_TEXT || '';
 export const BRANDING_URL = config.REACT_APP_MWS_BRANDING_URL || 'https://ncatlab.org/nlab/show/HomePage';
-
+export const REPORT_ISSUE_LINK = config.REACT_APP_REPORT_ISSUE_LINK || 'https://github.com/MathWebSearch/frontend/issues'
 export const MWS_MODE = config.REACT_APP_MWS_MODE === 'API' ? 'API' : 'MWS';
 
 const THEME_NRS = ["1", "2", "3"];
